@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>課程講義｜公民組織的 GitHub 資源搜尋與選擇指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================
+   講義：A4 直式列印（流程拆解表為 A4 橫式）
+   瀏覽器開啟 → 列印 → 存成 PDF 或直接印
+   列印設定：紙張 A4、邊界「預設」、勾選「背景圖形」
+   =========================================== */
+:root {
+  --paper: #ffffff;
+  --bg: #e9e2d3;
+  --ink: #1f2d2a;
+  --ink-soft: #55635e;
+  --line: #cfc5b0;
+  --green: #2f6b4f;
+  --green-soft: #e8f1eb;
+  --teal: #2a7c7a;
+  --teal-soft: #e3f2f1;
+  --amber: #c9772b;
+  --amber-soft: #fbefe1;
+  --rose: #b4533f;
+  --rose-soft: #f9e8e3;
+  --font-display: 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;
+  --font-body: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 10.5pt; line-height: 1.65; }
+
+/* 螢幕上：模擬一張張紙 */
+.page { width: 210mm; min-height: 297mm; margin: 24px auto; padding: 16mm 17mm 18mm; background: var(--paper); box-shadow: 0 6px 24px rgba(0,0,0,.12); position: relative; }
+.page.landscape { width: 297mm; min-height: 210mm; }
+.pfoot { position: absolute; left: 17mm; right: 17mm; bottom: 8mm; display: flex; justify-content: space-between; font-size: 8pt; color: var(--ink-soft); }
+
+@page { size: A4 portrait; margin: 0; }
+@page wide { size: A4 landscape; margin: 0; }
+@media print {
+  body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { margin: 0; box-shadow: none; width: 210mm; height: 297mm; min-height: 0; overflow: hidden; break-after: page; }
+  .page.landscape { page: wide; width: 297mm; height: 210mm; }
+  .page:last-child { break-after: auto; }
+  .screen-only { display: none !important; }
+}
+
+/* 文字 */
+h1 { font-family: var(--font-display); font-weight: 900; font-size: 24pt; line-height: 1.3; }
+h2 { font-family: var(--font-display); font-weight: 900; font-size: 16pt; color: var(--green); margin: 0 0 4mm; padding-bottom: 2mm; border-bottom: 2px solid var(--green); display: flex; align-items: baseline; gap: 3mm; }
+h2 .no { font-family: var(--font-body); font-size: 10pt; color: #fff; background: var(--green); border-radius: 99px; padding: 0 3mm; }
+h3 { font-size: 11.5pt; font-weight: 700; margin: 4mm 0 1.5mm; }
+p + p { margin-top: 2mm; }
+.muted { color: var(--ink-soft); }
+.small { font-size: 9pt; }
+.em { color: var(--green); font-weight: 700; }
+.warn { color: var(--rose); font-weight: 700; }
+code { font-family: var(--font-mono); font-size: 9pt; background: var(--teal-soft); color: var(--teal); padding: 0 1.5mm; border-radius: 1.5mm; }
+ul.list { padding-left: 5mm; }
+ul.list li { margin-bottom: 1.2mm; }
+
+/* 區塊 */
+.box { border: 1.5px solid var(--line); border-radius: 4mm; padding: 4mm 5mm; margin-bottom: 4mm; }
+.box.green { background: var(--green-soft); border-color: transparent; }
+.box.teal { background: var(--teal-soft); border-color: transparent; }
+.box.amber { background: var(--amber-soft); border-color: transparent; }
+.box.rose { background: var(--rose-soft); border-color: transparent; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+
+/* 表格 */
+table { width: 100%; border-collapse: collapse; margin-bottom: 4mm; }
+th { background: var(--green); color: #fff; text-align: left; font-weight: 700; padding: 1.8mm 2.5mm; font-size: 9.5pt; }
+td { border: 1px solid var(--line); padding: 1.8mm 2.5mm; vertical-align: top; }
+tr.ex td { background: #faf6ee; font-size: 9pt; }
+td.blank { height: 15mm; }
+/* 截圖與標註 */
+.shotwrap { position: relative; }
+.shotwrap img { display: block; width: 100%; border: 1px solid var(--line); border-radius: 2mm; }
+.co { position: absolute; width: 6mm; height: 6mm; border-radius: 50%; background: var(--amber); color: #fff; font-weight: 900; font-size: 9pt; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1mm #fff; }
+.co.warn-co { background: var(--rose); }
+/* 泳道圖（講義版） */
+table.swim { margin: 0; table-layout: fixed; }
+table.swim th.lane { width: 16mm; color: #fff; text-align: center; font-size: 8.5pt; padding: 1mm; }
+table.swim td { border: 1px dashed var(--line); padding: 1mm; height: 9mm; vertical-align: middle; text-align: center; }
+.sb { display: block; border-radius: 2mm; background: var(--green-soft); font-size: 8pt; font-weight: 700; padding: 1mm 0.5mm; line-height: 1.3; }
+.sb.pain { background: var(--rose-soft); border: 1.2px solid var(--rose); }
+
+/* 填寫線 */
+.fill { border-bottom: 1px solid var(--ink-soft); min-height: 8mm; margin: 1mm 0 2.5mm; }
+.fill.tall { min-height: 16mm; }
+.q { font-weight: 700; margin-top: 3mm; }
+.check { display: inline-block; margin-right: 6mm; white-space: nowrap; }
+.check::before { content: '□'; margin-right: 1.2mm; font-size: 12pt; }
+
+/* 引用的原文（README 摘錄） */
+.quote { font-family: var(--font-mono); font-size: 8.5pt; line-height: 1.55; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 3mm; padding: 3mm 4mm; white-space: pre-wrap; color: #1f2328; }
+.src { font-size: 8pt; color: var(--ink-soft); margin-top: 1mm; }
+
+/* 封面 */
+.cover-top { border-left: 4mm solid var(--green); padding-left: 6mm; margin: 6mm 0 8mm; }
+.cover-top .kicker { font-size: 10pt; color: var(--teal); font-weight: 700; letter-spacing: .1em; }
+.cover-top .sub { font-family: var(--font-display); font-size: 14pt; color: var(--green); margin-top: 2mm; }
+.toc { columns: 2; column-gap: 8mm; }
+.toc li { list-style: none; padding: 1.2mm 0; border-bottom: 1px dotted var(--line); break-inside: avoid; }
+.toc b { color: var(--green); margin-right: 2mm; }
+.ph { border: 2px dashed var(--line); border-radius: 4mm; display: flex; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 9pt; text-align: center; }
+
+.printbar { position: sticky; top: 0; z-index: 9; background: var(--green); color: #fff; text-align: center; padding: 10px; font-size: 14px; }
+.printbar button { margin-left: 12px; padding: 4px 14px; border-radius: 99px; border: 0; cursor: pointer; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="printbar screen-only">講義預覽：列印時選 A4、邊界「預設」並勾選「背景圖形」<button onclick="window.print()">列印／存成 PDF</button></div>
+
+<!-- ================= 第 1 頁：封面與使用方式 ================= -->
+<section class="page">
+  <div class="cover-top">
+    <div class="kicker">課程講義｜90 分鐘</div>
+    <h1>公民組織的 GitHub<br>資源搜尋與選擇指南</h1>
+    <div class="sub">從流程拆解到 AI 時代的版本管理</div>
+  </div>
+
+  <div class="cols3" style="margin-bottom:6mm">
+    <div class="box green"><b class="em">先拆流程，再找工具。</b></div>
+    <div class="box teal"><b style="color:var(--teal)">AI 讓修改變容易，<br>版本控制讓修改可以回頭。</b></div>
+    <div class="box amber"><b style="color:var(--amber)">找得到，不等於能直接用。</b></div>
+  </div>
+
+  <h3>這份講義怎麼用</h3>
+  <ul class="list">
+    <li><b>課堂上：</b>今天不需要電腦。講師示範操作，你在講義上填寫「流程拆解表」「搜尋與下一步卡」「Repository 閱讀卡」。</li>
+    <li><b>回到組織後：</b>照著第 11 頁「課後重做指南」自己做一次搜尋；把流程拆解表拿給同事一起討論。</li>
+    <li><b>處理資料時：</b>練習時一律使用虛構資料，不把真實的會員、捐款人、個案或參與者資料交給線上工具或 AI。</li>
+  </ul>
+
+  <h3>目錄</h3>
+  <ol class="toc">
+    <li><b>01</b>白話術語表</li>
+    <li><b>02</b>流程拆解：主案例範例</li>
+    <li><b>03</b>流程拆解表（自己填）</li>
+    <li><b>04</b>版本控制小抄</li>
+    <li><b>05</b>搜尋與下一步卡</li>
+    <li><b>06</b>Repository 閱讀卡</li>
+    <li><b>07</b>AI 判讀練習</li>
+    <li><b>08</b>資源選擇檢查表</li>
+    <li><b>09</b>AI 提示詞（可直接複製）</li>
+    <li><b>10</b>課後重做指南</li>
+    <li><b>11</b>資源索引與聯絡</li>
+  </ol>
+
+  <div class="box" style="margin-top:6mm">
+    <h3 style="margin-top:0">今天的三個主軸</h3>
+    <p><b class="em">① 流程拆解：</b>把一項工作拆成步驟，找出真正要改善的那一步。</p>
+    <p><b style="color:var(--teal)">② 版本控制：</b>理解 GitHub 的用途，以及 AI 時代為什麼需要「能回頭的修改紀錄」。</p>
+    <p><b style="color:var(--amber)">③ 資源搜尋與選擇：</b>把需求變成搜尋詞，找到資源後判斷適不適合組織。</p>
+  </div>
+  <div class="pfoot"><span>公民組織的 GitHub 資源搜尋與選擇指南</span><span>1</span></div>
+</section>
+
+<!-- ================= 第 2 頁：術語表 ================= -->
+<section class="page">
+  <h2><span class="no">01</span>白話術語表</h2>
+  <table>
+    <tr><th style="width:30%">術語</th><th>白話解釋</th></tr>
+    <tr><td><b>Repository（repo）</b></td><td>一個專案放檔案與修改紀錄的地方，像一個會記住所有修改的資料夾。</td></tr>
+    <tr><td><b>README</b></td><td>專案的說明書與入口。打開一個專案，先讀它。</td></tr>
+    <tr><td><b>LICENSE</b></td><td>授權：說明可以怎麼使用、修改或分享。<span class="warn">沒有 LICENSE ＝ 作者保留權利，不能直接拿來改用。</span></td></tr>
+    <tr><td><b>Issue</b></td><td>記錄問題、需求或待辦事項的討論串。看得出專案有沒有人在回應。</td></tr>
+    <tr><td><b>Commit</b></td><td>存檔：存下目前的狀態，並寫一句「這次改了什麼」。</td></tr>
+    <tr><td><b>History／Commits</b></td><td>存檔清單：每一次修改的時間、修改的人與說明。看最後更新時間就在這裡。</td></tr>
+    <tr><td><b>Diff</b></td><td>比較兩個版本的差異：<span style="background:#ffebe9;color:#82071e;padding:0 1mm">紅色是刪掉的</span>、<span style="background:#dafbe1;color:#116329;padding:0 1mm">綠色是新增的</span>。</td></tr>
+    <tr><td><b>Revert</b></td><td>讀取舊存檔：回到改壞之前的版本。</td></tr>
+    <tr><td><b>GitHub Pages</b></td><td>把 repo 裡的檔案發布成一般人可以瀏覽的網站。</td></tr>
+    <tr><td><b>Code 按鈕／Download ZIP</b></td><td>取得專案檔案的入口：按綠色 Code 按鈕，選 Download ZIP 下載壓縮檔。</td></tr>
+    <tr><td><b>Star</b></td><td>使用者的「收藏」。數量多代表受關注，<b>不代表適合你、也不代表安全</b>。</td></tr>
+  </table>
+
+  <h3>一個 Repository 頁面，先看這五個地方</h3>
+  <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:5mm;align-items:start">
+    <div class="shotwrap">
+      <img src="assets/chartjs-bar-repo.png" alt="chartjs-bar 的 GitHub 頁面截圖">
+      <span class="co" style="left:2%;top:37%">①</span>
+      <span class="co" style="left:2%;top:64%">②</span>
+      <span class="co warn-co" style="left:70%;top:42%">③</span>
+      <span class="co" style="left:61%;top:36%">④</span>
+      <span class="co" style="left:57%;top:23%">⑤</span>
+      <p class="src">github.com/HandsOnDataViz/chartjs-bar（2026-10-01 擷取）</p>
+    </div>
+    <ul class="list" style="padding-top:1mm">
+      <li><b>① 檔案列表：</b>裡面是文件、資料還是程式？</li>
+      <li><b>② README：</b>它說能解決什麼問題？使用前要準備什麼？</li>
+      <li><b>③ LICENSE：</b>通常在右側欄（About）或檔案列表。這個專案兩處都沒有，要特別小心。</li>
+      <li><b>④ Commits：</b>最後一次更新是什麼時候？（這裡顯示 5 years ago）</li>
+      <li><b>⑤ Code 按鈕：</b>Download ZIP 取得檔案。</li>
+    </ul>
+  </div>
+  <div class="pfoot"><span>01 白話術語表</span><span>2</span></div>
+</section>
+
+<!-- ================= 第 3 頁：流程拆解範例（橫式） ================= -->
+<section class="page landscape">
+  <h2><span class="no">02</span>流程拆解：主案例範例　<span class="muted small" style="font-family:var(--font-body)">每月活動：從報名到成果報告（耗時為示意）</span></h2>
+  <p style="margin-bottom:3mm">原始說法：「每次活動結束都要重新整理報名資料，很花時間。」拆開來看：</p>
+  <table>
+    <tr><th style="width:4%">#</th><th style="width:15%">步驟</th><th style="width:8%">誰做</th><th style="width:13%">用什麼工具</th><th style="width:15%">經手哪些資料（個資打★）</th><th style="width:7%">耗時</th><th style="width:15%">卡在哪</th><th>解法方向</th></tr>
+    <tr class="ex"><td>1</td><td>建立報名表單</td><td>承辦人</td><td>Google 表單</td><td>—</td><td>30 分</td><td>每次重做欄位</td><td><b>範</b>：複製上次的表單當範本</td></tr>
+    <tr class="ex"><td>2</td><td>匯出報名資料</td><td>承辦人</td><td>Google 試算表</td><td>★ 姓名、電話、Email</td><td>10 分</td><td>—</td><td><b>—</b>：不用動</td></tr>
+    <tr class="ex"><td>3</td><td>清理欄位、去除重複</td><td>承辦人</td><td>Excel</td><td>★ 同上</td><td>60 分</td><td>格式不一、重複報名</td><td><b>AI</b>：請 AI 協助寫公式（只給欄位名稱與假資料）</td></tr>
+    <tr class="ex"><td>4</td><td>對照簽到、計算出席</td><td>志工</td><td>紙本簽到表 → Excel</td><td>★ 同上</td><td>60 分</td><td>手抄錯誤</td><td><b>流</b>：先改流程，改用表單或 QR 簽到</td></tr>
+    <tr class="ex"><td>5</td><td>製作統計圖表</td><td>承辦人</td><td>Excel</td><td>去識別的統計數字</td><td>45 分</td><td>每次重畫圖</td><td><b>找</b>：上 GitHub 找圖表範本</td></tr>
+    <tr class="ex"><td>6</td><td>撰寫成果報告</td><td>主管</td><td>Word</td><td>統計結果</td><td>60 分</td><td>「最終版_v3」版本混亂</td><td><b>版</b>：建立版本管理的習慣</td></tr>
+  </table>
+  <div class="cols3">
+    <div class="box rose small"><b class="warn">拆完才發現</b><br>第 4 步要改的是流程，不是找工具。很多「需要新系統」的感覺，其實是交接方式的問題。</div>
+    <div class="box amber small"><b style="color:var(--amber)">個資在哪裡？</b><br>個資只出現在第 2–4 步。這幾步不要交給線上工具或 AI 處理真實資料。</div>
+    <div class="box green small"><b class="em">只有第 5 步要上 GitHub</b><br>「找現成資源」通常只針對其中一兩步，而不是整個流程。</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 62mm;gap:4mm;align-items:center">
+    <table class="swim">
+      <tr><th class="lane" style="background:var(--green)">承辦人</th><td><span class="sb pain">1 建立表單</span></td><td><span class="sb">2 匯出資料 ★</span></td><td><span class="sb pain">3 清理欄位 ★</span></td><td></td><td><span class="sb pain">5 製作圖表</span></td><td></td></tr>
+      <tr><th class="lane" style="background:var(--teal)">志工</th><td></td><td></td><td></td><td><span class="sb pain">4 計算出席 ★</span></td><td></td><td></td></tr>
+      <tr><th class="lane" style="background:var(--amber)">主管</th><td></td><td></td><td></td><td></td><td></td><td><span class="sb pain">6 成果報告</span></td></tr>
+    </table>
+    <p class="small"><b>泳道圖怎麼畫：</b>每個角色一條橫向泳道，步驟依時間由左往右放進負責人的泳道。<b>工作換泳道的地方就是交接點</b>，也最容易出錯。<br><span style="color:var(--rose)">紅框</span>＝卡關，★＝經手個資。</p>
+  </div>
+  <div class="pfoot"><span>02 流程拆解：主案例範例</span><span>3</span></div>
+</section>
+
+<!-- ================= 第 4 頁：流程拆解表（空白，橫式） ================= -->
+<section class="page landscape">
+  <h2><span class="no">03</span>流程拆解表　<span class="muted small" style="font-family:var(--font-body)">選一項你們組織重複在做的工作</span></h2>
+  <div class="cols" style="margin-bottom:2mm">
+    <div><b>組織或工作情境：</b><div class="fill"></div></div>
+    <div><b>這項工作的最終產出是：</b><div class="fill"></div></div>
+  </div>
+  <table>
+    <tr><th style="width:4%">#</th><th style="width:15%">步驟</th><th style="width:9%">誰做</th><th style="width:13%">用什麼工具</th><th style="width:16%">經手哪些資料（個資打★）</th><th style="width:7%">耗時</th><th style="width:17%">卡在哪</th><th>解法方向</th></tr>
+    <tr><td>1</td><td class="blank"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td class="blank"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td class="blank"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td class="blank"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td class="blank"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>6</td><td class="blank"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <div class="cols">
+    <div class="box small" style="margin:0">
+      <b>解法方向代號</b><br>
+      <b>流</b>＝先改流程　<b>範</b>＝用範本　<b>AI</b>＝交給 AI 協助（不給真實個資）<br>
+      <b>找</b>＝找現成資源　<b>版</b>＝需要版本管理　<b>—</b>＝不用動
+    </div>
+    <div><b>最想先改善的是第 ＿＿ 步，因為：</b><div class="fill"></div></div>
+  </div>
+  <div class="pfoot"><span>03 流程拆解表</span><span>4</span></div>
+</section>
+
+<!-- ================= 第 5 頁：版本控制小抄 ================= -->
+<section class="page">
+  <h2><span class="no">04</span>版本控制小抄</h2>
+  <p style="margin-bottom:3mm">版本控制要解決三件事：<b>檔名地獄</b>（哪份才是最終版？）、<b>AI 改壞了回不去</b>、<b>交接時沒人知道誰改了什麼</b>。</p>
+
+  <h3>存檔點比喻</h3>
+  <table>
+    <tr><th style="width:20%">GitHub 用語</th><th style="width:22%">遊戲比喻</th><th>白話說明</th></tr>
+    <tr><td><b>Commit</b></td><td>存檔</td><td>存下目前狀態，並寫一句「這次改了什麼」</td></tr>
+    <tr><td><b>History</b></td><td>存檔清單</td><td>依時間列出每一次存檔與說明</td></tr>
+    <tr><td><b>Diff</b></td><td>比較兩個存檔</td><td>紅色是刪掉的、綠色是新增的</td></tr>
+    <tr><td><b>Revert</b></td><td>讀取舊存檔</td><td>回到改壞之前的版本</td></tr>
+  </table>
+
+  <div class="quote" style="margin-bottom:1mm">💬 修正出席率公式，排除重複報名（示意）
+<span style="background:#ffebe9;color:#82071e;display:block">- 出席率 = 出席人數 / 報名人數</span><span style="background:#dafbe1;color:#116329;display:block">+ 出席率 = 出席人數 / 不重複報名人數</span></div>
+  <p class="src">一次存檔 ＝ 一句說明＋看得見的修改內容。</p>
+
+  <div class="cols" style="margin-top:4mm">
+    <div class="box green">
+      <h3 style="margin-top:0" class="em">好的修改說明</h3>
+      <p>✓「修正出席率公式，排除重複報名」<br>✓「成果報告新增 9 月活動照片說明」<br><span class="warn">✗「更新」　✗「改一下」　✗「final」</span></p>
+    </div>
+    <div class="box teal">
+      <h3 style="margin-top:0;color:var(--teal)">你其實已經在用</h3>
+      <p>Google 文件的「版本記錄」就是一種版本控制。GitHub 多了三件事：<b>每次都寫說明</b>、<b>逐行比較差異</b>、<b>多人改完再合併</b>。</p>
+    </div>
+  </div>
+
+  <h3>請 AI 修改檔案或程式時</h3>
+  <div class="box">
+    <b>① 先存檔</b>　→　<b>② 請 AI 修改</b>　→　<b>③ 看 Diff：AI 改了哪幾行？</b>　→　<b>④ 保留，或讀回存檔</b>
+    <p class="small muted" style="margin-top:1.5mm">AI 一次可能改幾十行，肉眼看不出來；有版本紀錄，就能看清楚，也能回頭。</p>
+  </div>
+
+  <div class="box rose">
+    <h3 style="margin-top:0" class="warn">絕對不能放上 GitHub</h3>
+    <ul class="list">
+      <li>報名名單、會員、捐款人、個案等<b>個資</b>：<b>原則上不放</b>，私人 repo 一樣有外洩風險；真的有需要，先找人評估</li>
+      <li><b>API 金鑰、帳號密碼</b>、寫死在程式裡的設定（上傳 AI 寫的 GAS 或 Python 前先檢查）</li>
+      <li>內部財務資料</li>
+    </ul>
+    <p class="small" style="margin-top:1.5mm">適合放的是：程式碼、範本、公開文件、去識別資料。</p>
+  </div>
+
+  <h3>放檔案 ≠ 發布網站</h3>
+  <p>Repository 放的是檔案與修改紀錄；用 GitHub Pages 才會變成大家看得到的網站。範例：<code>github.com/HandsOnDataViz/leaflet-maps-with-google-sheets</code>（檔案）與 <code>handsondataviz.github.io/leaflet-maps-with-google-sheets</code>（網站）。</p>
+  <div class="pfoot"><span>04 版本控制小抄</span><span>5</span></div>
+</section>
+
+<!-- ================= 第 6 頁：搜尋與下一步卡 ================= -->
+<section class="page">
+  <h2><span class="no">05</span>搜尋與下一步卡</h2>
+
+  <div class="box teal">
+    <b style="color:var(--teal)">搜尋公式：資源類型＋工具名稱</b>，不要把需求整句丟進去。
+    <table style="margin:2.5mm 0 0;background:#fff">
+      <tr><th>搜尋詞（2026-10-01 實測）</th><th style="width:30%">結果</th></tr>
+      <tr><td><code>event registration report template</code></td><td class="warn">0 筆：需求句太具體</td></tr>
+      <tr><td><code>nonprofit volunteer spreadsheet template</code></td><td class="warn">0 筆</td></tr>
+      <tr><td><code>活動 報名</code></td><td>多是報名系統，類型不符</td></tr>
+      <tr><td><code>google sheets template</code>、<code>chart template csv</code></td><td class="em">出現可用範本</td></tr>
+    </table>
+    <p class="small" style="margin-top:2mm">常用資源類型詞：<code>template</code> 範本　<code>example</code> 範例　<code>dataset</code> 資料集　<code>toolkit</code> 工具包　<code>awesome</code> 精選清單</p>
+  </div>
+
+  <p class="q">1. 我要替流程拆解表的第 ＿＿ 步找資源。希望找到哪一類？</p>
+  <p style="margin:1.5mm 0 2mm"><span class="check">文件範本</span><span class="check">公開資料</span><span class="check">小工具</span><span class="check">完整系統</span><span class="check">實作案例</span><span class="check">尚未確定</span></p>
+
+  <p class="q">2. 可以搜尋的關鍵字（資源類型＋工具名稱）</p>
+  <div class="cols"><div>中文：<div class="fill"></div></div><div>英文：<div class="fill"></div></div></div>
+
+  <p class="q">3. 篩選搜尋結果時，我會看：</p>
+  <p style="margin:1.5mm 0 2mm"><span class="check">最後更新時間</span><span class="check">有沒有 LICENSE</span><span class="check">README 清不清楚</span><span class="check">有沒有截圖或 demo</span></p>
+  <p class="small muted">Star 數只供參考。</p>
+
+  <p class="q">4. 這項工作裡，有沒有會一直被修改的檔案或程式？要怎麼保留修改紀錄？</p>
+  <div class="fill tall"></div>
+
+  <p class="q">5. 下一步判斷</p>
+  <table style="margin-top:2mm">
+    <tr><th style="width:26%">選項</th><th>什麼時候選它</th></tr>
+    <tr><td><span class="check">先改流程</span></td><td>卡關的地方，改步驟或交接方式就能解決</td></tr>
+    <tr><td><span class="check">自行試用低風險範例</span></td><td>有授權、只用假資料、壞了也不影響工作</td></tr>
+    <tr><td><span class="check">找技術夥伴評估</span></td><td>涉及個資、需要架站或主機、要長期維護</td></tr>
+    <tr><td><span class="check">暫不導入</span></td><td>目前問題不大，或組織還沒有人力承接</td></tr>
+  </table>
+  <div class="pfoot"><span>05 搜尋與下一步卡</span><span>6</span></div>
+</section>
+
+<!-- ================= 第 7 頁：Repository 閱讀卡 ================= -->
+<section class="page">
+  <h2><span class="no">06</span>Repository 閱讀卡</h2>
+  <p class="small muted" style="margin-bottom:3mm">課堂上：對照下方 chartjs-bar 的資訊填寫。課後：拿你自己找到的資源再填一次。</p>
+
+  <div class="box" style="background:#fafafa">
+    <b>HandsOnDataViz / chartjs-bar</b>　<span class="small muted">github.com/HandsOnDataViz/chartjs-bar</span>
+    <p class="small" style="margin-top:1.5mm">檔案：<code>README.md</code> <code>bar.png</code> <code>data.csv</code> <code>index.html</code> <code>script.js</code>　｜　LICENSE：<b class="warn">找不到</b>　｜　最後一次修改：2021-04</p>
+    <div class="quote" style="margin-top:2mm"># Bar or Column Chart with One or More Data Series in Chart.js
+Demo: https://handsondataviz.github.io/chartjs-bar/
+Prepare your data in CSV format and upload into a `data.csv` file.
+Place labels that will appear along the axis in the first column,
+and each data series in its own column.</div>
+    <p class="src">README 摘錄（2026-10-01 查閱）</p>
+  </div>
+
+  <p class="q">專案名稱與連結</p><div class="fill"></div>
+  <p class="q">這是什麼類型的資源？</p>
+  <p style="margin:1.5mm 0 2mm"><span class="check">文件範本</span><span class="check">公開資料</span><span class="check">程式工具</span><span class="check">網站案例</span><span class="check">完整系統</span></p>
+  <p class="q">README 說它能解決什麼問題？</p><div class="fill"></div>
+  <p class="q">使用前需要什麼條件？（技能、設備、帳號、主機）</p><div class="fill"></div>
+  <p class="q">有沒有找到授權資訊？寫了什麼？</p><div class="fill"></div>
+  <p class="q">看得出更新與維護狀況嗎？最後更新是什麼時候？</p><div class="fill"></div>
+  <p class="q">還有哪些資訊不清楚？</p><div class="fill"></div>
+
+  <div class="box amber small" style="margin-top:3mm">
+    <b style="color:var(--amber)">課堂發現：</b>下載 ZIP 後直接雙擊 <code>index.html</code>，圖表會是空白，因為它要透過網頁伺服器讀取 <code>data.csv</code>。<code>data.csv</code> 本身用 Excel 就能打開。
+  </div>
+  <div class="pfoot"><span>06 Repository 閱讀卡</span><span>7</span></div>
+</section>
+
+<!-- ================= 第 8 頁：AI 判讀練習 ================= -->
+<section class="page">
+  <h2><span class="no">07</span>AI 判讀練習</h2>
+  <p>講師會把下面這份 README 交給 AI 判讀。請你<b>先自己讀</b>，再對照 AI 的回答：</p>
+  <ul class="list" style="margin:2mm 0 3mm">
+    <li>用<span style="background:#dafbe1;padding:0 1mm">綠筆</span>圈出 AI 說對、而且 README 確實寫了的地方。</li>
+    <li>用<span style="background:#ffebe9;padding:0 1mm">紅筆</span>圈出 AI 說錯，或其實是 AI 自己推測的地方。</li>
+  </ul>
+
+  <div class="box" style="background:#fafafa">
+    <b>HandsOnDataViz / book</b>　<span class="small muted">github.com/HandsOnDataViz/book</span>
+    <p class="small" style="margin-top:1.5mm">GitHub 右側欄的授權標籤：<b>MIT License</b></p>
+    <div class="quote" style="margin-top:2mm"># Hands-On Data Visualization: Interactive Storytelling from Spreadsheets to Code
+
+Open-access book-in-progress by Jack Dougherty and Ilya Ilyankou ...
+Read for free online at http://HandsOnDataViz.org
+
+## About the book
+... This book is ideal for students, non-profit organizations, small business
+owners, local governments, journalists, academics, or anyone who wants to tell
+their story and show the data. No coding experience is required.
+
+Hands-On Data Visualization is copyrighted by Jack Dougherty and Ilya Ilyankou
+and distributed under a Creative Commons BY-NC-ND 4.0 International License.
+You may freely share this content for non-commercial purposes, with a source
+credit to http://HandsOnDataViz.org.
+
+## Disclaimer
+This open-source repository is provided "as is", without warranty of any kind ...
+No installation or technical support will be provided.</div>
+    <p class="src">README 摘錄（2026-10-01 查閱）</p>
+  </div>
+
+  <p class="q">1. 這是哪一類資源？</p><div class="fill"></div>
+  <p class="q">2. 側欄寫 MIT，README 寫 CC BY-NC-ND 4.0。哪個適用於書的內容？這代表什麼限制？</p><div class="fill tall"></div>
+  <p class="q">3. 如果遇到問題，作者會提供技術支援嗎？</p><div class="fill"></div>
+  <p class="q">4. AI 的回答中，哪一句是推測？</p><div class="fill"></div>
+
+  <div class="box rose small" style="margin-top:2mm">🔒 只把公開資訊交給 AI，不貼真實個案、會員、捐款人或參與者資料。</div>
+  <div class="pfoot"><span>07 AI 判讀練習</span><span>8</span></div>
+</section>
+
+<!-- ================= 第 9 頁：資源選擇檢查表 ================= -->
+<section class="page">
+  <h2><span class="no">08</span>資源選擇檢查表</h2>
+  <p style="margin-bottom:3mm">找到一個看起來合用的資源後，逐項問自己。<b>任何一項答不出來，就是下一步要問清楚的地方。</b></p>
+  <table>
+    <tr><th style="width:15%">評估項目</th><th style="width:33%">要問的問題</th><th style="width:27%">範例：CiviCRM 的線索</th><th>我們的答案</th></tr>
+    <tr><td><b>適用性</b></td><td>它解決的真的是我們流程拆解表上的那一步嗎？</td><td class="small">專為倡議與非營利組織設計</td><td class="blank"></td></tr>
+    <tr><td><b>資料安全</b></td><td>需要輸入或存放哪些資料？存在哪？誰可以存取？</td><td class="small">會員、捐款人個資存放在自架主機</td><td class="blank"></td></tr>
+    <tr><td><b>授權</b></td><td>有 LICENSE 嗎？能怎麼使用、修改或分享？</td><td class="small">AGPL-3.0：修改版若透過網路讓別人使用，須向這些使用者提供原始碼（實際要求請技術或法務人員確認）</td><td class="blank"></td></tr>
+    <tr><td><b>操作門檻</b></td><td>現有人員能否使用？需要安裝或架站嗎？</td><td class="small">要架成 PHP 網站，或裝進 WordPress／Drupal</td><td class="blank"></td></tr>
+    <tr><td><b>維護責任</b></td><td>誰負責更新、備份、排錯與交接？專案還有人在更新嗎？</td><td class="small">專案持續更新；但組織端誰來升級？</td><td class="blank"></td></tr>
+    <tr><td><b>總成本</b></td><td>除了取得資源，還有主機、導入、訓練、維護成本嗎？</td><td class="small">README 列有付費支援廠商</td><td class="blank"></td></tr>
+  </table>
+  <div class="box green">
+    <b class="em">對照案例的結論</b>　CiviCRM 很成熟，看起來也完全符合需求。但「能不能導入」取決於<b>組織的條件</b>：有沒有主機、有沒有人維護、個資放在哪、預算多少。<br>
+    <span class="small muted">github.com/civicrm/civicrm-core（下載與安裝說明在 civicrm.org）</span>
+  </div>
+  <div class="cols">
+    <div class="box small"><b>免費授權 ≠ 零成本</b><br>開源軟體不收授權費，但主機、導入、訓練、維護都要時間與預算。</div>
+    <div class="box small"><b>Star 多 ≠ 適合你</b><br>受歡迎代表很多人關注，不代表符合你們的流程、人力與資料規範。</div>
+  </div>
+  <div class="pfoot"><span>08 資源選擇檢查表</span><span>9</span></div>
+</section>
+
+<!-- ================= 第 10 頁：AI 提示詞 ================= -->
+<section class="page">
+  <h2><span class="no">09</span>AI 提示詞（可直接複製使用）</h2>
+  <h3>A. 判讀一個 GitHub 專案</h3>
+  <div class="quote" style="font-family:var(--font-body);font-size:9.5pt">我是沒有專職工程師的公民團體工作者。請只根據以下公開的 GitHub 專案 README，用繁體中文協助我判讀：
+
+1. 這是文件範本、公開資料、程式工具，還是需要安裝的完整系統？
+2. 它想解決什麼問題？適合什麼使用情境？
+3. 使用前需要哪些技能、設備或維護工作？
+4. 如果組織可能用它處理活動參與者資料，還有哪些資安、個資、授權或成本問題尚未確認？
+5. 請將「README 明確寫出」與「你的推測」分開；資料不足時，請說不知道。
+
+README 內容：＿＿＿＿＿＿＿＿＿＿＿＿</div>
+
+  <h3>B. 把需求轉成搜尋詞</h3>
+  <div class="quote" style="font-family:var(--font-body);font-size:9.5pt">我在公民團體工作，想改善這個工作步驟：＿＿＿＿＿＿（例如：每月活動結束後，把出席統計做成長條圖）。
+請幫我想 5 組可以在 GitHub 搜尋的英文關鍵字，格式是「資源類型＋工具名稱」（例如 chart template csv）。
+只要給關鍵字和簡短理由，不要直接推薦專案連結。</div>
+  <p class="small muted" style="margin-top:1.5mm">為什麼不要 AI 直接推薦連結？因為 AI 可能編造不存在的專案。關鍵字請自己拿去搜尋，搜到的專案再點開確認。</p>
+
+  <h3>C. 請 AI 修改檔案前後</h3>
+  <div class="quote" style="font-family:var(--font-body);font-size:9.5pt">請修改以下公式／程式：＿＿＿＿＿＿
+修改完成後，請逐項列出你改了哪些地方、為什麼改，並提醒我有沒有需要另外測試的地方。</div>
+  <p class="small muted" style="margin-top:1.5mm">修改前先存檔（Commit）；改完先看差異（Diff），確認沒問題再保留。</p>
+
+  <div class="box rose" style="margin-top:4mm">
+    <b class="warn">使用原則</b>
+    <ul class="list small" style="margin-top:1mm">
+      <li>只貼公開資訊與虛構資料，不貼真實個案、捐款人、會員或活動參與者資料。</li>
+      <li>需要範例資料時，只給欄位名稱，或用假名、假電話自行造幾筆。</li>
+      <li>AI 的回答一定要回到原始文件核對，特別是授權與安裝需求。</li>
+    </ul>
+  </div>
+  <div class="pfoot"><span>09 AI 提示詞</span><span>10</span></div>
+</section>
+
+<!-- ================= 第 11 頁：課後重做指南 ================= -->
+<section class="page">
+  <h2><span class="no">10</span>課後重做指南</h2>
+  <p style="margin-bottom:3mm">回到組織後，照著下面的步驟自己做一次。預計 30–60 分鐘。</p>
+
+  <h3>步驟 1｜拆流程（15 分鐘）</h3>
+  <p>找一位同事，一起把第 4 頁的流程拆解表填完。特別標出：卡關的步驟、經手個資的步驟（★）。</p>
+
+  <h3>步驟 2｜想搜尋詞（5 分鐘）</h3>
+  <p>只挑解法方向標「找」的那一步，用「資源類型＋工具名稱」寫出 2–3 組關鍵字。可以用第 10 頁的提示詞 B 請 AI 協助。</p>
+
+  <h3>步驟 3｜在 GitHub 搜尋（10 分鐘）</h3>
+  <ul class="list">
+    <li>打開 <code>github.com</code>，在最上方的搜尋框輸入關鍵字，按 Enter。</li>
+    <li>左側選 <b>Repositories</b>；右上角排序可改成 <b>Recently updated</b>（最近更新）。</li>
+    <li>搜不到就換詞：拿掉太具體的字、改用英文、換一個工具名稱。</li>
+  </ul>
+
+  <h3>步驟 4｜讀一個專案（10 分鐘）</h3>
+  <p>點開一個看起來合適的結果，填第 7 頁的 Repository 閱讀卡。重點看：README、LICENSE、最後更新時間。</p>
+
+  <h3>步驟 5｜取得檔案（5 分鐘）</h3>
+  <ul class="list">
+    <li>按綠色 <b>Code</b> 按鈕 → <b>Download ZIP</b> → 解壓縮。</li>
+    <li>先打開資料或範本檔（例如 <code>.csv</code>、<code>.xlsx</code>、<code>.docx</code>）。</li>
+    <li>網頁類專案直接雙擊 <code>index.html</code> 可能是空白的，這很正常，看 README 有沒有線上 demo。</li>
+  </ul>
+
+  <h3>步驟 6｜判斷下一步（5 分鐘）</h3>
+  <p>用第 9 頁的資源選擇檢查表逐項檢查，然後在第 6 頁勾選下一步。</p>
+
+  <div class="box rose small" style="margin-top:4mm">
+    <b class="warn">試用時的資料與權限注意事項</b>
+    <ul class="list" style="margin-top:1mm">
+      <li>試用一律用虛構資料；確認安全、授權都沒問題前，不放入真實個資。</li>
+      <li>不要為了試用而把組織帳號的密碼或 API 金鑰貼進任何檔案、AI 對話或 GitHub。</li>
+      <li>沒有 LICENSE 的專案：可以參考學習，正式使用前先聯繫作者。</li>
+    </ul>
+  </div>
+  <div class="pfoot"><span>10 課後重做指南</span><span>11</span></div>
+</section>
+
+<!-- ================= 第 12 頁：資源索引與聯絡 ================= -->
+<section class="page">
+  <h2><span class="no">11</span>資源索引與聯絡</h2>
+  <h3>課堂示範資源（2026-10-01 查閱，資訊可能變動）</h3>
+  <table>
+    <tr><th style="width:38%">Repository</th><th style="width:22%">授權</th><th>課堂用途</th></tr>
+    <tr><td><code>github.com/HandsOnDataViz/chartjs-bar</code></td><td>無 LICENSE</td><td>主案例：CSV 換資料就能產生長條圖；示範授權、更新與下載後打不開的問題</td></tr>
+    <tr><td><code>github.com/HandsOnDataViz/book</code></td><td>側欄 MIT；書本內容 CC BY-NC-ND 4.0</td><td>AI 判讀練習；寫給非程式背景者的資料視覺化開放書，線上閱讀：handsondataviz.org</td></tr>
+    <tr><td><code>github.com/HandsOnDataViz/chartjs-templates</code></td><td>無 LICENSE</td><td>已拆分成獨立 repo 的舊版本：從 README 看出「這裡不是最新版」</td></tr>
+    <tr><td><code>github.com/HandsOnDataViz/leaflet-maps-with-google-sheets</code></td><td>MIT</td><td>Repository 檔案與 GitHub Pages 網站的差異</td></tr>
+    <tr><td><code>github.com/civicrm/civicrm-core</code></td><td>AGPL-3.0</td><td>對照案例：成熟的非營利 CRM，導入條件的評估</td></tr>
+  </table>
+
+  <h3>課堂用過的搜尋詞</h3>
+  <p><code>event registration report template</code>（0 筆）　<code>nonprofit volunteer spreadsheet template</code>（0 筆）　<code>活動 報名</code>　<code>google sheets template</code>　<code>chart template csv</code></p>
+
+  <div class="box green" style="margin-top:8mm">
+    <h3 style="margin-top:0" class="em">需要協助的時候</h3>
+    <div style="display:grid;grid-template-columns:1fr 34mm;gap:6mm;align-items:center">
+      <div>
+        <p><b>公民組織數位工作流程與開源工具評估</b></p>
+        <p class="small">今天的流程拆解表、搜尋方法與判斷表，都可以帶回組織自行使用。如果你們已經找到可能的資源，卻卡在流程整理、工具選擇、網站串接或後續維護，歡迎帶著<b>一項具體工作流程</b>與我們討論。我們會先釐清問題，再判斷是否真的需要建置新工具。</p>
+        <p class="small" style="margin-top:3mm">＿＿＿＿＿＿（公司名稱）<br>＿＿＿＿＿＿（網站／Email／電話）</p>
+      </div>
+      <div class="ph" style="height:34mm">QR code</div>
+    </div>
+  </div>
+
+  <h3>筆記</h3>
+  <div class="fill"></div><div class="fill"></div><div class="fill"></div><div class="fill"></div>
+  <div class="pfoot"><span>11 資源索引與聯絡</span><span>12</span></div>
+</section>
+
+</body>
+</html>

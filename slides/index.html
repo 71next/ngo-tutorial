@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公民組織的 GitHub 資源搜尋與選擇指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================
+   THEME：溫和公民感
+   米白底、深綠主色、藍綠輔色、暖橘重點
+   改這裡就能換整套配色
+   =========================================== */
+:root {
+  --stage-bg: #e9e2d3;
+  --slide-bg: #f6f1e7;
+  --card: #fffdf8;
+  --ink: #1f2d2a;
+  --ink-soft: #55635e;
+  --line: #ddd3c0;
+  --green: #2f6b4f;
+  --green-soft: #e1ede5;
+  --teal: #2a7c7a;
+  --teal-soft: #dcefee;
+  --amber: #c9772b;
+  --amber-soft: #f8e7d3;
+  --rose: #b4533f;
+  --rose-soft: #f6dfd8;
+  --font-display: 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;
+  --font-body: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+  --radius: 28px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===== viewport-base.css（固定 16:9 舞台，勿刪） ===== */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
+@media print {
+  html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+  .deck-viewport { position: static; overflow: visible; background: #fff; }
+  .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+  .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .deck-controls, .notes, .edit-hotzone, .edit-toggle { display: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+}
+
+/* ===========================================
+   版面基礎
+   =========================================== */
+body { font-family: var(--font-body); color: var(--ink); }
+.slide { padding: 84px 112px 72px; font-size: 30px; line-height: 1.6; }
+.slide::before { /* 右上角柔和圓形裝飾 */
+  content: ''; position: absolute; right: -180px; top: -180px; width: 520px; height: 520px;
+  border-radius: 50%; background: var(--green-soft); opacity: .55; z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+.kicker { font-size: 24px; font-weight: 700; letter-spacing: .12em; color: var(--teal); margin-bottom: 14px; }
+h1, h2 { font-family: var(--font-display); font-weight: 900; line-height: 1.25; }
+h2 { font-size: 64px; margin-bottom: 40px; }
+h3 { font-size: 34px; font-weight: 700; margin-bottom: 12px; line-height: 1.35; }
+p { color: var(--ink); }
+.muted { color: var(--ink-soft); }
+.small { font-size: 24px; }
+.em { color: var(--green); font-weight: 700; }
+.warn { color: var(--rose); font-weight: 700; }
+.mono { font-family: var(--font-mono); font-size: .9em; }
+code { font-family: var(--font-mono); background: var(--teal-soft); color: var(--teal); padding: 2px 12px; border-radius: 10px; font-size: .85em; }
+.pagefoot { position: absolute; left: 112px; right: 112px; bottom: 36px; display: flex; justify-content: space-between; font-size: 20px; color: var(--ink-soft); }
+
+.grid { display: grid; gap: 32px; }
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.card { background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); padding: 36px 40px; }
+.card.green { background: var(--green-soft); border-color: transparent; }
+.card.teal { background: var(--teal-soft); border-color: transparent; }
+.card.amber { background: var(--amber-soft); border-color: transparent; }
+.card.rose { background: var(--rose-soft); border-color: transparent; }
+.num { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%;
+  background: var(--green); color: #fff; font-weight: 900; font-size: 28px; margin-bottom: 16px; }
+.pill { display: inline-block; padding: 6px 22px; border-radius: 999px; font-size: 24px; font-weight: 700; }
+.pill.g { background: var(--green-soft); color: var(--green); }
+.pill.t { background: var(--teal-soft); color: var(--teal); }
+.pill.a { background: var(--amber-soft); color: var(--amber); }
+.pill.r { background: var(--rose-soft); color: var(--rose); }
+.pill.n { background: #ece6da; color: var(--ink-soft); }
+ul.clean { list-style: none; }
+ul.clean li { padding-left: 40px; position: relative; margin-bottom: 14px; }
+ul.clean li::before { content: ''; position: absolute; left: 6px; top: 18px; width: 14px; height: 14px; border-radius: 50%; background: var(--green); }
+ul.clean.x li::before { background: var(--rose); }
+.ph { /* 截圖預留位置 */
+  border: 3px dashed var(--line); border-radius: var(--radius); background: repeating-linear-gradient(-45deg, #fbf7ef 0 18px, #f3ecdf 18px 36px);
+  display: flex; align-items: center; justify-content: center; text-align: center; color: var(--ink-soft); font-size: 24px; padding: 24px;
+}
+
+/* 動畫：進入頁面時依序浮現 */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.slide.visible .reveal { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; }
+.reveal.d4 { transition-delay: .32s; } .reveal.d5 { transition-delay: .40s; } .reveal.d6 { transition-delay: .48s; }
+
+/* ===== 封面 ===== */
+.title-slide { display: flex; flex-direction: column; justify-content: center; padding-left: 160px; }
+.title-slide::before { width: 900px; height: 900px; right: -260px; top: -200px; }
+.title-slide::after { content: ''; position: absolute; left: -120px; bottom: -160px; width: 420px; height: 420px; border-radius: 50%; background: var(--amber-soft); }
+.title-slide h1 { font-size: 92px; max-width: 1400px; margin: 10px 0 24px; }
+.title-slide .sub { font-size: 44px; font-family: var(--font-display); color: var(--green); margin-bottom: 56px; }
+.axes { display: flex; gap: 20px; margin-bottom: 64px; }
+.axes .pill { font-size: 30px; padding: 12px 32px; }
+
+/* ===== 泳道圖 ===== */
+.swim { display: grid; grid-template-columns: 180px repeat(6, 1fr); border-radius: var(--radius); overflow: hidden; border: 2px solid var(--line); background: var(--card); }
+.swim .lane { display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 28px; color: #fff; }
+.swim .cell { height: 190px; border-left: 2px dashed var(--line); display: flex; align-items: center; justify-content: center; padding: 14px; }
+.swim .row-sep { grid-column: 1 / -1; height: 2px; background: var(--line); }
+.box { width: 100%; border-radius: 20px; padding: 16px 14px; font-size: 25px; font-weight: 700; text-align: center; line-height: 1.35; background: var(--green-soft); border: 3px solid transparent; position: relative; }
+.box .n { display: block; font-size: 20px; color: var(--ink-soft); font-weight: 500; }
+.box.pain { border-color: var(--rose); background: var(--rose-soft); }
+.box .star { position: absolute; top: -16px; right: -10px; background: var(--amber); color: #fff; border-radius: 999px; font-size: 18px; padding: 2px 12px; }
+.legend { display: flex; gap: 36px; margin-top: 26px; font-size: 24px; color: var(--ink-soft); align-items: center; }
+.legend span.sw { display: inline-block; width: 28px; height: 20px; border-radius: 6px; vertical-align: -2px; margin-right: 8px; }
+
+/* ===== 表格 ===== */
+table.t { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: 26px; }
+table.t th { background: var(--green); color: #fff; text-align: left; padding: 16px 24px; font-weight: 700; }
+table.t td { padding: 14px 24px; border-top: 2px solid var(--line); vertical-align: middle; line-height: 1.4; }
+table.t tr.hl td { background: #fbf3e6; }
+
+/* ===== Repository 示意 ===== */
+.repo { background: #fff; border: 2px solid #d0d7de; border-radius: 18px; overflow: hidden; font-family: -apple-system, 'Segoe UI', var(--font-body); font-size: 24px; color: #1f2328; }
+.repo .bar { padding: 18px 28px; border-bottom: 2px solid #d0d7de; display: flex; justify-content: space-between; align-items: center; }
+.repo .bar b { color: #0969da; }
+.repo .btn { background: #1f883d; color: #fff; border-radius: 10px; padding: 6px 20px; font-weight: 700; }
+.repo .commitline { background: #f6f8fa; padding: 14px 28px; border-bottom: 2px solid #d0d7de; color: #59636e; display: flex; justify-content: space-between; }
+.repo .file { padding: 10px 28px; border-bottom: 1px solid #eaeef2; font-family: var(--font-mono); font-size: 22px; }
+.repo .readme { padding: 18px 28px; }
+.callout { position: absolute; width: 52px; height: 52px; border-radius: 50%; background: var(--amber); color: #fff; font-weight: 900; font-size: 26px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 6px var(--slide-bg); z-index: 3; }
+
+/* ===== Diff 示意 ===== */
+.diff { background: #fff; border: 2px solid #d0d7de; border-radius: 18px; overflow: hidden; font-family: var(--font-mono); font-size: 25px; }
+.diff .hd { background: #f6f8fa; padding: 14px 24px; border-bottom: 2px solid #d0d7de; font-family: var(--font-body); font-size: 22px; color: #59636e; }
+.diff .ln { padding: 10px 24px; white-space: pre; }
+.diff .del { background: #ffebe9; color: #82071e; }
+.diff .add { background: #dafbe1; color: #116329; }
+
+/* ===== 存檔點時間軸 ===== */
+.timeline { display: flex; align-items: flex-start; justify-content: space-between; position: relative; margin: 10px 0 36px; }
+.timeline::before { content: ''; position: absolute; left: 60px; right: 60px; top: 40px; height: 6px; background: var(--line); border-radius: 3px; }
+.tp { text-align: center; width: 23%; position: relative; }
+.tp .dot { width: 86px; height: 86px; margin: 0 auto 14px; border-radius: 50%; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 900; box-shadow: 0 0 0 10px var(--slide-bg); }
+.tp.bad .dot { background: var(--rose); }
+.tp .lbl { font-size: 24px; color: var(--ink-soft); }
+
+/* ===== 流程箭頭 ===== */
+.flow { display: flex; align-items: stretch; gap: 0; }
+.flow .step { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--card); border: 2px solid var(--line); border-radius: 24px; padding: 26px 22px; text-align: center; font-weight: 700; font-size: 27px; }
+.flow .arr { width: 56px; display: flex; align-items: center; justify-content: center; color: var(--teal); font-size: 40px; font-weight: 900; }
+
+/* ===== 截圖 ===== */
+.shot { display: block; width: 100%; height: 380px; object-fit: cover; object-position: top left; border-radius: 20px; border: 2px solid var(--line); box-shadow: 0 10px 30px rgba(31,45,42,.12); background: #fff; }
+.cap { font-size: 20px; color: var(--ink-soft); margin-top: 10px; }
+
+/* ===== 講者備註（按 N 顯示） ===== */
+.notes { display: none; }
+body.show-notes .slide.active .notes { display: block; position: absolute; left: 112px; right: 112px; bottom: 70px; z-index: 5;
+  background: rgba(31,45,42,.94); color: #f6f1e7; border-radius: 20px; padding: 22px 30px; font-size: 22px; line-height: 1.6; }
+
+/* ===== 控制列（舞台外） ===== */
+.deck-controls { display: flex; gap: 14px; align-items: center; background: rgba(31,45,42,.82); color: #f6f1e7; padding: 8px 18px; border-radius: 999px; font-family: var(--font-body); font-size: 14px; opacity: .25; transition: opacity .3s; }
+.deck-controls:hover, .deck-controls:focus-within { opacity: 1; }
+.deck-controls button:focus-visible { outline: 2px solid #f6f1e7; outline-offset: 2px; border-radius: 6px; }
+.deck-controls button { background: none; border: 0; color: inherit; font-size: 16px; cursor: pointer; padding: 2px 8px; }
+.progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--green); z-index: 1001; transition: width .3s; }
+
+/* ===== 編輯模式（按 E 或左上角） ===== */
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+.edit-toggle { position: fixed; top: 16px; left: 16px; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 10001; border: 0; border-radius: 12px; padding: 8px 12px; background: var(--card); box-shadow: 0 4px 16px rgba(0,0,0,.15); font-size: 18px; cursor: pointer; }
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+.edit-toggle.active { background: var(--amber); color: #fff; }
+body.editing [contenteditable="true"] { outline: 2px dashed var(--amber); outline-offset: 4px; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="edit-hotzone" aria-hidden="true"></div>
+<button class="edit-toggle" id="editToggle" title="編輯模式（E）；Ctrl/⌘+S 下載修改後的檔案">✏️ 編輯</button>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ========== 1. 封面 ========== -->
+<section class="slide title-slide active" aria-label="課程標題">
+  <div class="kicker reveal">90 分鐘課程｜公民團體・非營利組織</div>
+  <h1 class="reveal d1">公民組織的 GitHub<br>資源搜尋與選擇指南</h1>
+  <div class="sub reveal d2">從流程拆解到 AI 時代的版本管理</div>
+  <div class="axes reveal d3">
+    <span class="pill g">① 流程拆解</span>
+    <span class="pill t">② 版本控制</span>
+    <span class="pill a">③ 資源搜尋與選擇</span>
+  </div>
+  <p class="reveal d4 muted">講師：＿＿＿＿＿＿　｜　＿＿＿＿＿＿（單位）</p>
+  <aside class="notes">開場 1 分鐘介紹自己：平常協助組織解決哪些問題。今天不教 Git 指令，學員不需要電腦，只需要筆和講義。</aside>
+</section>
+
+<!-- ========== 2. 今天要解決什麼 ========== -->
+<section class="slide" aria-label="今天要解決什麼">
+  <div class="kicker reveal">開場</div>
+  <h2 class="reveal d1">今天要解決的三個問題</h2>
+  <div class="grid g3 reveal d2" style="margin-bottom:44px">
+    <div class="card"><div class="num">1</div><h3>報名資料每次都要重整</h3><p class="muted small">匯出、清理、算出席、畫圖，每辦一次活動就重來一次</p></div>
+    <div class="card"><div class="num" style="background:var(--teal)">2</div><h3>檔案版本亂成一團</h3><p class="muted small">「最終版_v3」到底是哪一份？AI 改壞了回不去</p></div>
+    <div class="card"><div class="num" style="background:var(--amber)">3</div><h3>網路上找到工具，<br>卻不知道能不能用</h3><p class="muted small">授權、個資、誰來維護，都不清楚</p></div>
+  </div>
+  <div class="grid g3 reveal d3">
+    <div class="card green"><p class="em" style="font-size:32px">先拆流程，再找工具。</p></div>
+    <div class="card teal"><p style="font-size:32px;color:var(--teal);font-weight:700">AI 讓修改變容易，<br>版本控制讓修改可以回頭。</p></div>
+    <div class="card amber"><p style="font-size:32px;color:var(--amber);font-weight:700">找得到，不等於能直接用。</p></div>
+  </div>
+  <aside class="notes">請學員舉手：哪一個問題你們組織最常遇到？順便判斷是流程、資料，還是工具問題。</aside>
+</section>
+
+<!-- ========== 3. 先拆流程，再找工具 ========== -->
+<section class="slide" aria-label="先拆流程，再找工具">
+  <div class="kicker reveal">主軸一｜流程拆解</div>
+  <h2 class="reveal d1">先拆流程，再找工具</h2>
+  <p class="reveal d2" style="font-size:34px;margin-bottom:44px">「整理報名資料很花時間」不是一個問題，是<span class="em">好幾個步驟疊在一起</span>。<br>拆開每一步，問四件事：</p>
+  <div class="grid g4 reveal d3">
+    <div class="card"><div class="num">1</div><h3>誰做？</h3><p class="muted small">承辦人、志工、主管……工作在誰手上交接</p></div>
+    <div class="card"><div class="num">2</div><h3>用什麼工具？</h3><p class="muted small">表單、Excel、紙本、Word</p></div>
+    <div class="card"><div class="num">3</div><h3>經手哪些資料？</h3><p class="muted small">有沒有姓名、電話等個資 ★</p></div>
+    <div class="card"><div class="num" style="background:var(--rose)">4</div><h3>卡在哪？</h3><p class="muted small">最花時間、最容易出錯的地方</p></div>
+  </div>
+  <p class="reveal d4 muted" style="margin-top:40px">四件事都清楚了，才問：<b class="em">這一步要改流程、用範本、交給 AI，還是去找工具？</b></p>
+  <aside class="notes">強調：很多組織一開始就問「有沒有工具」，但最卡的那一步，常常改一下流程就解決了。</aside>
+</section>
+
+<!-- ========== 4. 主案例泳道圖 ========== -->
+<section class="slide" aria-label="主案例泳道圖">
+  <div class="kicker reveal">主案例｜每月活動的報名到成果報告</div>
+  <h2 class="reveal d1" style="margin-bottom:30px">工作在誰手上？泳道圖</h2>
+  <div class="swim reveal d2">
+    <div class="lane" style="background:var(--green)">承辦人</div>
+    <div class="cell"><div class="box pain"><span class="n">1</span>建立報名表單</div></div>
+    <div class="cell"><div class="box"><span class="star">★ 個資</span><span class="n">2</span>匯出報名資料</div></div>
+    <div class="cell"><div class="box pain"><span class="star">★ 個資</span><span class="n">3</span>清理欄位<br>去除重複</div></div>
+    <div class="cell"></div>
+    <div class="cell"><div class="box pain"><span class="n">5</span>製作統計圖表</div></div>
+    <div class="cell"></div>
+    <div class="row-sep"></div>
+    <div class="lane" style="background:var(--teal)">志工</div>
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <div class="cell"><div class="box pain"><span class="star">★ 個資</span><span class="n">4</span>對照簽到<br>計算出席</div></div>
+    <div class="cell"></div><div class="cell"></div>
+    <div class="row-sep"></div>
+    <div class="lane" style="background:var(--amber)">主管</div>
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <div class="cell"><div class="box pain"><span class="n">6</span>撰寫成果報告</div></div>
+  </div>
+  <div class="legend reveal d3">
+    <span><span class="sw" style="background:var(--rose-soft);border:3px solid var(--rose)"></span>卡關的步驟</span>
+    <span><span class="sw" style="background:var(--amber)"></span>★ 經手個資</span>
+    <span>由左到右是時間順序；換泳道＝工作交接</span>
+  </div>
+  <aside class="notes">指出：交接點（3→4→5→6）最容易出錯。個資只集中在 2–4 步，這幾步不能隨便丟給線上工具或 AI。</aside>
+</section>
+
+<!-- ========== 5. 流程拆解表範例 ========== -->
+<section class="slide" aria-label="流程拆解表範例">
+  <div class="kicker reveal">主案例｜流程拆解表（耗時為示意）</div>
+  <h2 class="reveal d1" style="margin-bottom:28px">每一步的解法不一樣</h2>
+  <table class="t reveal d2">
+    <tr><th style="width:60px">#</th><th>步驟</th><th>誰做</th><th>耗時</th><th>卡在哪</th><th>解法方向</th></tr>
+    <tr><td>1</td><td>建立報名表單</td><td>承辦人</td><td>30 分</td><td>每次重做欄位</td><td><span class="pill t">範｜用範本</span></td></tr>
+    <tr><td>2</td><td>匯出報名資料 ★</td><td>承辦人</td><td>10 分</td><td>—</td><td><span class="pill n">— 不用動</span></td></tr>
+    <tr><td>3</td><td>清理欄位、去除重複 ★</td><td>承辦人</td><td>60 分</td><td>格式不一、重複報名</td><td><span class="pill g">AI｜協助寫公式</span></td></tr>
+    <tr class="hl"><td>4</td><td>對照簽到、計算出席 ★</td><td>志工</td><td>60 分</td><td>手抄錯誤</td><td><span class="pill r">流｜先改流程</span></td></tr>
+    <tr class="hl"><td>5</td><td>製作統計圖表</td><td>承辦人</td><td>45 分</td><td>每次重畫圖</td><td><span class="pill a">找｜找現成資源</span></td></tr>
+    <tr><td>6</td><td>撰寫成果報告</td><td>主管</td><td>60 分</td><td>版本混亂</td><td><span class="pill t">版｜版本管理</span></td></tr>
+  </table>
+  <p class="reveal d3 small muted" style="margin-top:22px">第 4 步要改的是流程（改用表單或 QR 簽到），不是找工具；第 5 步才需要上 GitHub 找資源。交給 AI 時只給欄位名稱與假資料。</p>
+  <aside class="notes">接著請學員翻到講義的流程拆解表，用 8 分鐘拆自己組織的一項工作。只要填到「卡在哪」就好，解法方向可以最後再補。</aside>
+</section>
+
+<!-- ========== 6. GitHub 是什麼、不是什麼 ========== -->
+<section class="slide" aria-label="GitHub 是什麼、不是什麼">
+  <div class="kicker reveal">主軸二｜GitHub 的用途</div>
+  <h2 class="reveal d1">GitHub 是什麼，不是什麼</h2>
+  <div class="grid g2 reveal d2">
+    <div class="card green">
+      <h3 class="em">✓ 它是</h3>
+      <ul class="clean">
+        <li>放專案檔案的地方：程式、範本、文件、資料</li>
+        <li><b>記錄每一次修改</b>的版本管理平台</li>
+        <li>多人協作的場所：提問題、提修改、討論</li>
+        <li>全世界公開資源的大倉庫，可以搜尋</li>
+      </ul>
+    </div>
+    <div class="card rose">
+      <h3 class="warn">✗ 它不是</h3>
+      <ul class="clean x">
+        <li>App Store：下載後不一定能直接用</li>
+        <li>有客服的軟體公司：多半沒人負責幫你維護</li>
+        <li>品質保證：Star 多不代表適合你</li>
+        <li>個資保險箱：名單和密碼不該放上去</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">一句話：GitHub 是「專案＋修改紀錄」的家。今天會看到它的兩種用法：自己管理版本，以及去找別人的資源。</aside>
+</section>
+
+<!-- ========== 7. 看懂 Repository ========== -->
+<section class="slide" aria-label="看懂 Repository">
+  <div class="kicker reveal">主軸二｜看懂 Repository（示意圖）</div>
+  <h2 class="reveal d1" style="margin-bottom:28px">一個專案頁面，先看這五個地方</h2>
+  <div class="grid reveal d2" style="grid-template-columns: 1.25fr 1fr; align-items:start">
+    <div style="position:relative">
+      <div class="repo">
+        <div class="bar"><span>HandsOnDataViz / <b>chartjs-bar</b></span><span class="btn">&lt;&gt; Code ▾</span></div>
+        <div class="commitline"><span>Read CSV file with random string…</span><span>2021-04 · 🕘 Commits</span></div>
+        <div class="file">📄 README.md</div><div class="file">🖼 bar.png</div><div class="file">📄 data.csv</div><div class="file">📄 index.html</div><div class="file">📄 script.js</div>
+        <div class="readme"><b>README</b><br><span style="color:#59636e">Bar or Column Chart with One or More Data Series in Chart.js…</span></div>
+      </div>
+      <div class="callout" style="right:150px;top:-22px">⑤</div>
+      <div class="callout" style="right:-22px;top:62px">④</div>
+      <div class="callout" style="left:-26px;top:210px">①</div>
+      <div class="callout" style="left:-26px;bottom:40px">②</div>
+      <div class="callout" style="right:-22px;top:190px;background:var(--rose)" title="這個專案找不到 LICENSE">③</div>
+    </div>
+    <div>
+      <ul class="clean" style="font-size:28px">
+        <li><b>① 檔案列表</b>：裡面有什麼，是文件、資料還是程式</li>
+        <li><b>② README</b>：說明書，先讀這個</li>
+        <li><b>③ LICENSE</b>：能不能用、能不能改，通常在右側欄或檔案列表。<span class="warn">這個專案兩處都找不到</span></li>
+        <li><b>④ Commits</b>：修改紀錄，看最後更新是什麼時候</li>
+        <li><b>⑤ Code 按鈕</b>：Download ZIP 取得檔案</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">這是簡化示意，實際畫面請切到截圖。特別指出：這個專案在檔案列表和右側欄都找不到 LICENSE，等一下會回來談。</aside>
+</section>
+
+<!-- ========== 8. 你一定遇過的版本問題 ========== -->
+<section class="slide" aria-label="版本問題">
+  <div class="kicker reveal">主軸二｜版本控制</div>
+  <h2 class="reveal d1">這些情況，你一定遇過</h2>
+  <div class="grid g3 reveal d2">
+    <div class="card">
+      <h3>📁 檔名地獄</h3>
+      <p class="mono small" style="line-height:1.9;color:var(--ink-soft)">活動報表.xlsx<br>活動報表_v2.xlsx<br>活動報表_最終版.xlsx<br>活動報表_最終版_v3.xlsx<br><span class="warn">活動報表_真的最終.xlsx</span></p>
+      <p class="small" style="margin-top:12px">到底哪一份才是對的？</p>
+    </div>
+    <div class="card">
+      <h3>🤖 AI 改壞了</h3>
+      <p class="small">請 AI 修改報表腳本：<br>第 1 次 ✓　第 2 次 ✓　第 3 次 ✓<br>第 4 次 ✓　<span class="warn">第 5 次 ✗ 壞掉</span></p>
+      <p class="small" style="margin-top:12px">想回到第 4 次那版，<br>卻已經找不回來。</p>
+    </div>
+    <div class="card">
+      <h3>🔗 交接斷線</h3>
+      <p class="small">承辦人離職了。<br>這段公式是誰改的？<br>什麼時候改的？<br>為什麼要這樣改？</p>
+      <p class="small" style="margin-top:12px">沒有人知道。</p>
+    </div>
+  </div>
+  <p class="reveal d3" style="margin-top:40px;font-size:34px">版本控制，就是為了解決這三件事。</p>
+  <aside class="notes">讓學員舉手：遇過哪一種？檔名地獄幾乎每個人都有。</aside>
+</section>
+
+<!-- ========== 9. 版本控制＝存檔點 ========== -->
+<section class="slide" aria-label="版本控制等於存檔點">
+  <div class="kicker reveal">主軸二｜版本控制</div>
+  <h2 class="reveal d1" style="margin-bottom:24px">版本控制＝遊戲的存檔點</h2>
+  <div class="timeline reveal d2">
+    <div class="tp"><div class="dot">1</div><b>Commit｜存檔</b><div class="lbl">存下現狀，寫一句改了什麼</div></div>
+    <div class="tp"><div class="dot">2</div><b>History｜存檔清單</b><div class="lbl">每次存檔的時間、人、說明</div></div>
+    <div class="tp"><div class="dot" style="background:var(--teal)">±</div><b>Diff｜比較差異</b><div class="lbl">紅色刪掉、綠色新增</div></div>
+    <div class="tp"><div class="dot" style="background:var(--amber)">↺</div><b>Revert｜讀取舊檔</b><div class="lbl">回到改壞之前</div></div>
+  </div>
+  <div class="grid reveal d3" style="grid-template-columns:1.4fr 1fr;align-items:center">
+    <div class="diff">
+      <div class="hd">💬 修正出席率公式，排除重複報名　·　承辦人小林　·　10/01（示意）</div>
+      <div class="ln del">- 出席率 = 出席人數 / 報名人數</div>
+      <div class="ln add">+ 出席率 = 出席人數 / 不重複報名人數</div>
+    </div>
+    <div class="card green small">
+      <b>你其實已經在用：</b>Google 文件的「版本記錄」。<br>
+      GitHub 多了三件事：<b>每次都寫說明</b>、<b>逐行比較</b>、<b>多人改完再合併</b>。
+    </div>
+  </div>
+  <aside class="notes">用遊戲比喻：打 Boss 前先存檔，打輸了讀檔重來。Diff 這張只講「紅色刪掉、綠色新增」就好。</aside>
+</section>
+
+<!-- ========== 10. AI 時代的版本控制 ========== -->
+<section class="slide" aria-label="AI 時代的版本控制">
+  <div class="kicker reveal">主軸二｜為什麼 AI 時代特別需要</div>
+  <h2 class="reveal d1">AI 讓修改變容易，版本控制讓修改可以回頭</h2>
+  <div class="flow reveal d2" style="margin-bottom:40px">
+    <div class="step">① 先存檔</div><div class="arr">→</div>
+    <div class="step">② 請 AI 修改</div><div class="arr">→</div>
+    <div class="step">③ 看 Diff：<br>AI 改了哪幾行？</div><div class="arr">→</div>
+    <div class="step" style="background:var(--green-soft);border-color:transparent">④ 保留，<br>或讀回存檔</div>
+  </div>
+  <div class="grid g2 reveal d3">
+    <div class="card teal small">
+      <h3 style="color:var(--teal)">為什麼更需要？</h3>
+      <ul class="clean">
+        <li>AI 一次可能改幾十行，肉眼看不出改了什麼</li>
+        <li>改壞了也能回到上一個能用的版本</li>
+        <li>許多 AI 寫程式工具可以直接整合 Repository；不管在哪裡修改，都先存檔、再看差異</li>
+      </ul>
+    </div>
+    <div class="card rose small">
+      <h3 class="warn">絕對不能放上 GitHub</h3>
+      <ul class="clean x">
+        <li>報名名單、會員與捐款人等個資：原則上不放，私人 repo 一樣有外洩風險</li>
+        <li>API 金鑰、帳號密碼、寫死在程式裡的設定</li>
+        <li>內部財務資料</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">回應用過 GAS、Python 或 AI 寫小工具的學員：上傳前先檢查程式裡有沒有寫死的金鑰和帳號。適合放的是程式碼、範本、公開文件、去識別資料。</aside>
+</section>
+
+<!-- ========== 11. 檔案與網站 ========== -->
+<section class="slide" aria-label="檔案與網站">
+  <div class="kicker reveal">主軸二｜公開與更新</div>
+  <h2 class="reveal d1">放檔案，和發布網站，是兩回事</h2>
+  <div class="grid g2 reveal d2" style="margin-bottom:28px">
+    <div>
+      <h3>📦 Repository：放檔案＋修改紀錄</h3>
+      <img class="shot" src="assets/leaflet-repo.png" alt="leaflet-maps-with-google-sheets 的 GitHub 頁面：檔案列表、Commits 數與右側 MIT license">
+      <p class="cap">github.com/HandsOnDataViz/leaflet-maps-with-google-sheets</p>
+    </div>
+    <div>
+      <h3>🌐 GitHub Pages：給一般人看的網站</h3>
+      <img class="shot" src="assets/leaflet-site.png" alt="用 GitHub Pages 發布的互動地圖網站，底圖顯示 API KEY REQUIRED 浮水印">
+      <p class="cap">handsondataviz.github.io/leaflet-maps-with-google-sheets</p>
+    </div>
+  </div>
+  <p class="reveal d3">修改設定為發布來源的檔案、部署成功後，網站才會更新；每次修改都留在紀錄裡。</p>
+  <aside class="notes">兩張截圖並列（2026-10-01 擷取）。強調：同一個專案，一邊是給做事的人看的檔案，一邊是給大眾看的網站。地圖上的「API KEY REQUIRED」浮水印是現況：網站還依賴外部底圖服務，這也是「找得到不等於能直接用」的例子。</aside>
+</section>
+
+<!-- ========== 12. 從需求到搜尋詞 ========== -->
+<section class="slide" aria-label="從需求到搜尋詞">
+  <div class="kicker reveal">主軸三｜資源搜尋</div>
+  <h2 class="reveal d1">從拆解表到搜尋詞</h2>
+  <div class="flow reveal d2" style="margin-bottom:44px">
+    <div class="step" style="background:var(--amber-soft);border-color:transparent">第 5 步<br>製作統計圖表</div><div class="arr">→</div>
+    <div class="step">資源類型<br><span class="em">圖表範本</span></div><div class="arr">→</div>
+    <div class="step">工具名稱<br><span class="em">CSV／Google Sheets</span></div><div class="arr">→</div>
+    <div class="step" style="background:var(--teal-soft);border-color:transparent">搜尋詞<br><code>chart template csv</code></div>
+  </div>
+  <div class="grid g3 reveal d3">
+    <div class="card"><h3>公式</h3><p class="small">資源類型＋工具名稱<br>不是把需求整句丟進去</p></div>
+    <div class="card"><h3>中英都試</h3><p class="small">中文能找到在地專案，<br>英文資源多很多</p></div>
+    <div class="card"><h3>常用資源類型詞</h3><p class="small"><code>template</code> <code>example</code> <code>dataset</code> <code>toolkit</code> <code>awesome</code></p></div>
+  </div>
+  <aside class="notes">請學員從自己拆解表中標「找」的步驟，在講義的搜尋卡寫下一組中文、一組英文關鍵字。</aside>
+</section>
+
+<!-- ========== 13. 搜尋示範 ========== -->
+<section class="slide" aria-label="搜尋示範">
+  <div class="kicker reveal">主軸三｜搜尋示範（2026-10-01 實測）</div>
+  <h2 class="reveal d1" style="margin-bottom:28px">需求句搜不到，換詞就有了</h2>
+  <table class="t reveal d2" style="margin-bottom:30px">
+    <tr><th>搜尋詞</th><th>結果</th><th>為什麼</th></tr>
+    <tr><td><code>event registration report template</code></td><td class="warn">0 筆</td><td>需求句太具體</td></tr>
+    <tr><td><code>nonprofit volunteer spreadsheet template</code></td><td class="warn">0 筆</td><td>同上</td></tr>
+    <tr><td><code>活動 報名</code></td><td>有，但多是報名系統</td><td>資源類型不符</td></tr>
+    <tr class="hl"><td><code>google sheets template</code>、<code>chart template csv</code></td><td class="em">出現可用範本</td><td>資源類型＋工具名稱</td></tr>
+  </table>
+  <div class="reveal d3" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+    <b>篩選時看：</b>
+    <span class="pill g">最後更新時間</span><span class="pill g">有沒有 LICENSE</span><span class="pill g">README 寫得清不清楚</span><span class="pill n">Star 數只供參考</span>
+  </div>
+  <aside class="notes">現場操作 GitHub 搜尋；網路不穩就切截圖。先故意打需求句，讓學員看到 0 筆，再換詞。</aside>
+</section>
+
+<!-- ========== 14. 取得與閱讀資源 ========== -->
+<section class="slide" aria-label="取得與閱讀資源">
+  <div class="kicker reveal">主軸三｜取得與閱讀：chartjs-bar</div>
+  <h2 class="reveal d1">看起來剛好合用，然後呢？</h2>
+  <div class="grid g3 reveal d2">
+    <div class="card green">
+      <h3 class="em">✓ 看得懂</h3>
+      <p class="small">把 <code>data.csv</code> 換成活動統計，就能產生長條圖；有線上 demo。<br><code>data.csv</code> 用 Excel 就能打開。</p>
+    </div>
+    <div class="card rose">
+      <h3 class="warn">✗ 沒有 LICENSE</h3>
+      <p class="small">沒寫授權，<b>預設是作者保留權利</b>。能看、能學，但不能直接拿來改用。<br>→ 寫信問作者，或找有授權的替代品。</p>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">⚠ 下載後打開是空白</h3>
+      <p class="small">Download ZIP 後雙擊 <code>index.html</code>，圖表出不來：它需要網頁伺服器。<br>最後更新停在 2021 年。</p>
+    </div>
+  </div>
+  <p class="reveal d3" style="margin-top:40px;font-size:34px">找得到，不等於能直接用；<span class="em">下載得到，不等於適合長期使用。</span></p>
+  <aside class="notes">學員對照講義上印出的 README 截圖，填 Repository 閱讀卡：資源類型、使用條件、授權、更新狀況。</aside>
+</section>
+
+<!-- ========== 15. AI 如何幫忙看懂 ========== -->
+<section class="slide" aria-label="AI 如何幫忙看懂">
+  <div class="kicker reveal">AI 協作判讀</div>
+  <h2 class="reveal d1">讓 AI 幫忙讀，但要回頭核對</h2>
+  <div class="grid g2 reveal d2">
+    <div class="card teal">
+      <h3 style="color:var(--teal)">示範提問（完整版在講義）</h3>
+      <p class="small">「請只根據以下 README 判讀：這是哪類資源？要什麼技能？有哪些資安、個資、授權、成本問題？<b>把 README 明確寫的，和你的推測分開；不知道就說不知道。</b>」</p>
+      <p class="small muted" style="margin-top:14px">示範對象：HandsOnDataViz/book</p>
+    </div>
+    <div class="card">
+      <h3>核對重點：授權</h3>
+      <p class="small">GitHub 側欄寫 <span class="pill g" style="font-size:22px">MIT</span><br>README 卻寫書本內容是 <span class="pill r" style="font-size:22px">CC BY-NC-ND 4.0</span>：不可商用、不可改作。</p>
+      <p class="small" style="margin-top:14px">AI 有沒有看出差別？<b>請在講義的 README 上圈出來。</b></p>
+    </div>
+  </div>
+  <div class="card rose reveal d3 small" style="margin-top:32px;padding:24px 40px">🔒 只貼公開資訊給 AI；不貼真實個案、會員、捐款人或參與者資料。</div>
+  <aside class="notes">現場把 README 貼給 AI。如果 AI 只說 MIT，正好是教學點；如果它說對了，也請學員自己在 README 上找到那一段。</aside>
+</section>
+
+<!-- ========== 16. 找到後如何選 ========== -->
+<section class="slide" aria-label="找到後如何選">
+  <div class="kicker reveal">選擇與風險｜對照案例：CiviCRM</div>
+  <h2 class="reveal d1" style="margin-bottom:28px">它很成熟，但導入的條件，你有嗎？</h2>
+  <div class="grid reveal d2" style="grid-template-columns:1fr 1.7fr;align-items:start">
+    <div class="card green">
+      <h3 class="em">看起來完全符合</h3>
+      <p class="small">civicrm/civicrm-core<br>專為倡議與非營利組織設計的 CRM，持續更新中。</p>
+    </div>
+    <table class="t" style="font-size:24px">
+      <tr><th>檢查項目</th><th>README 線索／要問的問題</th></tr>
+      <tr><td>操作門檻</td><td>要架成 PHP 網站，或裝進 WordPress、Drupal</td></tr>
+      <tr><td>取得方式</td><td>下載與安裝導向官網和系統管理員手冊</td></tr>
+      <tr><td>資料安全</td><td>會員、捐款人個資存在哪？誰能存取？</td></tr>
+      <tr><td>授權</td><td>AGPL-3.0：修改版若透過網路讓別人使用，須向這些使用者提供原始碼（實際要求請技術或法務人員確認）</td></tr>
+      <tr><td>維護責任</td><td>誰負責更新、備份、排錯？</td></tr>
+      <tr><td>總成本</td><td>列有付費支援廠商：免費授權 ≠ 零成本</td></tr>
+    </table>
+  </div>
+  <aside class="notes">不批評專案品質。重點是組織的條件：有沒有主機、有沒有人維護、個資放哪。完整檢查表在講義。</aside>
+</section>
+
+<!-- ========== 17. 你的下一步與聯絡 ========== -->
+<section class="slide" aria-label="你的下一步與聯絡">
+  <div class="kicker reveal">收束</div>
+  <h2 class="reveal d1">回到你的拆解表：下一步是哪一個？</h2>
+  <div class="grid g3 reveal d2" style="margin-bottom:40px">
+    <div class="card"><div class="num" style="background:var(--rose)">流</div><h3>先改流程</h3><p class="small muted">卡關的地方，改步驟就能解決</p></div>
+    <div class="card"><div class="num">試</div><h3>自行試用</h3><p class="small muted">低風險範例、用假資料、有授權</p></div>
+    <div class="card"><div class="num" style="background:var(--amber)">問</div><h3>找人評估</h3><p class="small muted">涉及個資、要架站、要長期維護</p></div>
+  </div>
+  <div class="grid reveal d3" style="grid-template-columns:1fr 260px;align-items:center;gap:40px">
+    <div class="card green small">
+      今天的流程拆解表、搜尋方法與判斷表，都可以帶回組織使用。<br>
+      如果卡在流程整理、工具選擇、網站串接或後續維護，歡迎帶著<b>一項具體工作流程</b>來討論。<br>
+      <span class="muted">＿＿＿＿＿＿（公司名稱）｜＿＿＿＿＿＿（聯絡方式）</span>
+    </div>
+    <div class="ph" style="height:240px">QR code</div>
+  </div>
+  <aside class="notes">結尾 2–3 分鐘說明自己能做與需要協助的分界。不承諾免費診斷、固定時數或特定成效。</aside>
+</section>
+
+</main>
+</div>
+
+<nav class="deck-controls" aria-label="簡報控制">
+  <button id="prevBtn" aria-label="上一頁">‹</button>
+  <span id="counter">1 / 17</span>
+  <button id="nextBtn" aria-label="下一頁">›</button>
+  <span style="opacity:.7">｜N 備註・E 編輯</span>
+</nav>
+
+<script>
+/* ===========================================
+   SLIDE PRESENTATION CONTROLLER
+   方向鍵／空白鍵／PageUp/Down 翻頁；滑鼠滾輪；觸控滑動
+   N：顯示講者備註　E：編輯模式　Ctrl/⌘+S：下載修改後的檔案
+   =========================================== */
+class SlidePresentation {
+  constructor() {
+    this.slides = document.querySelectorAll('.slide');
+    this.current = 0;
+    this.stage = document.getElementById('deckStage');
+    this.counter = document.getElementById('counter');
+    this.progress = document.getElementById('progress');
+    this.setupScale();
+    this.setupKeys();
+    this.setupWheel();
+    this.setupTouch();
+    document.getElementById('prevBtn').onclick = () => this.go(this.current - 1);
+    document.getElementById('nextBtn').onclick = () => this.go(this.current + 1);
+    const fromHash = parseInt(location.hash.slice(1), 10);
+    this.go(Number.isFinite(fromHash) ? fromHash - 1 : 0);
+  }
+  setupScale() {
+    const scale = () => {
+      const f = Math.min(innerWidth / 1920, innerHeight / 1080);
+      const x = (innerWidth - 1920 * f) / 2, y = (innerHeight - 1080 * f) / 2;
+      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+    };
+    scale(); addEventListener('resize', scale);
+  }
+  setupKeys() {
+    document.addEventListener('keydown', e => {
+      if (document.body.classList.contains('editing')) return;
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); this.go(this.current + 1); }
+      else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.current - 1); }
+      else if (e.key === 'Home') this.go(0);
+      else if (e.key === 'End') this.go(this.slides.length - 1);
+      else if (e.key === 'n' || e.key === 'N') document.body.classList.toggle('show-notes');
+    });
+  }
+  setupWheel() {
+    let lock = false;
+    addEventListener('wheel', e => {
+      if (lock || document.body.classList.contains('editing') || Math.abs(e.deltaY) < 30) return;
+      lock = true; this.go(this.current + (e.deltaY > 0 ? 1 : -1));
+      setTimeout(() => lock = false, 700);
+    }, { passive: true });
+  }
+  setupTouch() {
+    let sx = 0;
+    addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+    addEventListener('touchend', e => {
+      if (document.body.classList.contains('editing')) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 50) this.go(this.current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+  go(i) {
+    this.current = Math.max(0, Math.min(i, this.slides.length - 1));
+    this.slides.forEach((s, k) => {
+      s.classList.toggle('active', k === this.current);
+      s.classList.toggle('visible', k === this.current);
+    });
+    this.counter.textContent = `${this.current + 1} / ${this.slides.length}`;
+    this.progress.style.width = `${(this.current + 1) / this.slides.length * 100}%`;
+    history.replaceState(null, '', '#' + (this.current + 1));
+  }
+}
+const deck = new SlidePresentation();
+
+/* ===========================================
+   INLINE EDITING
+   編輯完按 Ctrl/⌘+S 下載新的 HTML，再覆蓋原檔
+   =========================================== */
+const editor = {
+  isActive: false,
+  targets: () => document.querySelectorAll('.slide h1, .slide h2, .slide h3, .slide p, .slide li, .slide td, .slide .kicker, .slide .step, .slide .box, .slide .notes'),
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.body.classList.toggle('editing', this.isActive);
+    document.getElementById('editToggle').classList.toggle('active', this.isActive);
+    this.targets().forEach(el => el.setAttribute('contenteditable', this.isActive ? 'true' : 'false'));
+  },
+  download() {
+    const wasActive = this.isActive;
+    if (wasActive) this.toggleEditMode();
+    document.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    a.download = 'index.html'; a.click();
+    if (wasActive) this.toggleEditMode();
+  }
+};
+const editToggle = document.getElementById('editToggle');
+const hotzone = document.querySelector('.edit-hotzone');
+let hideTimeout = null;
+editToggle.addEventListener('click', () => editor.toggleEditMode());
+hotzone.addEventListener('click', () => editor.toggleEditMode());
+hotzone.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); editToggle.classList.add('show'); });
+hotzone.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+editToggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+editToggle.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+document.addEventListener('keydown', e => {
+  if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable) editor.toggleEditMode();
+  if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); editor.download(); }
+});
+</script>
+</body>
+</html>
