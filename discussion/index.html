@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>講座後問題討論</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1F2A37; --ink-soft: #4A5563; --cream: #F6F4EE; --card: #FFFDF8; --band: #ECE8DD; --line: #DDD7C8;
+  --green: #2F6F5E; --green-pale: #E3EFE9; --orange: #E07A3F; --orange-deep: #C4612A; --orange-pale: #FBE6D6;
+  --mist: #C9D3DC; --navy-2: #2A3747;
+  --font-head: 'Noto Serif TC', serif; --font-body: 'Noto Sans TC', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { background: var(--cream); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.75; }
+a { color: inherit; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+/* 封面 */
+header.hero { background: var(--ink); color: var(--cream); padding: 56px 0 44px; border-top: 8px solid var(--orange); }
+.hero .kicker { color: var(--orange); }
+.hero h1 { font-family: var(--font-head); font-size: clamp(32px, 6vw, 52px); line-height: 1.25; margin: 8px 0 12px; }
+.hero p.lead { color: var(--mist); max-width: 680px; }
+.stats { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.stat { background: var(--navy-2); border-radius: 12px; padding: 10px 18px; min-width: 112px; }
+.stat b { display: block; font-family: var(--font-head); font-size: 28px; color: var(--cream); line-height: 1.3; }
+.stat span { font-size: 13px; color: var(--mist); }
+
+/* 導覽列 */
+nav.top { position: sticky; top: 0; z-index: 10; background: rgba(246,244,238,.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+nav.top .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+nav.top a { flex: none; text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); }
+nav.top a:hover { border-color: var(--green); color: var(--green); }
+nav.top a.hot { background: var(--orange); border-color: var(--orange); color: var(--ink); font-weight: 700; }
+
+/* 區塊 */
+main section { padding: 48px 0 8px; }
+.kicker { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--green); }
+h2 { font-family: var(--font-head); font-size: clamp(24px, 4vw, 32px); line-height: 1.35; margin: 4px 0 18px; }
+h3 { font-size: 19px; line-height: 1.5; margin-bottom: 12px; display: flex; align-items: baseline; gap: 10px; }
+p + p { margin-top: 8px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin-bottom: 18px; }
+.cat-no { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: #fff; font-size: 14px; font-weight: 700; transform: translateY(-2px); }
+
+.prompt { background: var(--band); border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; }
+.prompt span, .summary > span { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--ink-soft); margin-bottom: 2px; }
+.summary { border-left: 5px solid var(--green); background: var(--green-pale); border-radius: 0 12px 12px 0; padding: 14px 18px; margin-bottom: 22px; }
+.summary > span { color: var(--green); }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.chips li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; font-size: 15px; }
+
+details summary { cursor: pointer; font-size: 14px; font-weight: 700; color: var(--ink-soft); margin-bottom: 8px; }
+.quote { border-left: 3px solid var(--line); padding: 2px 0 2px 14px; margin: 10px 0 14px; color: var(--ink-soft); }
+.quote cite { display: block; font-style: normal; font-weight: 700; color: var(--ink); font-size: 15px; }
+
+.todo { background: var(--orange-pale); border-radius: 12px; padding: 14px 18px; margin-top: 14px; }
+.todo-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 4px; }
+.todo-no { font-size: 13px; font-weight: 700; color: var(--orange-deep); letter-spacing: .06em; }
+.todo .ref { font-size: 13px; color: var(--ink-soft); margin-top: 8px; }
+.done { font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; }
+.done input { accent-color: var(--green); width: 16px; height: 16px; }
+.todo.is-done { background: var(--band); }
+.todo.is-done > p:first-of-type { text-decoration: line-through; text-decoration-color: rgba(31,42,55,.35); }
+
+/* 討論題總覽 */
+.overview { list-style: none; counter-reset: ov; display: grid; gap: 10px; }
+.overview li { counter-increment: ov; }
+.overview a { display: grid; grid-template-columns: 36px 1fr; column-gap: 12px; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.overview a::before { content: counter(ov); grid-row: span 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--orange); font-weight: 700; }
+.overview a:hover { border-color: var(--orange); }
+.overview .ov-q { font-size: 13px; font-weight: 700; color: var(--green); }
+.overview li.is-done a { opacity: .55; }
+.overview li.is-done a::before { content: '✓'; background: var(--band); }
+
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:nth-child(even) td { background: var(--band); }
+.table-scroll { overflow-x: auto; }
+
+footer { margin-top: 56px; padding: 28px 0 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); }
+
+@media (max-width: 640px) {
+  .card { padding: 18px 16px; }
+  table { font-size: 14px; }
+  th, td { padding: 8px 6px; }
+  .todo-head { flex-wrap: wrap; }
+}
+@media print {
+  nav.top, .done { display: none; }
+  header.hero { padding: 24px 0; }
+  .card, .todo { break-inside: avoid; }
+  details > *:not(summary) { display: block; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">公民組織的 GitHub 資源搜索與選擇指南</p>
+    <h1>講座後問題討論</h1>
+    <p class="lead">整理自報名表回覆：參與者帶著哪些需求與擔心而來、講座內容回應到哪裡，以及講座後還需要一起釐清的問題。</p>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>報名題目</span></div>
+      <div class="stat"><b>9</b><span>需求分類</span></div>
+      <div class="stat"><b>41</b><span>代表性回答</span></div>
+      <div class="stat"><b>9</b><span>待討論問題</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="top" aria-label="頁內導覽">
+  <div class="wrap">
+    <a href="#todo" class="hot">討論題總覽</a>
+    <a href="#goal">活動目標</a>
+    <a href="#q1">問題一</a><a href="#q2">問題二</a><a href="#q3">問題三</a><a href="#q4">問題四</a><a href="#q5">問題五</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="todo">
+  <p class="kicker">先從這裡開始</p>
+  <h2>討論題總覽</h2>
+  <p style="margin-bottom:16px;color:var(--ink-soft)">報名回覆裡「待處理問題」與「延伸問題」的彙整。點題目可跳到原始回答；討論過的可在題目旁勾選「已討論」（只記在這台電腦的瀏覽器）。</p>
+  <ol class="overview">
+<li><a href="#d1"><span class="ov-q">問題一・1 希望透過GitHub尋找到可使用的開源工具或系統</span>當組織只知道自己想建立CRM、知識庫或聯絡人管理系統時，還需要先釐清哪些使用情境、資料與維護條件，才能轉換成合適的GitHub搜尋詞？找到Repository後，又應查看哪些資訊，才能判斷它是否適合組織使用？</a></li>
+<li><a href="#d2"><span class="ov-q">問題一・2 希望透過GitHub改善重複的工作流程</span>當組織提出活動報名、寄送邀請、資料彙整或固定報表等重複工作時，如何判斷哪些問題要先盤點及重新設計工作流程，哪些才是可以轉換成GitHub上的工具、腳本或流程範本搜尋？</a></li>
+<li><a href="#d3"><span class="ov-q">問題一・3 希望了解GitHub的版本控制 網站與程式碼管理</span>對已使用Vibe Coding、Apps Script或自行製作網站與小工具的組織而言，GitHub可以如何協助保存程式碼、管理版本及避免重複開發？它與一般雲端硬碟有何差異，又有哪些設定檔、金鑰或敏感資料不應上傳？</a></li>
+<li><a href="#d4"><span class="ov-q">問題一・4 希望了解GitHub上公益應用的資料使用方式</span>面對公益應用，GitHub上可能找到哪些不同型態的資源，例如資料、程式、欄位架構、網站範本或公民科技專案？</a></li>
+<li><a href="#d5"><span class="ov-q">問題一・5 希望了解如何透過GitHub探索AI工具更多的使用方式</span>GitHub上的AI模型相關程式、設定與文件，和一般所理解的AI工具有什麼差別？下載程式碼與直接執行或自行訓練模型的距離？</a></li>
+<li><a href="#d6"><span class="ov-q">問題二・1 未曾使用或無法辨識是否使用過</span>GitHub上哪些屬於開源資源?？哪些是免費資源？怎麼判斷</a></li>
+<li><a href="#d7"><span class="ov-q">問題二・2 已使用開源軟體或開放資料</span>已經使用QGIS、R、JASP、WordPress或政府公開資料的組織，組織成員應回到其官方專案或GitHub Repository，進一步理解哪些授權、更新、問題回報與社群支援？</a></li>
+<li><a href="#d8"><span class="ov-q">問題二・3 版本管理與專案存放經驗</span>雖可能已有版本控制的實務基礎，但仍不熟悉GitHub的資料夾結構、公開與私人權限，以及如何追蹤專案更新。</a></li>
+<li><a href="#d9"><span class="ov-q">問題二・4 已有工具但卡在流程串接或維護</span>當組織已經有Airtable、WordPress或其他工具，卻卡在資料串接、標籤設計、操作或更新維護時，如何辨識問題主要屬於工具操作、資料結構、工作流程還是程式維護？不同問題分別適合在GitHub上尋找哪些資源？</a></li>
+  </ol>
+</section>
+
+<section id="goal">
+  <p class="kicker">一</p>
+  <h2>活動目標與講綱對應</h2>
+  <div class="summary"><span>整體交流應完成三件事</span><p>先讓非程式背景的參與者建立GitHub基本概念；再示範如何從組織需求搜尋、閱讀及初步判斷資源；最後說明GitHub可以提供工具、架構、流程、設計與公共利益專案的參考，但不會自動取代工作流程設計、資安判斷與後續維護。</p></div>
+  <div class="card table-scroll"><table><thead><tr><th>講綱單元</th><th>回應報名需求的重點</th><th>與活動目標的連結</th></tr></thead><tbody><tr><td>一 認識GitHub觀念與基本術語</td><td>釐清GitHub、Repository、開源、公開、免費及雲端服務的差異</td><td>降低名詞門檻並界定平台能做與不能做的事</td></tr><tr><td>二 導覽GitHub平台介面</td><td>認識搜尋、專案頁面、帳號與通知等基本入口</td><td>讓初學者知道到哪裡找資訊及如何回到專案</td></tr><tr><td>三 導覽Repository頁面</td><td>閱讀README、License、Releases、Issues、更新時間與資料夾</td><td>讓初學者知道如何「初步判斷專案」是否符合需求</td></tr><tr><td>四 練習平台搜尋功能及下載</td><td>把組織需求轉成資源類型與搜尋詞，再正確取得檔案</td><td>降低未來尋找與試用開源資源的門檻</td></tr><tr><td>五 AI協作資源判斷</td><td>用AI翻譯、摘要、比較與提出查核問題，並回查原始資料</td><td>讓AI成為理解橋樑</td></tr><tr><td>六 示範資料上傳至GitHub平台</td><td>認識版本、公開與私人權限及不可上傳的敏感內容</td><td>建立分享與協作想像，同時保留資料治理界線</td></tr></tbody></table></div>
+</section>
+
+<section id="intro">
+  <p class="kicker">二</p>
+  <h2>逐題分類與交流方向</h2>
+  <p>參與者對GitHub與開源資源的認識不一。部分回答可直接對應講座內容，但有部分回答是行政重複、資料分散、流程不順或想學AI等問題，則希望藉著講座與交流階段協助參與者釐清組織在什麼情況、什麼階段可以藉由GitHub取得幫助，哪些問題需要先進行工作流程的盤點設計，哪些問題才是能進一步轉換成GitHub上的資源類型或搜尋關鍵字。</p>
+</section>
+
+<section class="q" id="q1">
+  <p class="kicker">問題一</p><h2>參與動機與希望處理的工作需求</h2>
+  <p class="prompt"><span>報名題目</span>目前貴單位/您有哪些工作需求或問題，希望透過開源資源協助處理或改善？或是貴單位想參加此場交流、想了解GitHub的原因？</p>
+  <div class="summary"><span>本題綜整</span><p>部分參與者只知道GitHub「很重要」或經常看見他人把專案放在上面；部分已能提出CRM、知識協作、網站、地圖、資料庫或程式碼管理等資源類型；許多回答則從工作問題出發，提到行政重複、資料分散或工作流程不順等困擾。</p></div>
+  <article class="card">
+      <h3><span class="cat-no">1</span>希望透過GitHub尋找到可使用的開源工具或系統</h3>
+      <details open><summary>代表性回答原文（4 則）</summary>
+      <blockquote class="quote"><cite>新北市台北基督徒永和禮拜堂</cite><p>資料統計分析、CRM建置、網頁改版、資安</p></blockquote>
+<blockquote class="quote"><cite>社團法人臺灣玉皇山觀音慈濟會</cite><p>想建立知識協作與優化聯絡人管理系統</p></blockquote>
+<blockquote class="quote"><cite>財團法人利伯他茲教育基金會</cite><p>希望了解開源工具如何協助非營利組織改善資料整理、行政流程、資訊整合與數位相關應用，也想認識GitHub上有哪些適合非技術背景工作者使用的資源。</p></blockquote>
+<blockquote class="quote"><cite>財團法人中華民國唐氏症基金會</cite><p>CiviCRM（聯絡人、會員、捐款及活動管理系統）</p></blockquote>
+      </details>
+      <div class="todo" id="d1">
+        <div class="todo-head"><span class="todo-no">討論題 1</span>
+          <label class="done"><input type="checkbox" data-id="d1"> 已討論</label></div>
+        <p>當組織只知道自己想建立CRM、知識庫或聯絡人管理系統時，還需要先釐清哪些使用情境、資料與維護條件，才能轉換成合適的GitHub搜尋詞？找到Repository後，又應查看哪些資訊，才能判斷它是否適合組織使用？</p><p class="ref">可對照教材：簡報 8–9、14–15｜講義 4–5、7</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">2</span>希望透過GitHub改善重複的工作流程</h3>
+      <details open><summary>代表性回答原文（4 則）</summary>
+      <blockquote class="quote"><cite>社團法人臺灣健康教育暨長期照顧福利協會</cite><p>活動報名流程繁瑣 行政作業時間冗長</p></blockquote>
+<blockquote class="quote"><cite>社團法人臺中市新住民團體聯合會</cite><p>業務有許多重複的工作業務，如發邀請函、資料整理彙整等等，希望可以透過學習增進之能提升，並實際運用</p></blockquote>
+<blockquote class="quote"><cite>財團法人全聯慶祥慈善事業基金會</cite><p>每月或每周固定的工作可以自動化處理，像是統計表單自動做成固定的圖表</p></blockquote>
+<blockquote class="quote"><cite>社團法人台灣義築協會</cite><p>目前工作上所有的作業都是放到雲端上整理，大多數行政工作都是使用microsoft文書軟體處理。感受到重覆但略有差異的工作內容佔去不少時間。反覆在不同的文件中更新同一筆資料，為了紀錄、傳達、對齊或追蹤工作進度，想找出更快的捷徑。</p></blockquote>
+      </details>
+      <div class="todo" id="d2">
+        <div class="todo-head"><span class="todo-no">討論題 2</span>
+          <label class="done"><input type="checkbox" data-id="d2"> 已討論</label></div>
+        <p>當組織提出活動報名、寄送邀請、資料彙整或固定報表等重複工作時，如何判斷哪些問題要先盤點及重新設計工作流程，哪些才是可以轉換成GitHub上的工具、腳本或流程範本搜尋？</p><p class="ref">可對照教材：簡報 14–15｜講義 7、附錄 12（n8n 自動化）</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">3</span>希望了解GitHub的版本控制 網站與程式碼管理</h3>
+      <details open><summary>代表性回答原文（4 則）</summary>
+      <blockquote class="quote"><cite>家庭照顧者關懷總會</cite><p>我們組織目前正處於數位轉型的起步階段，過往較仰賴傳統文書工具，常遇到檔案版本混亂、交接斷層的問題。我們希望透過這次交流，從零認識 GitHub 的協作邏輯（例如版本控制、共筆概念），並學習如何利用 AI 當作橋樑，去理解平台上的公共利益專案，希望能幫同事們找到更多好用、又符合成本限制的數位工具。</p></blockquote>
+<blockquote class="quote"><cite>財團法人高雄市私立樂仁啟智中心</cite><p>目前使用AI設計很多可以使用的網頁，但僅使用GAS來接上網頁；聽說GitHub可以做版本控制，也很適合更新網頁</p></blockquote>
+<blockquote class="quote"><cite>弘道老人福利基金會</cite><p>我們有vibe coding一些小工具，包含google apps script或是一些本地端的小程式(應該是python)，想了解github是否能協助組織保管、儲存這些程式碼。或者，如何在github尋找我們需要的功能，就不用重複花時間vibe coding了。</p></blockquote>
+<blockquote class="quote"><cite>陽光社會福利基金會</cite><p>想了解其建置概念，除了當作軟體專案原始碼管理外，是否還有其它類型的用法或用處</p></blockquote>
+      </details>
+      <div class="todo" id="d3">
+        <div class="todo-head"><span class="todo-no">討論題 3</span>
+          <label class="done"><input type="checkbox" data-id="d3"> 已討論</label></div>
+        <p>對已使用Vibe Coding、Apps Script或自行製作網站與小工具的組織而言，GitHub可以如何協助保存程式碼、管理版本及避免重複開發？它與一般雲端硬碟有何差異，又有哪些設定檔、金鑰或敏感資料不應上傳？</p><p class="ref">可對照教材：簡報 4、13｜講義 2、8</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">4</span>希望了解GitHub上公益應用的資料使用方式</h3>
+      <details open><summary>代表性回答原文（2 則）</summary>
+      <blockquote class="quote"><cite>社團法人花蓮縣牛犁社區交流協會</cite><p>目前團體工作有進行如社區資源盤點、災害地圖建置或活動客製網頁工具，對於github有粗淺認識，想透過工作坊參與學習更進階的使用方式。</p></blockquote>
+<blockquote class="quote"><cite>屏北社大</cite><p>相關主題地圖的線上開放使用</p></blockquote>
+      </details>
+      <div class="todo" id="d4">
+        <div class="todo-head"><span class="todo-no">討論題 4</span>
+          <label class="done"><input type="checkbox" data-id="d4"> 已討論</label></div>
+        <p>面對公益應用，GitHub上可能找到哪些不同型態的資源，例如資料、程式、欄位架構、網站範本或公民科技專案？</p><p class="ref">可對照教材：簡報 6、14｜講義 3、7</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">5</span>希望了解如何透過GitHub探索AI工具更多的使用方式</h3>
+      <details open><summary>代表性回答原文（4 則）</summary>
+      <blockquote class="quote"><cite>社團法人屏東縣慈善團體聯合協會</cite><p>想知道更多可以使用的AI工具</p></blockquote>
+<blockquote class="quote"><cite>財團法人北藥文教基金會</cite><p>剛前正在評估導入AI,想了解如何從GITHUB上下載AI模型程式碼自己訓練</p></blockquote>
+<blockquote class="quote"><cite>台灣主婦聯盟生活消費合作社</cite><p>AI工具學習</p></blockquote>
+<blockquote class="quote"><cite>社團法人國際音樂教育協會</cite><p>想更了解AI要怎麼配合GitHub去進行工作事項</p></blockquote>
+      </details>
+      <div class="todo" id="d5">
+        <div class="todo-head"><span class="todo-no">討論題 5</span>
+          <label class="done"><input type="checkbox" data-id="d5"> 已討論</label></div>
+        <p>GitHub上的AI模型相關程式、設定與文件，和一般所理解的AI工具有什麼差別？下載程式碼與直接執行或自行訓練模型的距離？</p><p class="ref">可對照教材：簡報 16–18｜講義 9</p>
+      </div>
+    </article>
+</section>
+
+<section class="q" id="q2">
+  <p class="kicker">問題二</p><h2>過去使用開源資源的經驗與困難</h2>
+  <p class="prompt"><span>報名題目</span>貴單位/您過去是否曾使用開源資源？若有，曾使用哪些資源、運用於哪些工作？在使用過程中曾遇到哪些困難？</p>
+  <div class="summary"><span>本題綜整</span><p>多數回答者表示沒有使用經驗，部分已使用WordPress、QGIS、R、JASP、n8n或GitLab等工具，但不確定是否算開源資源。也有參與者把AI服務、Airtable或一般數位工具經驗放入回答，總的來說，大家對開源、開放資料、雲端服務與GitHub平台之間關係的概念落差。</p></div>
+  <article class="card">
+      <h3><span class="cat-no">1</span>未曾使用或無法辨識是否使用過</h3>
+      <details open><summary>代表性回答原文（1 則）</summary>
+      <blockquote class="quote"><cite>財團法人民間司法改革基金會</cite><p>過去有接觸及使用一些建立在開源技術上的網站或數位工具，但對「開源」本身、GitHub 的運作方式，以及如何尋找及判斷適合的開源資源並不熟悉。希望藉由這次活動建立更完整的開源概念，了解有哪些資源可以實際運用在工作上。</p></blockquote>
+      </details>
+      <div class="todo" id="d6">
+        <div class="todo-head"><span class="todo-no">討論題 6</span>
+          <label class="done"><input type="checkbox" data-id="d6"> 已討論</label></div>
+        <p>GitHub上哪些屬於開源資源?？哪些是免費資源？怎麼判斷</p><p class="ref">可對照教材：簡報 8–9｜講義 4</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">2</span>已使用開源軟體或開放資料</h3>
+      <details open><summary>代表性回答原文（4 則）</summary>
+      <blockquote class="quote"><cite>荒野</cite><p>協會官網即是用開源資源建構。</p></blockquote>
+<blockquote class="quote"><cite>社團法人花蓮縣牛犁社區交流協會</cite><p>有使用QGIS建置防災地圖，剛開始使用上介面需花時間熟悉</p></blockquote>
+<blockquote class="quote"><cite>屏北社大</cite><p>QGIS 製作學區地圖 學員分布地圖</p></blockquote>
+<blockquote class="quote"><cite>弘道老人福利基金會</cite><p>主要使用過開源軟體，例如JASP、n8n、R studio，主要困難在於感覺開源資源需要我們自己手動維護更新，而維護更新的教學資料比較難找，會花比較多時間。</p><p>另外也有因為vibe coding過程中ai agent要求pip的一些開源資源，但其實不太清楚這些開源資源的實際用途。</p></blockquote>
+      </details>
+      <div class="todo" id="d7">
+        <div class="todo-head"><span class="todo-no">討論題 7</span>
+          <label class="done"><input type="checkbox" data-id="d7"> 已討論</label></div>
+        <p>已經使用QGIS、R、JASP、WordPress或政府公開資料的組織，組織成員應回到其官方專案或GitHub Repository，進一步理解哪些授權、更新、問題回報與社群支援？</p><p class="ref">可對照教材：簡報 7–9｜講義 3–4</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">3</span>版本管理與專案存放經驗</h3>
+      <details open><summary>代表性回答原文（3 則）</summary>
+      <blockquote class="quote"><cite>台灣產業金融數位科技發展協會</cite><p>SVN</p></blockquote>
+<blockquote class="quote"><cite>社團法人台灣義築協會</cite><p>曾使用過GitHub放置設計施工圖資，讓民眾可以自行下載或修改設計。</p></blockquote>
+<blockquote class="quote"><cite>陽光社會福利基金會</cite><p>GitLab，主要用來做應用系統開發的原始碼管理，有時還可順便看看其它公開有興趣的專案，主要問題是不太清楚其存放文件的架構與邏輯</p></blockquote>
+      </details>
+      <div class="todo" id="d8">
+        <div class="todo-head"><span class="todo-no">延伸問題 8</span>
+          <label class="done"><input type="checkbox" data-id="d8"> 已討論</label></div>
+        <p>雖可能已有版本控制的實務基礎，但仍不熟悉GitHub的資料夾結構、公開與私人權限，以及如何追蹤專案更新。</p><p class="ref">可對照教材：簡報 7、13｜講義 3、8</p>
+      </div>
+    </article>
+  <article class="card">
+      <h3><span class="cat-no">4</span>已有工具但卡在流程串接或維護</h3>
+      <details open><summary>代表性回答原文（4 則）</summary>
+      <blockquote class="quote"><cite>財團法人為台灣而教教育基金會</cite><p>雖然已使用 Airtable 管理資料，但在「校友動態互動紀錄」的紀錄與串接上，因為缺乏串接經驗而卡關。因此目前工具主要用於資料紀錄，缺乏成熟的「動態標籤與互動時間軸」設計，難以持續追蹤校友的長期參與度。</p></blockquote>
+<blockquote class="quote"><cite>社團法人中華民國樂仁全人教育健康促進協會</cite><p>官網請人使用WordPress建置，後續要更新文章或調整版型時不太會使用。例如：在文章中內嵌FlipHtml5的翻頁式年報，有選擇長寬大小，但貼過來卻變很小；如果選擇用Canva的內嵌，大小就正常，但就沒辦法有翻書的效果。</p></blockquote>
+<blockquote class="quote"><cite>財團法人利伯他茲教育基金會</cite><p>過去較少直接使用開源資源，對相關工具與應用方式仍在學習中。主要困難是缺乏技術背景，不易判斷工具是否適合組織使用，也不熟悉安裝、維護與後續管理方式。</p></blockquote>
+<blockquote class="quote"><cite>弘道老人福利基金會</cite><p>主要使用過開源軟體，例如JASP、n8n、R studio，主要困難在於感覺開源資源需要我們自己手動維護更新，而維護更新的教學資料比較難找，會花比較多時間。</p><p>另外也有因為vibe coding過程中ai agent要求pip的一些開源資源，但其實不太清楚這些開源資源的實際用途。</p></blockquote>
+      </details>
+      <div class="todo" id="d9">
+        <div class="todo-head"><span class="todo-no">討論題 9</span>
+          <label class="done"><input type="checkbox" data-id="d9"> 已討論</label></div>
+        <p>當組織已經有Airtable、WordPress或其他工具，卻卡在資料串接、標籤設計、操作或更新維護時，如何辨識問題主要屬於工具操作、資料結構、工作流程還是程式維護？不同問題分別適合在GitHub上尋找哪些資源？</p><p class="ref">可對照教材：簡報 8、14｜講義 4、7</p>
+      </div>
+    </article>
+</section>
+
+<section class="q" id="q3">
+  <p class="kicker">問題三</p><h2>使用開源資源時的擔心與想了解事項</h2>
+  <p class="prompt"><span>報名題目</span>當貴單位/您考慮使用開源資源時，最擔心或希望進一步了解哪些問題？</p>
+  <div class="summary"><span>本題綜整</span><p>公民組織是否能採用資源的核心判斷條件：資訊安全、個人資料保護、操作門檻、使用授權、後續維護與費用。是否有建議的檢查順序，或可從哪裡進行初步判斷，哪些仍需要技術、法務或組織治理決策。</p></div>
+  <div class="card"><h3>代表性回答原文</h3><blockquote class="quote"><cite>財團法人佛教慈恩育幼基金會</cite><p>最關心的是資訊安全及個人資料保護。由於本單位服務對象包含兒童、青少年及弱勢家庭，日常工作會接觸個人資料、活動名冊、志工資料及獎助學金等資訊，因此希望了解使用開源工具時，如何判斷其安全性，以及資料儲存、權限管理與個資保護應注意的事項。</p><p>另外，也希望了解開源工具的操作門檻、後續維護及實際成本。非營利組織通常沒有專職資訊人員，因此除了工具本身是否免費，也會考量導入後是否容易操作、需要多少技術能力，以及未來若遇到系統更新或問題時，是否有足夠的支援資源。</p></blockquote>
+<blockquote class="quote"><cite>家庭照顧者關懷總會</cite><p>我們想進一步了解【資安風險、個人資料保護與開源授權條款】。公司主管與同仁最擔心的是工作上經手的個資是否有隱私保障，以及如何判斷該專案是否安全、會不會有資安隱憂？在引用或修改這些開源代碼/文件範本時，組織需要遵守哪些法律規範才不會踩到侵權紅線？</p></blockquote>
+<blockquote class="quote"><cite>財團法人民間司法改革基金會</cite><p>最希望了解的是資安、個資保護、使用授權，及後續維護等問題。因為工作會接觸捐款任個人資訊，對個資保護尤其重視。另外，也想了解非技術背景的工作者應如何判斷一項開源工具是否安全、可靠且適合組織長期使用，以及導入後需要具備哪些維護能力與成本。</p></blockquote></div>
+</section>
+
+<section class="q" id="q4">
+  <p class="kicker">問題四</p><h2>希望與講師或其他組織交流的內容</h2>
+  <p class="prompt"><span>報名題目</span>貴單位/您還有哪些問題、經驗或想法，希望在活動中與講師或其他組織交流？</p>
+  <div class="summary"><span>本題綜整</span><p>多AI如何協助非技術人員閱讀GitHub、如何建立組織流程提升管理效率、如何選擇CRM或資料庫，以及如何向其他組織或技術人員學習。</p></div>
+  <div class="card"><h3>代表性回答原文</h3><blockquote class="quote"><cite>家庭照顧者關懷總會</cite><p>很期待活動中提到 AI 協作的部分。我們想交流其他組織目前是如何利用 ChatGPT 等 AI 工具，協助非技術背景的倡議/企劃人員去「讀懂」並「使用」GitHub 上的開放資料或工具？</p></blockquote>
+<blockquote class="quote"><cite>財團法人佛教慈恩育幼基金會</cite><p>希望了解其他非營利組織如何在有限的人力與經費下進行數位化，尤其是如何將活動報名、服務名冊、志工管理、出勤紀錄、經費核銷、成果統計及評鑑資料等日常行政工作做更有效率的整合，避免同一份資料在不同表單或檔案中重複整理。</p><p>另外也想了解，對規模較小、沒有專職資訊人員的組織而言，應該如何開始建立適合自己的數位工作流程，以及如何善用 AI、開源工具或自動化工具協助行政與資料整理，同時兼顧個資安全。</p><p>希望聽聽其他組織在數位工具導入過程中曾經遇到的困難、失敗經驗及實際改善方式，作為本單位未來逐步推動數位化的參考。</p></blockquote>
+<blockquote class="quote"><cite>社團法人李美蓉癌症醫學研究基金會</cite><p>如何透過網路資源為小型組織建立流程與增加管理績效</p></blockquote>
+<blockquote class="quote"><cite>民間司法改革基金會</cite><p>抓取公部門提供的資訊整理成資料庫</p></blockquote>
+<blockquote class="quote"><cite>財團法人為台灣而教教育基金會</cite><p>校友動態互動紀錄與標籤設計：我們目前已使用 Airtable 管理資料，但想了解其他組織如何設計「動態互動歷程（如：活動參與、聯繫紀錄）」的標籤與追蹤機制？是否有成熟的開源架構或範本可參考？</p></blockquote>
+<blockquote class="quote"><cite>財團法人民間司法改革基金會</cite><p>想了解其他非營利組織如何運用開源工具處理募款、捐款人經營、CRM、電子報及網站維護等工作，也想知道非技術背景的倡議工作者可以如何開始使用 GitHub，或與工程、資訊相關夥伴協作。若有適合 NGO、小型團隊使用，且導入門檻較低的開源工具，也希望能交流實際使用經驗。</p></blockquote>
+<blockquote class="quote"><cite>弘道老人福利基金會</cite><p>AI開啟了Vibe Coding時代，因此我們現在不只要管理個案資料，還多了很多程式碼要管理，不知道要怎麼做。</p></blockquote>
+<blockquote class="quote"><cite>陽光社會福利基金會</cite><p>針對GitHub有興趣的文件或主題，是否可設定有更版時會自動通知</p></blockquote></div>
+</section>
+
+<section class="q" id="q5">
+  <p class="kicker">問題五</p><h2>後續共學方式與內容建議</h2>
+  <p class="prompt"><span>報名題目</span>在後續的組織共學活動中，貴單位/您建議增加的共學方式、內容？</p>
+  <div class="summary"><span>本題綜整</span><ul class="chips"><li>操作型工作坊</li><li>實際案例與同儕經驗分享</li><li>問題診斷 PBL與技術諮詢</li><li>持續線上交流與讀書會</li><li>AI與其他數位工具主題</li></ul></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">資料來源：〈公民組織GitHub交流報名回覆整理〉。回答原文照錄；「可對照教材」為講師依課程簡報與講義頁碼補充。完整文字版見同資料夾 <a href="responses.md">responses.md</a>。</div>
+</footer>
+
+<script>
+(function () {
+  const KEY = 'ngo-discussion-done';
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  function paint(id) {
+    const on = !!done[id];
+    const box = document.getElementById(id);
+    if (box) box.classList.toggle('is-done', on);
+    const link = document.querySelector('.overview a[href="#' + id + '"]');
+    if (link) link.parentElement.classList.toggle('is-done', on);
+  }
+  document.querySelectorAll('.done input').forEach(function (cb) {
+    const id = cb.dataset.id;
+    cb.checked = !!done[id]; paint(id);
+    cb.addEventListener('change', function () {
+      if (cb.checked) done[id] = 1; else delete done[id];
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+      paint(id);
+    });
+  });
+})();
+</script>
+</body>
+</html>
