@@ -6,7 +6,7 @@
 
 | 檔案 | 用途 | 使用方式 |
 |---|---|---|
-| [`slides/index.html`](slides/index.html) | 上課簡報，21 頁，含講者備註 | 用瀏覽器開啟；方向鍵翻頁、N 顯示備註、E 編輯模式、Ctrl/⌘+S 下載修改後的檔案 |
+| [`slides/index.html`](slides/index.html) | 上課簡報，22 頁，含講者備註 | 用瀏覽器開啟；方向鍵翻頁、N 顯示備註、E 編輯模式、Ctrl/⌘+S 下載修改後的檔案 |
 | [`guide/README.md`](guide/README.md) | 講師教案：時間分配、各單元講稿與操作步驟、常見問題 | 課前備課、上課時對照 |
 | [`guide/Search.md`](guide/Search.md) | GitHub 搜尋語法完整筆記（含程式碼搜尋、regex） | 講義附錄第 12–17 頁的來源；修改後需同步講義 |
 | [`discussion/index.html`](discussion/index.html) | 講座後問題討論：報名回覆整理成 9 個討論題，附代表性回答原文與可對照的教材頁碼 | 講座後交流時投影或分享；Markdown 版為 [`discussion/responses.md`](discussion/responses.md) |
@@ -68,9 +68,9 @@
 | 05–20 | 一、GitHub 觀念與基本術語 | 講述＋比喻 | 5–6 | 2 |
 | 20–35 | 二、導覽 GitHub 平台介面 | 螢幕示範 | 7 | 3 |
 | 35–50 | 三、導覽 Repository 頁面與健康檢查 | 示範＋檢查表 | 8–10 | 3–5 |
-| 50–75 | 四、搜尋、下載、上傳練習 | 實作 | 11–14 | 5–6、8–9 |
-| 75–85 | 五、如何找資源：語法、清單與 AI；上傳前注意 | 示範＋實作 | 15–19 | 7、9–10 |
-| 85–90 | 歸納重點與 Q&A | 交流 | 20–21 | 11 |
+| 50–75 | 四、搜尋、下載、上傳練習 | 實作 | 11–15 | 5–6、8–9 |
+| 75–85 | 五、如何找資源：語法、清單與 AI；上傳前注意 | 示範＋實作 | 16–20 | 7、9–10 |
+| 85–90 | 歸納重點與 Q&A | 交流 | 21–22 | 11 |
 
 時間不夠時的刪減順序：先縮短第二單元的 Explore／Trending 示範，再把上傳練習改為講師示範。各單元的講稿重點見 [講師教案](guide/README.md)。
 
@@ -92,13 +92,14 @@
 | 12 | 動手練習：幫你的組織找一個工具 | 三個任務 |
 | 13 | 三種「拿回來」的方式 | Releases、Download ZIP、Fork；彈窗比較 Tag 與 Release |
 | 14 | 用網頁建立第一個 Repo 並上傳檔案 | 四個步驟與個資提醒 |
-| 15 | GitHub 搜尋不好用？換個方法找 | 四種手法：搜尋語法、主題與 awesome 清單、順著組織與人找、請 AI 提名 |
-| 16 | 一行語法，直接找到你要的工具 | 找軟體工具的進階語法：stars、pushed、archived、topic:self-hosted／android、license、org、awesome、-topic、is:issue；常用英文關鍵字 |
-| 17 | 三種 AI 幫手，各管一段 | 通用 AI 聊天、DeepWiki、GitHub Copilot Chat |
-| 18 | 提示詞範本 | 誰、要做什麼、限制；AI 負責提名，你負責查證 |
-| 19 | 這些東西，不要放上 GitHub | 個資、密碼與金鑰、內部文件、沒有權利的素材、大檔案；刪掉不等於消失；彈窗說明 GitHub 禁止的行為 |
-| 20 | 今日重點與 Q&A | 五項重點、Q&A、講座後問題討論頁連結、課後資源 |
-| 21 | 謝謝大家今天的參與 | 結語、公司網址 71next.com、Email、LINE 加好友 QR Code |
+| 15 | 另一種上傳方式：用電腦上的 App | 安裝 Git 與 git config 設定身分；GitHub Desktop、VS Code 上傳步驟；課後自學 |
+| 16 | GitHub 搜尋不好用？換個方法找 | 四種手法：搜尋語法、主題與 awesome 清單、順著組織與人找、請 AI 提名 |
+| 17 | 一行語法，直接找到你要的工具 | 找軟體工具的進階語法：stars、pushed、archived、topic:self-hosted／android、license、org、awesome、-topic、is:issue；常用英文關鍵字 |
+| 18 | 三種 AI 幫手，各管一段 | 通用 AI 聊天、DeepWiki、GitHub Copilot Chat |
+| 19 | 提示詞範本 | 誰、要做什麼、限制；AI 負責提名，你負責查證 |
+| 20 | 這些東西，不要放上 GitHub | 個資、密碼與金鑰、內部文件、沒有權利的素材、大檔案；刪掉不等於消失；彈窗說明 GitHub 禁止的行為 |
+| 21 | 今日重點與 Q&A | 五項重點、Q&A、講座後問題討論頁連結、課後資源 |
+| 22 | 謝謝大家今天的參與 | 結語、公司網址 71next.com、Email、LINE 加好友 QR Code |
 
 ## 6. 講義頁次
 
@@ -125,11 +126,12 @@
 - [ ] 授課前一週再檢查一次示範專案的 README、授權與連結（專案可能改版或封存）。
 - [ ] 確認 GitHub Copilot 免費方案目前的對話額度（github.com/features/copilot/plans）。
 - [ ] 決定上傳練習要請學員建 Private 還是 Public repo（目前教案與講義寫 Private）。
+- [ ] 簡報第 15 頁（GitHub Desktop／VS Code 上傳）定位為課後自學，課堂上 1 分鐘帶過即可。
 - [ ] 試講並計時，確保實作段落（50–85 分）有足夠時間。
 
 ## 8. （選用）公司與服務露出
 
-簡報第 3 頁（講師介紹）與第 21 頁（結語）已放入公司與聯絡方式；講義目前沒有，需要時可加在講義第 11 頁。
+簡報第 3 頁（講師介紹）與第 22 頁（結語）已放入公司與聯絡方式；講義目前沒有，需要時可加在講義第 11 頁。
 
 **建議定位：**
 

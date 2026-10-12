@@ -188,7 +188,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
       <p style="font-size:36px;font-weight:700;color:var(--orange-deep);margin-bottom:12px">秦毅數位科技 負責人</p>
       <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 28px;border-radius:12px;background:var(--band)"><p class="tag" style="color:var(--green)">主理</p><p style="font-size:28px;line-height:1.5">策略設計・AI 流程規劃・經驗設計・架構設計・程式軟體開發</p></div>
       <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 28px;border-radius:12px;background:var(--card)"><p class="tag" style="color:var(--green)">經歷</p><p style="font-size:28px;line-height:1.5">秦毅數位科技・&nbsp;緯育 Tibame・華碩電腦・樂天拍賣電商・資策會</p></div>
-      <div style="display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:center;padding:20px 28px;border-radius:12px;background:var(--band)"><p class="tag" style="color:var(--green)">聯絡</p><p style="font-size:28px;line-height:1.5">bryant@71next.com<br><span style="color:var(--muted);font-size:24px">LINE：掃右側 QR Code 加好友（@579mniea）</span></p><img src="assets/line-qr.svg" alt="LINE 加好友 QR Code（@579mniea）" style="width:150px;height:150px;border-radius:8px;background:#fff"></div>
+      <div style="display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:center;padding:20px 28px;border-radius:12px;background:var(--band)"><p class="tag" style="color:var(--green)">聯絡</p><p style="font-size:28px;line-height:1.5"><a href="mailto:bryant@71next.com" style="color:inherit;text-decoration-thickness:2px;text-underline-offset:6px">bryant@71next.com</a><br><span style="color:var(--muted);font-size:24px">LINE：掃右側 QR Code 加好友（@579mniea）</span></p><img src="assets/line-qr.svg" alt="LINE 加好友 QR Code（@579mniea）" style="width:150px;height:150px;border-radius:8px;background:#fff"></div>
     </div>
   </div>
   <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 3</p>
@@ -443,11 +443,35 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <svg class="icon" style="width:48px;height:48px;color:var(--orange-deep)"><use href="#i-warning"></use></svg>
     <p style="flex:1">Public 全世界都看得到：不要上傳會員名單、身分證字號、密碼等個資。</p>
   </div>
+  <p class="soft" style="font-size:28px">整個資料夾要上傳、或之後會常常更新？下一頁介紹用電腦 App 上傳的方式。</p>
   <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 14</p>
   <aside class="notes">練習素材建議：組織的活動說明 Markdown 檔或一張海報圖片。完成後示範點開 Commits 看到剛才的紀錄，連回第一段「Commit＝一次存檔」的觀念。網頁一次上傳單檔有大小限制，大型檔案請改用其他方式。也可以示範直接在網頁上編輯 README（鉛筆圖示）。</aside>
 </section>
 
-<!-- ========== 15. 如何找 GitHub 上的資源 ========== -->
+<!-- ========== 15. 用 App 上傳 ========== -->
+<section class="slide" aria-label="用 GitHub Desktop 或 VS Code 上傳" style="gap:22px">
+  <p class="kicker">四、上傳練習 · 進階（課後自學）</p>
+  <h2>另一種上傳方式：用電腦上的 App</h2>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;background:var(--ink);color:var(--slide-bg);border-radius:16px;padding:28px 40px">
+    <div><p class="tag" style="color:var(--orange)">第一次使用，先做一次</p><p style="font-size:30px;font-weight:700;margin-top:6px">安裝 Git，設定你的身分</p><p style="font-size:22px;color:var(--mist);margin-top:6px">git-scm.com 下載，一路「下一步」</p></div>
+    <div style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:24px;line-height:1.7;background:var(--navy-2);border-radius:10px;padding:16px 24px">
+      <p><span style="color:var(--mist)">git --version</span>　<span style="color:var(--green-light)"># 確認安裝成功</span></p>
+      <p>git config --global user.name "<span style="color:var(--peach)">你的名字</span>"</p>
+      <p>git config --global user.email "<span style="color:var(--peach)">你的 GitHub Email</span>"</p>
+    </div>
+  </div>
+  <div class="row" style="gap:28px">
+    <div class="card" style="padding:28px 36px;gap:10px;border-top:8px solid var(--green)"><h3 style="font-size:34px">GitHub Desktop</h3><p class="tag" style="color:var(--green);font-size:22px">不想打指令，選這個（desktop.github.com）</p>
+      <ol style="font-size:25px;line-height:1.6;padding-left:1.3em;color:var(--ink-soft)"><li>登入 GitHub 帳號</li><li>File → Clone repository，把 Repo 下載到電腦</li><li>把檔案放進那個資料夾</li><li>左下寫一句說明 → Commit to main</li><li>按上方 Push origin 上傳</li></ol></div>
+    <div class="card" style="padding:28px 36px;gap:10px;border-top:8px solid var(--orange-deep)"><h3 style="font-size:34px">VS Code</h3><p class="tag" style="color:var(--orange-deep);font-size:22px">已經在用 VS Code 編輯檔案，選這個</p>
+      <ol style="font-size:25px;line-height:1.6;padding-left:1.3em;color:var(--ink-soft)"><li>開啟從 GitHub Clone 下來的資料夾</li><li>左側「原始檔控制」圖示（Ctrl/⌘+Shift+G）</li><li>在檔案旁按 ＋ 加入暫存</li><li>輸入說明 → 按 Commit</li><li>按「同步變更」上傳，第一次會要求登入 GitHub</li></ol></div>
+  </div>
+  <p class="soft" style="font-size:24px">完整教學：<a href="https://bryant-huang.gitbook.io/git/git-she-zhi" target="_blank" rel="noopener" style="color:inherit;text-underline-offset:5px">bryant-huang.gitbook.io/git</a>（Git 設置 → Git 安裝、Git 基本配置）</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 15</p>
+  <aside class="notes">這頁是課後自學，課堂上帶過就好，不要求現場安裝。什麼時候改用 App：要上傳整個資料夾、檔案多或大（網頁上傳單檔上限 25MB）、之後會常常更新。git config 只要設定一次，名字與 Email 會記錄在每一次 Commit 上；Email 建議用 GitHub 帳號的 Email，Commit 才會連到你的帳號。GitHub Desktop 內建 Git，也可以在 Settings → Git 填名字與 Email，不一定要另外打指令。VS Code 需要先安裝 Git。查詢目前設定：git config --list。詳細步驟見講師的 Git 教學 bryant-huang.gitbook.io/git/git-she-zhi。</aside>
+</section>
+
+<!-- ========== 16. 如何找 GitHub 上的資源 ========== -->
 <section class="slide" aria-label="如何找 GitHub 上的資源" style="gap:32px">
   <p class="kicker">五、如何找 GitHub 上的資源</p>
   <h2>GitHub 搜尋不好用？換個方法找</h2>
@@ -458,11 +482,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <div class="card" style="padding:28px 36px;gap:8px;border-left:8px solid var(--mist)"><h3 style="font-size:34px">④ 請 AI 提名</h3><p>用中文描述需求，請 AI 推薦候選專案和搜尋語法，再回 GitHub 查證</p></div>
   </div>
   <p class="note-bar" style="font-size:28px">GitHub 站內搜尋只比對名稱、說明和 README 的文字，<b>不會猜你的需求</b>；用英文關鍵字，結果最多。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 15</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 16</p>
   <aside class="notes">先講為什麼站內搜尋常常找不到：它是比對文字，不是理解需求，中文描述多半搜不到。四種手法可以混用：AI 幫你想英文關鍵字與候選 → 用語法縮小範圍 → 找到一個好專案後，順著作者、組織、topic 找到同類專案。示範 github.com/topics/civic-tech，以及搜尋「awesome civic tech」。也可以用 Google 搜「site:github.com 關鍵字」。</aside>
 </section>
 
-<!-- ========== 16. 進階搜尋語法 ========== -->
+<!-- ========== 17. 進階搜尋語法 ========== -->
 <section class="slide" aria-label="進階搜尋語法" style="gap:24px">
   <p class="kicker">五、進階搜尋語法 · 找軟體工具</p>
   <h2>一行語法，直接找到你要的工具</h2>
@@ -481,11 +505,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     </tbody>
   </table>
   <p class="soft" style="font-size:24px;line-height:1.5">空格＝「而且」；<b>&gt;</b> 大於、<b>-</b> 排除；日期寫成 YYYY-MM-DD。<br>常用英文關鍵字：志工 volunteer・捐款 donation・會員 membership／CRM・表單 form・活動報名 event registration・庫存 inventory</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 16</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 17</p>
   <aside class="notes">這頁是第 11 頁的進階版，範例都是「找可以直接用的工具」。示範兩三個就好：topic:self-hosted 找可自己架的開源替代品、topic:android／topic:desktop-app 找可安裝的 App、awesome 找別人整理好的清單、-topic:library 排除給工程師用的程式庫。找到後看右側有沒有 Releases（可直接下載安裝）或 README 有沒有 Demo／線上版。最後一列示範看 Issues：有人回報問題、也有人回應，代表工具還活著。提醒同一行語法要在結果頁左側切到對的類型才看得到結果。</aside>
 </section>
 
-<!-- ========== 17. AI 三種幫手 ========== -->
+<!-- ========== 18. AI 三種幫手 ========== -->
 <section class="slide" aria-label="三種 AI 幫手">
   <p class="kicker">五、手法④：運用 AI 找資源</p>
   <h2>三種 AI 幫手，各管一段</h2>
@@ -494,11 +518,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <div class="card" style="padding:40px;gap:16px"><p class="tag" style="color:var(--orange-deep)">看懂時</p><h3 style="font-size:36px">DeepWiki</h3><p style="line-height:1.6">把網址的 github.com 換成 deepwiki.com，得到 AI 整理的專案說明，還能直接發問</p></div>
     <div class="card" style="padding:40px;gap:16px"><p class="tag" style="color:var(--ink)">站內問</p><h3 style="font-size:36px">GitHub Copilot Chat</h3><p style="line-height:1.6">GitHub 網頁內建，免費方案有每月對話額度，可針對眼前的專案提問</p></div>
   </div>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 17</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 18</p>
   <aside class="notes">示範順序：1) 在通用 AI 輸入需求，取得 3–5 個候選專案與搜尋語法；2) 每個候選都回 GitHub 確認真的存在；3) 對有興趣的專案開 DeepWiki（例：deepwiki.com/擁有者/專案名），問「這個專案要怎麼安裝？非工程師能用嗎？」。Copilot 免費方案目前每月約 50 次對話，額度與規則可能變動，課前請再確認 github.com/features/copilot/plans。DeepWiki 對公開專案免費。</aside>
 </section>
 
-<!-- ========== 18. 提示詞範本 ========== -->
+<!-- ========== 19. 提示詞範本 ========== -->
 <section class="slide dark" aria-label="提示詞範本" style="gap:36px">
   <p class="kicker">五、提示詞範本 · 可直接複製</p>
   <h2>說清楚「誰、要做什麼、限制」</h2>
@@ -510,11 +534,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   </div>
   <p style="color:var(--mist)">追問：「哪一個最不需要技術就能用？」「有沒有可以直接用的線上版？」</p>
   <p style="color:var(--peach);font-weight:700">AI 負責提名，你負責查證：網址逐一點開、授權看 License 檔、不要貼個資。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 18</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 19</p>
   <aside class="notes">實作 5 分鐘：學員把中括號換成自己組織的需求，貼到任一 AI 工具。挑一位學員分享 AI 給的結果，現場示範把它推薦的網址逐一點開驗證：AI 可能編造不存在的專案、星數與更新日期可能過時、授權要回 Repo 的 License 檔確認，提問時不要放會員名單、捐款紀錄等資料。</aside>
 </section>
 
-<!-- ========== 19. 上傳前注意 ========== -->
+<!-- ========== 20. 上傳前注意 ========== -->
 <section class="slide" aria-label="不要放上 GitHub 的資料" style="gap:24px">
   <p class="kicker">上傳前先想一想</p>
   <h2>這些東西，不要放上 GitHub</h2>
@@ -533,7 +557,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <p style="flex:1;font-size:27px;line-height:1.5"><b>刪掉不等於消失</b>：Commit 歷史會留著舊版，別人也可能已經 Fork 走。傳錯了先換密碼、換金鑰，再處理檔案。</p>
   </div>
   <button class="pop-btn" type="button" data-pop="pop-rules">GitHub 禁止哪些行為？ <span aria-hidden="true">→</span></button>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 19</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 20</p>
   <div class="pop" id="pop-rules" role="dialog" aria-modal="true" aria-label="GitHub 禁止的行為">
     <div class="pop-card">
       <button class="pop-close" type="button" aria-label="關閉">×</button>
@@ -553,7 +577,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">接續剛才的提示詞練習也提醒一次：AI 推薦的網址與授權要自己回 GitHub 查證，提問時也不要貼會員名單等個資。這頁的重點是「上傳」：剛才第 14 頁建 Repo 時就要想好。最常見的意外是把含有密碼或 API Key 的設定檔、或是含個資的 Excel 傳上去；就算馬上刪掉，Commit 歷史裡還找得到，所以第一件事是換密碼、換金鑰。Private repo 適合放內部草稿，但不是保險箱，個資還是不要放。點「GitHub 禁止哪些行為？」開彈窗，依 GitHub Acceptable Use Policies 與服務條款整理，課前可再確認 docs.github.com/site-policy。</aside>
 </section>
 
-<!-- ========== 20. 歸納重點 ========== -->
+<!-- ========== 21. 歸納重點 ========== -->
 <section class="slide green" aria-label="歸納重點" style="gap:36px">
   <p class="kicker">歸納重點</p>
   <h2>今日重點與 Q&amp;A</h2>
@@ -570,7 +594,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">最後 5 分鐘：請學員在聊天室留下一個今天收藏的專案與用途，作為課後交流清單。可邀請大家參加 g0v 黑客松或線上社群持續交流。</aside>
 </section>
 
-<!-- ========== 21. 感謝 ========== -->
+<!-- ========== 22. 感謝 ========== -->
 <section class="slide dark center" aria-label="感謝參與" style="gap:48px">
   <div style="position:absolute;left:0;top:0;width:24px;height:1080px;background:var(--orange)"></div>
   <p class="kicker" style="font-size:32px;letter-spacing:4px">THANK YOU</p>
@@ -579,8 +603,8 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <div style="display:flex;align-items:center;gap:56px;background:var(--navy-2);border-radius:20px;padding:40px 48px;align-self:flex-start">
     <div style="display:flex;flex-direction:column;gap:14px">
       <p style="font-size:30px;color:var(--mist)">黃瀚霆 Bryant · 秦毅數位科技</p>
-      <p style="font-size:44px;font-weight:700;color:var(--peach)">71next.com</p>
-      <p style="font-size:30px">bryant@71next.com</p>
+      <p style="font-size:44px;font-weight:700;color:var(--peach)"><a href="https://71next.com" target="_blank" rel="noopener" style="color:inherit;text-decoration-thickness:2px;text-underline-offset:6px">71next.com</a></p>
+      <p style="font-size:30px"><a href="mailto:bryant@71next.com" style="color:inherit;text-decoration-thickness:2px;text-underline-offset:6px">bryant@71next.com</a></p>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
       <img src="assets/line-qr.svg" alt="LINE 加好友 QR Code（@579mniea）" style="width:200px;height:200px;border-radius:12px;background:#fff;padding:8px">
@@ -595,7 +619,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
 
 <nav class="deck-controls" aria-label="簡報控制" data-keep="">
   <button id="prevBtn" aria-label="上一頁">‹</button>
-  <span id="counter">1 / 21</span>
+  <span id="counter">1 / 22</span>
   <button id="nextBtn" aria-label="下一頁">›</button>
   <span style="opacity:.7">｜N 備註・E 編輯</span>
 </nav>
