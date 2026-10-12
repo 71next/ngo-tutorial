@@ -6,7 +6,7 @@
 
 | 檔案 | 用途 | 使用方式 |
 |---|---|---|
-| [`slides/index.html`](slides/index.html) | 上課簡報，19 頁，含講者備註 | 用瀏覽器開啟；方向鍵翻頁、N 顯示備註、E 編輯模式、Ctrl/⌘+S 下載修改後的檔案 |
+| [`slides/index.html`](slides/index.html) | 上課簡報，21 頁，含講者備註 | 用瀏覽器開啟；方向鍵翻頁、N 顯示備註、E 編輯模式、Ctrl/⌘+S 下載修改後的檔案 |
 | [`guide/README.md`](guide/README.md) | 講師教案：時間分配、各單元講稿與操作步驟、常見問題 | 課前備課、上課時對照 |
 | [`guide/Search.md`](guide/Search.md) | GitHub 搜尋語法完整筆記（含程式碼搜尋、regex） | 講義附錄第 12–17 頁的來源；修改後需同步講義 |
 | [`discussion/index.html`](discussion/index.html) | 講座後問題討論：報名回覆整理成 9 個討論題，附代表性回答原文與可對照的教材頁碼 | 講座後交流時投影或分享；Markdown 版為 [`discussion/responses.md`](discussion/responses.md) |
@@ -64,13 +64,13 @@
 
 | 時間 | 單元 | 形式 | 簡報頁 | 講義頁 |
 |---|---|---|---|---|
-| 00–05 | 開場：課程目標與流程 | 講述 | 1–3 | 1 |
-| 05–20 | 一、GitHub 觀念與基本術語 | 講述＋比喻 | 4–5 | 2 |
-| 20–35 | 二、導覽 GitHub 平台介面 | 螢幕示範 | 6 | 3 |
-| 35–50 | 三、導覽 Repository 頁面與健康檢查 | 示範＋檢查表 | 7–9 | 3–5 |
-| 50–75 | 四、搜尋、下載、上傳練習 | 實作 | 10–13 | 5–6、8–9 |
-| 75–85 | 五、如何找資源：語法、清單與 AI；上傳前注意 | 示範＋實作 | 14–18 | 7、9–10 |
-| 85–90 | 歸納重點與 Q&A | 交流 | 19 | 11 |
+| 00–05 | 開場：課程目標與流程 | 講述 | 1–4 | 1 |
+| 05–20 | 一、GitHub 觀念與基本術語 | 講述＋比喻 | 5–6 | 2 |
+| 20–35 | 二、導覽 GitHub 平台介面 | 螢幕示範 | 7 | 3 |
+| 35–50 | 三、導覽 Repository 頁面與健康檢查 | 示範＋檢查表 | 8–10 | 3–5 |
+| 50–75 | 四、搜尋、下載、上傳練習 | 實作 | 11–14 | 5–6、8–9 |
+| 75–85 | 五、如何找資源：語法、清單與 AI；上傳前注意 | 示範＋實作 | 15–19 | 7、9–10 |
+| 85–90 | 歸納重點與 Q&A | 交流 | 20–21 | 11 |
 
 時間不夠時的刪減順序：先縮短第二單元的 Explore／Trending 示範，再把上傳練習改為講師示範。各單元的講稿重點見 [講師教案](guide/README.md)。
 
@@ -80,23 +80,25 @@
 |---|---|---|
 | 1 | 封面 | 課名、副標、講師／日期／主辦單位（待填） |
 | 2 | 今天的 90 分鐘 | 七段流程與形式 |
-| 3 | 為什麼公民組織需要懂 GitHub | 省錢、借鏡、協作 |
-| 4 | 十個一定會看到的詞 | Repository、README、Commit、Branch、Fork、Star、Issue、PR、Release、License |
-| 5 | 把 GitHub 想成一座公共圖書館 | Git＝版本管理工具；GitHub＝線上平台 |
-| 6 | 登入後，先認識這四個入口 | 搜尋列、Explore／Trending、Topics、個人／組織頁；彈窗說明 Explore 各分頁、Marketplace 是什麼 |
-| 7 | 一個專案頁面，從上看到下 | 真實截圖（可捲動到 README）標出 ①–⑦ 位置；先看 README、License、最後 Commit 時間 |
-| 8 | 選用前的六項健康檢查 | 維護、授權、說明、使用、回應、下載 |
-| 9 | 常見授權一次看懂 | MIT、Apache 2.0、GPL-3.0、AGPL-3.0、CC 授權、沒有 License 各代表什麼 |
-| 10 | 關鍵字＋篩選條件 | topic、stars、pushed、license、org、language 與組合範例 |
-| 11 | 動手練習：幫你的組織找一個工具 | 三個任務 |
-| 12 | 三種「拿回來」的方式 | Releases、Download ZIP、Fork；彈窗比較 Tag 與 Release |
-| 13 | 用網頁建立第一個 Repo 並上傳檔案 | 四個步驟與個資提醒 |
-| 14 | GitHub 搜尋不好用？換個方法找 | 四種手法：搜尋語法、主題與 awesome 清單、順著組織與人找、請 AI 提名 |
-| 15 | 一行語法，直接找到你要的工具 | 找軟體工具的進階語法：stars、pushed、archived、topic:self-hosted／android、license、org、awesome、-topic、is:issue；常用英文關鍵字 |
-| 16 | 三種 AI 幫手，各管一段 | 通用 AI 聊天、DeepWiki、GitHub Copilot Chat |
-| 17 | 提示詞範本 | 誰、要做什麼、限制；AI 負責提名，你負責查證 |
-| 18 | 這些東西，不要放上 GitHub | 個資、密碼與金鑰、內部文件、沒有權利的素材、大檔案；刪掉不等於消失；彈窗說明 GitHub 禁止的行為 |
-| 19 | 帶走這五件事 | 重點歸納、Q&A、課後資源 |
+| 3 | 講師介紹 | 照片、秦毅數位科技負責人、主理項目、經歷、聯絡方式 |
+| 4 | 為什麼公民組織需要懂 GitHub | 省錢、借鏡、協作 |
+| 5 | 十個一定會看到的詞 | Repository、README、Commit、Branch、Fork、Star、Issue、PR、Release、License |
+| 6 | 把 GitHub 想成一座公共圖書館 | Git＝版本管理工具；GitHub＝線上平台 |
+| 7 | 登入後，先認識這四個入口 | 搜尋列、Explore／Trending、Topics、個人／組織頁；彈窗說明 Explore 各分頁、Marketplace 是什麼 |
+| 8 | 一個專案頁面，從上看到下 | 真實截圖（可捲動到 README）標出 ①–⑦ 位置；先看 README、License、最後 Commit 時間 |
+| 9 | 選用前的六項健康檢查 | 維護、授權、說明、使用、回應、下載 |
+| 10 | 常見授權一次看懂 | MIT、Apache 2.0、GPL-3.0、AGPL-3.0、CC 授權、沒有 License 各代表什麼 |
+| 11 | 關鍵字＋篩選條件 | topic、stars、pushed、license、org、language 與組合範例 |
+| 12 | 動手練習：幫你的組織找一個工具 | 三個任務 |
+| 13 | 三種「拿回來」的方式 | Releases、Download ZIP、Fork；彈窗比較 Tag 與 Release |
+| 14 | 用網頁建立第一個 Repo 並上傳檔案 | 四個步驟與個資提醒 |
+| 15 | GitHub 搜尋不好用？換個方法找 | 四種手法：搜尋語法、主題與 awesome 清單、順著組織與人找、請 AI 提名 |
+| 16 | 一行語法，直接找到你要的工具 | 找軟體工具的進階語法：stars、pushed、archived、topic:self-hosted／android、license、org、awesome、-topic、is:issue；常用英文關鍵字 |
+| 17 | 三種 AI 幫手，各管一段 | 通用 AI 聊天、DeepWiki、GitHub Copilot Chat |
+| 18 | 提示詞範本 | 誰、要做什麼、限制；AI 負責提名，你負責查證 |
+| 19 | 這些東西，不要放上 GitHub | 個資、密碼與金鑰、內部文件、沒有權利的素材、大檔案；刪掉不等於消失；彈窗說明 GitHub 禁止的行為 |
+| 20 | 今日重點與 Q&A | 五項重點、Q&A、講座後問題討論頁連結、課後資源 |
+| 21 | 謝謝大家今天的參與 | 結語、公司網址 71next.com、Email、LINE 加好友 QR Code |
 
 ## 6. 講義頁次
 
@@ -127,7 +129,7 @@
 
 ## 8. （選用）公司與服務露出
 
-新版簡報與講義目前沒有放入公司介紹；需要時可加在簡報第 19 頁與講義第 11 頁。
+簡報第 3 頁（講師介紹）與第 21 頁（結語）已放入公司與聯絡方式；講義目前沒有，需要時可加在講義第 11 頁。
 
 **建議定位：**
 

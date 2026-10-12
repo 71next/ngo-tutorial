@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@600;700&amp;display=swap" rel="stylesheet">
-<style data-keep>
+<style data-keep="">
 /* ===========================================
    THEME：深藍封面、米白內頁、深綠小標、橘色重點
    改這裡就能換整套配色
@@ -113,7 +113,7 @@ body.show-notes .slide.active .notes { display: block; position: absolute; left:
 .edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
 .edit-toggle.active { background: var(--orange); color: #fff; }
 body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outline-offset: 4px; }
-/* ===== 可捲動的截圖＋編號標註（第 7 頁） ===== */
+/* ===== 可捲動的截圖＋編號標註（第 8 頁） ===== */
 .shot { width: 871px; height: 520px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgba(31,42,55,.12); background: #fff; scrollbar-width: thin; scrollbar-color: var(--orange) var(--band); }
 .shot::-webkit-scrollbar { width: 12px; }
 .shot::-webkit-scrollbar-track { background: var(--band); }
@@ -134,12 +134,12 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
 </head>
 <body>
 
-<div class="progress" id="progress" data-keep></div>
-<div class="edit-hotzone" aria-hidden="true" data-keep></div>
-<button class="edit-toggle" id="editToggle" data-keep title="編輯模式（E）；Ctrl/⌘+S 存回原檔">✏️ 編輯</button>
+<div class="progress" id="progress" data-keep=""></div>
+<div class="edit-hotzone" aria-hidden="true" data-keep=""></div>
+<button class="edit-toggle" id="editToggle" data-keep="" title="編輯模式（E）；Ctrl/⌘+S 存回原檔">✏️ 編輯</button>
 
 <!-- 線條圖示（Search / Globe / Book / Users / Warning） -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" data-keep>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" data-keep="">
   <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></symbol>
   <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"></path><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"></path></symbol>
@@ -147,7 +147,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <symbol id="i-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></symbol>
 </svg>
 
-<div class="deck-viewport" data-keep>
+<div class="deck-viewport" data-keep="">
 <main class="deck-stage" id="deckStage">
 
 <!-- ========== 1. 封面 ========== -->
@@ -178,7 +178,24 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">告訴學員：前半段聽懂名詞與介面，後半段自己動手。實作段落最長（25 分鐘），請大家準備好瀏覽器與已登入的 GitHub 帳號。</aside>
 </section>
 
-<!-- ========== 3. 為什麼要懂 GitHub ========== -->
+<!-- ========== 3. 講師介紹 ========== -->
+<section class="slide" aria-label="講師介紹" style="gap:40px">
+  <p class="kicker">講師介紹</p>
+  <div style="display:flex;gap:72px;align-items:center">
+    <img src="assets/bryant.jpg" alt="講師黃瀚霆的大頭照" style="flex:none;width:460px;height:572px;object-fit:cover;border-radius:24px;border:1px solid var(--line);box-shadow:0 12px 32px rgba(31,42,55,.12)">
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0">黃瀚霆 <span style="font-family:var(--font-body);font-size:40px;font-weight:500;color:var(--muted)">Bryant</span></h2>
+      <p style="font-size:36px;font-weight:700;color:var(--orange-deep);margin-bottom:12px">秦毅數位科技 負責人</p>
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 28px;border-radius:12px;background:var(--band)"><p class="tag" style="color:var(--green)">主理</p><p style="font-size:28px;line-height:1.5">策略設計・AI 流程規劃・經驗設計・架構設計・程式軟體開發</p></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;padding:20px 28px;border-radius:12px;background:var(--card)"><p class="tag" style="color:var(--green)">經歷</p><p style="font-size:28px;line-height:1.5">秦毅數位科技・&nbsp;緯育 Tibame・華碩電腦・樂天拍賣電商・資策會</p></div>
+      <div style="display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:center;padding:20px 28px;border-radius:12px;background:var(--band)"><p class="tag" style="color:var(--green)">聯絡</p><p style="font-size:28px;line-height:1.5">bryant@71next.com<br><span style="color:var(--muted);font-size:24px">LINE：掃右側 QR Code 加好友（@579mniea）</span></p><img src="assets/line-qr.svg" alt="LINE 加好友 QR Code（@579mniea）" style="width:150px;height:150px;border-radius:8px;background:#fff"></div>
+    </div>
+  </div>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 3</p>
+  <aside class="notes">自我介紹約 1 分鐘：背景、平時協助組織解決哪些問題、為什麼想開這堂課。可以順勢問大家：「你的組織最近想做但沒預算做的工具是什麼？」請學員打在聊天室，後面練習會用到。</aside>
+</section>
+
+<!-- ========== 4. 為什麼要懂 GitHub ========== -->
 <section class="slide green center" aria-label="為什麼公民組織需要懂 GitHub" style="gap:56px">
   <p class="kicker">為什麼需要懂 GitHub</p>
   <h2 style="font-size:80px;line-height:1.3">你想做的工具，<br>很可能已經有人做好、免費公開了。</h2>
@@ -190,7 +207,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">舉例：台灣的 g0v 零時政府社群把許多公民科技專案放在 GitHub（github.com/g0v），例如政府預算視覺化、開放資料工具。公民組織常需要的報名表單、地圖、問卷、網站模板，在 GitHub 上都找得到開源版本。</aside>
 </section>
 
-<!-- ========== 4. 十個詞 ========== -->
+<!-- ========== 5. 十個詞 ========== -->
 <section class="slide" aria-label="十個一定會看到的詞" style="gap:36px">
   <p class="kicker">一、觀念與術語</p>
   <h2>十個一定會看到的詞</h2>
@@ -207,11 +224,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <tr><td>Release</td><td>發行版</td><td>打包好、可直接下載的正式版本</td></tr>
     <tr class="band"><td>License</td><td>授權條款</td><td>決定你能不能用、能不能改、能不能商用</td></tr>
   </tbody></table>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 4</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 5</p>
   <aside class="notes">不需要背，先認得。今天找資源最常用的是 Repository、README、Star、Release、License 這五個；Commit、Branch、PR 是協作時才會深入用到。</aside>
 </section>
 
-<!-- ========== 5. 公共圖書館比喻 ========== -->
+<!-- ========== 6. 公共圖書館比喻 ========== -->
 <section class="slide" aria-label="把 GitHub 想成一座公共圖書館">
   <p class="kicker">一、觀念與術語</p>
   <h2>把 GitHub 想成一座大型公共圖書館</h2>
@@ -220,11 +237,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <div class="card" style="padding:44px;gap:20px"><h3 style="font-size:40px;color:var(--orange-deep)">GitHub＝線上平台</h3><p style="font-size:30px;line-height:1.6">存放 Git 專案的雲端圖書館。每個 Repo 是一本書，README 是書的封底簡介，Star 是讀者評分。</p></div>
   </div>
   <p class="note-bar">今天只用 GitHub 網頁，不需要安裝 Git。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 5</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 6</p>
   <aside class="notes">延伸比喻：Fork 像影印一本書帶回家自己加註；Issue 像在圖書館意見箱留言；Pull Request 像寫信給作者「我幫你改了錯字，要不要收進下一版」。</aside>
 </section>
 
-<!-- ========== 6. 平台介面四個入口 ========== -->
+<!-- ========== 7. 平台介面四個入口 ========== -->
 <section class="slide" aria-label="平台介面導覽">
   <p class="kicker">二、平台介面導覽</p>
   <h2>登入後，先認識這四個入口</h2>
@@ -238,7 +255,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <button class="pop-btn" type="button" data-pop="pop-explore">Explore 裡有什麼？ <span aria-hidden="true">→</span></button>
     <button class="pop-btn" type="button" data-pop="pop-market" style="background:var(--band)">Marketplace 是什麼？ <span aria-hidden="true">→</span></button>
   </div>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 6</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 7</p>
   <div class="pop" id="pop-explore" role="dialog" aria-modal="true" aria-label="Explore 各分頁">
     <div class="pop-card">
       <button class="pop-close" type="button" aria-label="關閉">×</button>
@@ -275,7 +292,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">螢幕示範 15 分鐘：1) 登入後的首頁（Dashboard）；2) 右上角頭像選單：Your profile、Your repositories、Your stars；3) 點開 Explore 與 Trending；4) 開 github.com/topics/civic-tech 與 github.com/topics/open-data；5) 開 g0v 組織頁。提醒：介面可切換成深色模式，但沒有官方中文介面，可用瀏覽器內建翻譯。兩顆按鈕開彈窗補充：Explore 各分頁的用途（重點：找工具時 Topics 最有用）；Marketplace 是 GitHub 的外掛商店（Apps、Actions），不是開源軟體商店，學員常誤會。</aside>
 </section>
 
-<!-- ========== 7. Repository 頁面導覽 ========== -->
+<!-- ========== 8. Repository 頁面導覽 ========== -->
 <section class="slide" aria-label="Repository 頁面導覽" style="gap:32px">
   <p class="kicker">三、Repository 頁面導覽</p>
   <h2>一個專案頁面，從上看到下</h2>
@@ -311,11 +328,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
       </div>
     </div>
   </div>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 7</p>
-  <aside class="notes">示範用一個實際專案頁面，依編號逐一點出位置。強調右側 About 欄常有官方網站連結、主題標籤；Releases 是不會寫程式的人最方便的下載處。Insights 分頁裡的 Contributors 可看有多少人在參與。這張截圖的專案有 MIT 授權、最後更新 2 years ago，可以跟第 8 頁的健康檢查對照。</aside>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 8</p>
+  <aside class="notes">示範用一個實際專案頁面，依編號逐一點出位置。強調右側 About 欄常有官方網站連結、主題標籤；Releases 是不會寫程式的人最方便的下載處。Insights 分頁裡的 Contributors 可看有多少人在參與。這張截圖的專案有 MIT 授權、最後更新 2 years ago，可以跟第 9 頁的健康檢查對照。</aside>
 </section>
 
-<!-- ========== 8. 六項健康檢查 ========== -->
+<!-- ========== 9. 六項健康檢查 ========== -->
 <section class="slide" aria-label="選用前的六項健康檢查" style="gap:36px">
   <p class="kicker">三、怎麼選</p>
   <h2>選用前的六項健康檢查</h2>
@@ -328,11 +345,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <tr><td>問題有回應</td><td>Issues 分頁</td><td>近期問題有作者回覆</td></tr>
     <tr class="band"><td>能直接下載</td><td>Releases</td><td>有打包好的版本，非技術人員較易上手</td></tr>
   </tbody></table>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 8</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 9</p>
   <aside class="notes">強調 License：GitHub 官方說明，沒有授權條款的專案預設保留所有權利，看得到不代表可以拿來用。GPL 類授權若修改後再散布，需以相同授權公開。組織若要正式採用，建議請懂授權的夥伴再確認一次。</aside>
 </section>
 
-<!-- ========== 9. 常見授權 ========== -->
+<!-- ========== 10. 常見授權 ========== -->
 <section class="slide" aria-label="常見授權一次看懂" style="gap:28px">
   <p class="kicker">三、怎麼選 · 授權</p>
   <h2>常見授權一次看懂</h2>
@@ -346,11 +363,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <tr class="band"><td><b>沒有 License</b></td><td><b style="color:var(--orange-deep)">預設保留所有權利</b></td><td>只能看、不能拿來改用或散布；想用請先寫信問作者，或找有授權的替代品</td></tr>
   </tbody></table>
   <p style="font-size:24px;color:var(--ink-soft)">在 Repo 右側 About 下方，或檔案列表裡的 LICENSE 檔查看。看不懂可到 <b>choosealicense.com</b> 查（GitHub 官方的授權說明網站）。以上為簡化說明，正式採用前請懂授權的夥伴確認原文。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 9</p>
-  <aside class="notes">重點只講兩件事：一、MIT、Apache 這類「寬鬆」授權，組織拿來用、改、甚至商用都可以，記得保留原作者聲明；二、GPL、AGPL 這類「互惠」授權也能用，但如果把修改後的版本發給別人（AGPL 連放上網站給人用也算），就要用同樣授權公開原始碼。只在組織內部自己用，通常不受影響。文件、圖片、資料常見 CC 授權，看縮寫：BY 標示出處、NC 不可商用、ND 不可改作、SA 相同方式分享。最後提醒：沒有 License 不等於免費，預設是作者保留所有權利。可以回頭對照第 7 頁截圖右側的「MIT license」。</aside>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 10</p>
+  <aside class="notes">重點只講兩件事：一、MIT、Apache 這類「寬鬆」授權，組織拿來用、改、甚至商用都可以，記得保留原作者聲明；二、GPL、AGPL 這類「互惠」授權也能用，但如果把修改後的版本發給別人（AGPL 連放上網站給人用也算），就要用同樣授權公開原始碼。只在組織內部自己用，通常不受影響。文件、圖片、資料常見 CC 授權，看縮寫：BY 標示出處、NC 不可商用、ND 不可改作、SA 相同方式分享。最後提醒：沒有 License 不等於免費，預設是作者保留所有權利。可以回頭對照第 8 頁截圖右側的「MIT license」。</aside>
 </section>
 
-<!-- ========== 10. 搜尋語法 ========== -->
+<!-- ========== 11. 搜尋語法 ========== -->
 <section class="slide" aria-label="搜尋語法" style="gap:36px">
   <p class="kicker">四、搜尋練習</p>
   <h2>關鍵字＋篩選條件，結果更精準</h2>
@@ -365,11 +382,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <tr><td><b>language:javascript</b></td><td>指定程式語言</td></tr>
   </tbody></table>
   <p style="background:var(--ink);color:var(--slide-bg);padding:24px 32px;border-radius:12px">組合範例：<b>donation topic:nonprofit stars:&gt;50 pushed:&gt;2025-10-01</b></p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 10</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 11</p>
   <aside class="notes">示範：搜尋後左側可切換 Repositories、Code、Issues 等結果類型，右上可依 Most stars、Recently updated 排序。不記得語法時，搜尋結果頁也有篩選選項可以點。中文關鍵字也可以搜，但結果較少，建議中英文都試。</aside>
 </section>
 
-<!-- ========== 11. 動手練習 ========== -->
+<!-- ========== 12. 動手練習 ========== -->
 <section class="slide orange" aria-label="動手練習">
   <p class="kicker">動手練習 · 10 分鐘</p>
   <h2 style="font-size:72px">為自己的組織找一個工具</h2>
@@ -382,7 +399,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">巡場：線上課請學員開分享畫面或貼網址。常見卡關：搜尋框忘了切到 Repositories 結果、日期格式要寫成 YYYY-MM-DD。挑一兩位分享，帶大家一起用檢查表看他找到的專案。</aside>
 </section>
 
-<!-- ========== 12. 下載 ========== -->
+<!-- ========== 13. 下載 ========== -->
 <section class="slide" aria-label="三種拿回來的方式">
   <p class="kicker">四、下載練習</p>
   <h2>三種「拿回來」的方式</h2>
@@ -393,7 +410,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   </div>
   <button class="pop-btn" type="button" data-pop="pop-tag">Tag 跟 Release 有什麼不同？ <span aria-hidden="true">→</span></button>
   <p class="soft">單一檔案：點開檔案 → 右上角「Download raw file」圖示。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 12</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 13</p>
   <div class="pop" id="pop-tag" role="dialog" aria-modal="true" aria-label="Tag 與 Release 的差異">
     <div class="pop-card">
       <button class="pop-close" type="button" aria-label="關閉">×</button>
@@ -412,7 +429,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <aside class="notes">實作 5 分鐘：每人對剛剛收藏的專案試一次 Download ZIP，並找一個有 Releases 的專案看 Assets。點「Tag 跟 Release 有什麼不同？」開彈窗（Esc 或點外面關閉）：Tag 只是幫某次 Commit 貼上版本號（例如 v1.2.0）的書籤；Release 是 GitHub 在 Tag 上加的說明頁，可以附上安裝檔。提醒資安：只從可信任、星數與維護狀況良好的專案下載執行檔；下載後用防毒軟體掃描。</aside>
 </section>
 
-<!-- ========== 13. 上傳 ========== -->
+<!-- ========== 14. 上傳 ========== -->
 <section class="slide" aria-label="建立第一個 Repo 並上傳檔案">
   <p class="kicker">四、上傳練習 · 10 分鐘</p>
   <h2>用網頁建立第一個 Repo 並上傳檔案</h2>
@@ -426,11 +443,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <svg class="icon" style="width:48px;height:48px;color:var(--orange-deep)"><use href="#i-warning"></use></svg>
     <p style="flex:1">Public 全世界都看得到：不要上傳會員名單、身分證字號、密碼等個資。</p>
   </div>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 13</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 14</p>
   <aside class="notes">練習素材建議：組織的活動說明 Markdown 檔或一張海報圖片。完成後示範點開 Commits 看到剛才的紀錄，連回第一段「Commit＝一次存檔」的觀念。網頁一次上傳單檔有大小限制，大型檔案請改用其他方式。也可以示範直接在網頁上編輯 README（鉛筆圖示）。</aside>
 </section>
 
-<!-- ========== 14. 如何找 GitHub 上的資源 ========== -->
+<!-- ========== 15. 如何找 GitHub 上的資源 ========== -->
 <section class="slide" aria-label="如何找 GitHub 上的資源" style="gap:32px">
   <p class="kicker">五、如何找 GitHub 上的資源</p>
   <h2>GitHub 搜尋不好用？換個方法找</h2>
@@ -441,11 +458,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <div class="card" style="padding:28px 36px;gap:8px;border-left:8px solid var(--mist)"><h3 style="font-size:34px">④ 請 AI 提名</h3><p>用中文描述需求，請 AI 推薦候選專案和搜尋語法，再回 GitHub 查證</p></div>
   </div>
   <p class="note-bar" style="font-size:28px">GitHub 站內搜尋只比對名稱、說明和 README 的文字，<b>不會猜你的需求</b>；用英文關鍵字，結果最多。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 14</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 15</p>
   <aside class="notes">先講為什麼站內搜尋常常找不到：它是比對文字，不是理解需求，中文描述多半搜不到。四種手法可以混用：AI 幫你想英文關鍵字與候選 → 用語法縮小範圍 → 找到一個好專案後，順著作者、組織、topic 找到同類專案。示範 github.com/topics/civic-tech，以及搜尋「awesome civic tech」。也可以用 Google 搜「site:github.com 關鍵字」。</aside>
 </section>
 
-<!-- ========== 15. 進階搜尋語法 ========== -->
+<!-- ========== 16. 進階搜尋語法 ========== -->
 <section class="slide" aria-label="進階搜尋語法" style="gap:24px">
   <p class="kicker">五、進階搜尋語法 · 找軟體工具</p>
   <h2>一行語法，直接找到你要的工具</h2>
@@ -464,11 +481,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     </tbody>
   </table>
   <p class="soft" style="font-size:24px;line-height:1.5">空格＝「而且」；<b>&gt;</b> 大於、<b>-</b> 排除；日期寫成 YYYY-MM-DD。<br>常用英文關鍵字：志工 volunteer・捐款 donation・會員 membership／CRM・表單 form・活動報名 event registration・庫存 inventory</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 15</p>
-  <aside class="notes">這頁是第 10 頁的進階版，範例都是「找可以直接用的工具」。示範兩三個就好：topic:self-hosted 找可自己架的開源替代品、topic:android／topic:desktop-app 找可安裝的 App、awesome 找別人整理好的清單、-topic:library 排除給工程師用的程式庫。找到後看右側有沒有 Releases（可直接下載安裝）或 README 有沒有 Demo／線上版。最後一列示範看 Issues：有人回報問題、也有人回應，代表工具還活著。提醒同一行語法要在結果頁左側切到對的類型才看得到結果。</aside>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 16</p>
+  <aside class="notes">這頁是第 11 頁的進階版，範例都是「找可以直接用的工具」。示範兩三個就好：topic:self-hosted 找可自己架的開源替代品、topic:android／topic:desktop-app 找可安裝的 App、awesome 找別人整理好的清單、-topic:library 排除給工程師用的程式庫。找到後看右側有沒有 Releases（可直接下載安裝）或 README 有沒有 Demo／線上版。最後一列示範看 Issues：有人回報問題、也有人回應，代表工具還活著。提醒同一行語法要在結果頁左側切到對的類型才看得到結果。</aside>
 </section>
 
-<!-- ========== 16. AI 三種幫手 ========== -->
+<!-- ========== 17. AI 三種幫手 ========== -->
 <section class="slide" aria-label="三種 AI 幫手">
   <p class="kicker">五、手法④：運用 AI 找資源</p>
   <h2>三種 AI 幫手，各管一段</h2>
@@ -477,11 +494,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <div class="card" style="padding:40px;gap:16px"><p class="tag" style="color:var(--orange-deep)">看懂時</p><h3 style="font-size:36px">DeepWiki</h3><p style="line-height:1.6">把網址的 github.com 換成 deepwiki.com，得到 AI 整理的專案說明，還能直接發問</p></div>
     <div class="card" style="padding:40px;gap:16px"><p class="tag" style="color:var(--ink)">站內問</p><h3 style="font-size:36px">GitHub Copilot Chat</h3><p style="line-height:1.6">GitHub 網頁內建，免費方案有每月對話額度，可針對眼前的專案提問</p></div>
   </div>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 16</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 17</p>
   <aside class="notes">示範順序：1) 在通用 AI 輸入需求，取得 3–5 個候選專案與搜尋語法；2) 每個候選都回 GitHub 確認真的存在；3) 對有興趣的專案開 DeepWiki（例：deepwiki.com/擁有者/專案名），問「這個專案要怎麼安裝？非工程師能用嗎？」。Copilot 免費方案目前每月約 50 次對話，額度與規則可能變動，課前請再確認 github.com/features/copilot/plans。DeepWiki 對公開專案免費。</aside>
 </section>
 
-<!-- ========== 17. 提示詞範本 ========== -->
+<!-- ========== 18. 提示詞範本 ========== -->
 <section class="slide dark" aria-label="提示詞範本" style="gap:36px">
   <p class="kicker">五、提示詞範本 · 可直接複製</p>
   <h2>說清楚「誰、要做什麼、限制」</h2>
@@ -493,11 +510,11 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   </div>
   <p style="color:var(--mist)">追問：「哪一個最不需要技術就能用？」「有沒有可以直接用的線上版？」</p>
   <p style="color:var(--peach);font-weight:700">AI 負責提名，你負責查證：網址逐一點開、授權看 License 檔、不要貼個資。</p>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 17</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 18</p>
   <aside class="notes">實作 5 分鐘：學員把中括號換成自己組織的需求，貼到任一 AI 工具。挑一位學員分享 AI 給的結果，現場示範把它推薦的網址逐一點開驗證：AI 可能編造不存在的專案、星數與更新日期可能過時、授權要回 Repo 的 License 檔確認，提問時不要放會員名單、捐款紀錄等資料。</aside>
 </section>
 
-<!-- ========== 18. 上傳前注意 ========== -->
+<!-- ========== 19. 上傳前注意 ========== -->
 <section class="slide" aria-label="不要放上 GitHub 的資料" style="gap:24px">
   <p class="kicker">上傳前先想一想</p>
   <h2>這些東西，不要放上 GitHub</h2>
@@ -516,7 +533,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <p style="flex:1;font-size:27px;line-height:1.5"><b>刪掉不等於消失</b>：Commit 歷史會留著舊版，別人也可能已經 Fork 走。傳錯了先換密碼、換金鑰，再處理檔案。</p>
   </div>
   <button class="pop-btn" type="button" data-pop="pop-rules">GitHub 禁止哪些行為？ <span aria-hidden="true">→</span></button>
-  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 18</p>
+  <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 19</p>
   <div class="pop" id="pop-rules" role="dialog" aria-modal="true" aria-label="GitHub 禁止的行為">
     <div class="pop-card">
       <button class="pop-close" type="button" aria-label="關閉">×</button>
@@ -533,13 +550,13 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
       <p class="note-bar" style="font-size:28px">違反規定，GitHub 可以隱藏內容、停用 Repo，甚至停權帳號。</p>
     </div>
   </div>
-  <aside class="notes">接續剛才的提示詞練習也提醒一次：AI 推薦的網址與授權要自己回 GitHub 查證，提問時也不要貼會員名單等個資。這頁的重點是「上傳」：剛才第 13 頁建 Repo 時就要想好。最常見的意外是把含有密碼或 API Key 的設定檔、或是含個資的 Excel 傳上去；就算馬上刪掉，Commit 歷史裡還找得到，所以第一件事是換密碼、換金鑰。Private repo 適合放內部草稿，但不是保險箱，個資還是不要放。點「GitHub 禁止哪些行為？」開彈窗，依 GitHub Acceptable Use Policies 與服務條款整理，課前可再確認 docs.github.com/site-policy。</aside>
+  <aside class="notes">接續剛才的提示詞練習也提醒一次：AI 推薦的網址與授權要自己回 GitHub 查證，提問時也不要貼會員名單等個資。這頁的重點是「上傳」：剛才第 14 頁建 Repo 時就要想好。最常見的意外是把含有密碼或 API Key 的設定檔、或是含個資的 Excel 傳上去；就算馬上刪掉，Commit 歷史裡還找得到，所以第一件事是換密碼、換金鑰。Private repo 適合放內部草稿，但不是保險箱，個資還是不要放。點「GitHub 禁止哪些行為？」開彈窗，依 GitHub Acceptable Use Policies 與服務條款整理，課前可再確認 docs.github.com/site-policy。</aside>
 </section>
 
-<!-- ========== 19. 歸納重點 ========== -->
+<!-- ========== 20. 歸納重點 ========== -->
 <section class="slide green" aria-label="歸納重點" style="gap:36px">
   <p class="kicker">歸納重點</p>
-  <h2>帶走這五件事</h2>
+  <h2>今日重點與 Q&amp;A</h2>
   <ol style="font-size:32px;line-height:1.7;padding-left:1.4em">
     <li>Repo 是專案資料夾，先讀 README 再決定</li>
     <li>搜尋用英文關鍵字＋topic、stars、pushed、license 篩選</li>
@@ -547,22 +564,43 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <li>Releases 下載、ZIP 拿範本、Fork 改版；上傳不放個資與密碼</li>
     <li>AI 幫你提名與解讀，網址與授權一定親自查證</li>
   </ol>
-  <p style="font-size:40px;font-weight:700;color:var(--peach)">Q&amp;A · 歡迎分享你今天找到的專案</p>
+  <p style="font-size:40px;font-weight:700;color:var(--peach)">Q&amp;A · 一起來討論今天的議題</p>
+  <p style="font-size:30px;color:var(--green-pale)">講座後問題討論：<a href="../discussion/index.html" target="_blank" style="color:var(--slide-bg);font-weight:700">discussion/index.html</a></p>
   <p class="foot">課後資源：docs.github.com · github.com/topics/civic-tech · github.com/g0v · deepwiki.com</p>
   <aside class="notes">最後 5 分鐘：請學員在聊天室留下一個今天收藏的專案與用途，作為課後交流清單。可邀請大家參加 g0v 黑客松或線上社群持續交流。</aside>
+</section>
+
+<!-- ========== 21. 感謝 ========== -->
+<section class="slide dark center" aria-label="感謝參與" style="gap:48px">
+  <div style="position:absolute;left:0;top:0;width:24px;height:1080px;background:var(--orange)"></div>
+  <p class="kicker" style="font-size:32px;letter-spacing:4px">THANK YOU</p>
+  <h1 style="font-size:96px;line-height:1.25">謝謝大家今天的參與</h1>
+  <p style="font-size:38px;line-height:1.6;color:var(--mist)">之後在找工具、評估專案或導入時遇到任何問題，<br>都歡迎隨時來找我聊聊。</p>
+  <div style="display:flex;align-items:center;gap:56px;background:var(--navy-2);border-radius:20px;padding:40px 48px;align-self:flex-start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p style="font-size:30px;color:var(--mist)">黃瀚霆 Bryant · 秦毅數位科技</p>
+      <p style="font-size:44px;font-weight:700;color:var(--peach)">71next.com</p>
+      <p style="font-size:30px">bryant@71next.com</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+      <img src="assets/line-qr.svg" alt="LINE 加好友 QR Code（@579mniea）" style="width:200px;height:200px;border-radius:12px;background:#fff;padding:8px">
+      <p style="font-size:22px;color:var(--mist)">LINE 加好友 @579mniea</p>
+    </div>
+  </div>
+  <aside class="notes">感謝大家參與，提醒課後可以透過網站、Email 或 LINE 聯絡；也可以把今天收藏的專案貼在聊天室，課後一起整理成交流清單。</aside>
 </section>
 
 </main>
 </div>
 
-<nav class="deck-controls" aria-label="簡報控制" data-keep>
+<nav class="deck-controls" aria-label="簡報控制" data-keep="">
   <button id="prevBtn" aria-label="上一頁">‹</button>
-  <span id="counter">1 / 19</span>
+  <span id="counter">1 / 21</span>
   <button id="nextBtn" aria-label="下一頁">›</button>
   <span style="opacity:.7">｜N 備註・E 編輯</span>
 </nav>
 
-<script data-keep>
+<script data-keep="">
 /* ===========================================
    SLIDE PRESENTATION CONTROLLER
    方向鍵／空白鍵／PageUp/Down 翻頁；滑鼠滾輪；觸控滑動
@@ -767,5 +805,14 @@ document.addEventListener('click', e => {
   if (pop && (e.target === pop || e.target.closest('.pop-close'))) pop.classList.remove('open');
 });
 </script>
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+</body></html>
