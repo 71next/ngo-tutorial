@@ -492,22 +492,48 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <p>每個請附：專案網址、用途一句話、授權、優缺點，以及我可以在 GitHub 搜尋框輸入的搜尋語法。</p>
   </div>
   <p style="color:var(--mist)">追問：「哪一個最不需要技術就能用？」「有沒有可以直接用的線上版？」</p>
+  <p style="color:var(--peach);font-weight:700">AI 負責提名，你負責查證：網址逐一點開、授權看 License 檔、不要貼個資。</p>
   <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 17</p>
-  <aside class="notes">實作 5 分鐘：學員把中括號換成自己組織的需求，貼到任一 AI 工具。挑一位學員分享 AI 給的結果，現場示範把它推薦的網址逐一點開驗證，順勢帶到下一頁的注意事項。</aside>
+  <aside class="notes">實作 5 分鐘：學員把中括號換成自己組織的需求，貼到任一 AI 工具。挑一位學員分享 AI 給的結果，現場示範把它推薦的網址逐一點開驗證：AI 可能編造不存在的專案、星數與更新日期可能過時、授權要回 Repo 的 License 檔確認，提問時不要放會員名單、捐款紀錄等資料。</aside>
 </section>
 
-<!-- ========== 18. AI 使用注意 ========== -->
-<section class="slide" aria-label="AI 使用注意">
-  <p class="kicker">五、AI 使用注意</p>
-  <h2>AI 負責提名，你負責查證</h2>
-  <div class="grid2">
-    <div class="card"><h3 style="color:var(--orange-deep)">可能編造專案</h3><p>每個網址都要點開，確認真的存在、內容相符</p></div>
-    <div class="card"><h3 style="color:var(--orange-deep)">資訊可能過時</h3><p>星數、更新日期以 GitHub 頁面為準</p></div>
-    <div class="card"><h3 style="color:var(--orange-deep)">授權要自己看</h3><p>回到 Repo 的 License 檔確認，不要只信 AI 的轉述</p></div>
-    <div class="card"><h3 style="color:var(--orange-deep)">不要貼個資</h3><p>提問時不要放會員名單、捐款紀錄等資料</p></div>
+<!-- ========== 18. 上傳前注意 ========== -->
+<section class="slide" aria-label="不要放上 GitHub 的資料" style="gap:24px">
+  <p class="kicker">上傳前先想一想</p>
+  <h2>這些東西，不要放上 GitHub</h2>
+  <table class="t tight" style="font-size:25px">
+    <thead><tr><th style="width:15%">類別</th><th style="width:42%">例子</th><th>為什麼</th></tr></thead>
+    <tbody>
+      <tr><td><b>個資</b></td><td>會員、志工、捐款人名單，個案資料，身分證字號、電話、地址</td><td>Public 全世界看得到；Private 也可能因加錯協作者或誤設公開而外流</td></tr>
+      <tr class="band"><td><b>密碼與金鑰</b></td><td>帳號密碼、API Key、Token、.env 設定檔</td><td>有機器人隨時在掃描 GitHub，幾分鐘內就可能被盜用</td></tr>
+      <tr><td><b>內部文件</b></td><td>合約、財報草稿、補助申請書、內部會議紀錄</td><td>一公開就收不回來</td></tr>
+      <tr class="band"><td><b>沒有權利的素材</b></td><td>別人的照片、付費圖庫、字型、新聞全文</td><td>侵犯著作權，會被要求下架</td></tr>
+      <tr><td><b>大檔案</b></td><td>影片、大量照片</td><td>網頁上傳單檔上限 25MB；GitHub 不是雲端硬碟</td></tr>
+    </tbody>
+  </table>
+  <div style="display:flex;gap:16px;align-items:center;background:var(--orange-pale);padding:22px 32px;border-radius:12px">
+    <svg class="icon" style="width:44px;height:44px;flex:none;color:var(--orange-deep)"><use href="#i-warning"></use></svg>
+    <p style="flex:1;font-size:27px;line-height:1.5"><b>刪掉不等於消失</b>：Commit 歷史會留著舊版，別人也可能已經 Fork 走。傳錯了先換密碼、換金鑰，再處理檔案。</p>
   </div>
+  <button class="pop-btn" type="button" data-pop="pop-rules">GitHub 禁止哪些行為？ <span aria-hidden="true">→</span></button>
   <p class="foot">公民組織的 GitHub 資源搜索與選擇指南 · 18</p>
-  <aside class="notes">把 AI 當成「懂很多但偶爾記錯的志工」：它很會幫你縮小範圍、翻譯 README、解釋術語，但最後的判斷要用第三段的健康檢查表。</aside>
+  <div class="pop" id="pop-rules" role="dialog" aria-modal="true" aria-label="GitHub 禁止的行為">
+    <div class="pop-card">
+      <button class="pop-close" type="button" aria-label="關閉">×</button>
+      <h3>GitHub 使用規範禁止的行為</h3>
+      <table class="t" style="font-size:30px">
+        <tbody>
+          <tr><td style="width:26%"><b>冒充他人</b></td><td>假冒其他人、組織或品牌開帳號、發內容</td></tr>
+          <tr class="band"><td><b>騷擾與洗版</b></td><td>在 Issue、討論區攻擊他人、重複張貼、打廣告</td></tr>
+          <tr><td><b>惡意或違法內容</b></td><td>病毒、釣魚網頁、侵權檔案、違法內容</td></tr>
+          <tr class="band"><td><b>灌星與假帳號</b></td><td>買 Star、用多個帳號互刷；一人只能有一個免費帳號</td></tr>
+          <tr><td><b>當成檔案分享站</b></td><td>拿 GitHub 放影音、大量下載檔給大眾取用</td></tr>
+        </tbody>
+      </table>
+      <p class="note-bar" style="font-size:28px">違反規定，GitHub 可以隱藏內容、停用 Repo，甚至停權帳號。</p>
+    </div>
+  </div>
+  <aside class="notes">接續剛才的提示詞練習也提醒一次：AI 推薦的網址與授權要自己回 GitHub 查證，提問時也不要貼會員名單等個資。這頁的重點是「上傳」：剛才第 13 頁建 Repo 時就要想好。最常見的意外是把含有密碼或 API Key 的設定檔、或是含個資的 Excel 傳上去；就算馬上刪掉，Commit 歷史裡還找得到，所以第一件事是換密碼、換金鑰。Private repo 適合放內部草稿，但不是保險箱，個資還是不要放。點「GitHub 禁止哪些行為？」開彈窗，依 GitHub Acceptable Use Policies 與服務條款整理，課前可再確認 docs.github.com/site-policy。</aside>
 </section>
 
 <!-- ========== 19. 歸納重點 ========== -->
@@ -518,7 +544,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
     <li>Repo 是專案資料夾，先讀 README 再決定</li>
     <li>搜尋用英文關鍵字＋topic、stars、pushed、license 篩選</li>
     <li>選用前跑一遍六項健康檢查，License 最重要</li>
-    <li>Releases 下載軟體、ZIP 拿範本、Fork 改成自己的</li>
+    <li>Releases 下載、ZIP 拿範本、Fork 改版；上傳不放個資與密碼</li>
     <li>AI 幫你提名與解讀，網址與授權一定親自查證</li>
   </ol>
   <p style="font-size:40px;font-weight:700;color:var(--peach)">Q&amp;A · 歡迎分享你今天找到的專案</p>
