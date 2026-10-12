@@ -2,6 +2,16 @@
 
 > 90 分鐘線上交流會｜不寫程式，也能找到、判斷、下載與分享好用的開源資源
 
+## 線上版
+
+| 教材 | 網址 |
+|---|---|
+| 簡報 | https://71next.github.io/ngo-tutorial/slides/ |
+| 講義 | https://71next.github.io/ngo-tutorial/handout/ |
+| 講座後問題討論 | https://71next.github.io/ngo-tutorial/discussion/ |
+
+網站由 GitHub Pages 從 `master` 分支發布，推送後約一兩分鐘更新。簡報網址後面加 `#頁碼` 可直接開在指定頁，例如 `slides/#12`。
+
 ## 教材一覽
 
 | 檔案 | 用途 | 使用方式 |
