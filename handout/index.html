@@ -161,7 +161,7 @@ td.blank { height: 10mm; }
     <li><b>05</b>搜尋語法小抄與練習</li>
     <li><b>06</b>找資源的四種手法與進階語法</li>
     <li><b>07</b>三種「拿回來」的方式</li>
-    <li><b>08</b>建立 Repo 並上傳檔案</li>
+    <li><b>08</b>建立 Repo 並上傳（網頁／App）</li>
     <li><b>09</b>這些東西，不要放上 GitHub</li>
     <li><b>10</b>運用 AI 找資源</li>
     <li><b>11</b>帶走這五件事</li>
@@ -403,7 +403,7 @@ td.blank { height: 10mm; }
   <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>7</span></div>
 </section>
 
-<!-- ================= 第 8 頁：下載 ================= -->
+<!-- ================= 第 8 頁：下載與網頁上傳 ================= -->
 <section class="page">
   <h2><span class="no">07</span>三種「拿回來」的方式</h2>
   <div class="cols3">
@@ -423,11 +423,6 @@ td.blank { height: 10mm; }
   </table>
   <div class="box orange small" style="padding:2.5mm 5mm"><b>資安提醒：</b>只從可信任、星數與維護狀況良好的專案下載執行檔；下載後用防毒軟體掃描。</div>
 
-  <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>8</span></div>
-</section>
-
-<!-- ================= 第 9 頁：上傳與上傳前注意 ================= -->
-<section class="page">
   <h2><span class="no">08</span>用網頁建立第一個 Repo 並上傳檔案</h2>
   <div class="cols4" style="margin-bottom:2mm">
     <div class="box dark"><div class="step-no">1</div><p class="small">右上角「＋」→ New repository</p></div>
@@ -437,6 +432,21 @@ td.blank { height: 10mm; }
   </div>
   <p>完成後點 <b>Commits</b>，會看到剛才的紀錄：<b class="em">Commit＝一次存檔</b>。也可以點鉛筆圖示，直接在網頁上編輯 README。上傳後找不到檔案時，確認有按 Commit changes 再重新整理。</p>
   <p class="q">我建立的 Repo 網址：</p><div class="fill"></div>
+  <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>8</span></div>
+</section>
+
+<!-- ================= 第 9 頁：用 App 上傳與上傳前注意 ================= -->
+<section class="page">
+  <h3 style="margin-top:0">另一種上傳方式：用電腦上的 App<span class="small muted" style="font-weight:400;margin-left:3mm">課後自學｜要上傳整個資料夾、檔案多或大、之後常更新時適用</span></h3>
+  <div class="prompt" style="padding:3mm 5mm;line-height:1.6">
+    <p class="small" style="color:var(--orange)"><b>第一次使用，先做一次：</b>到 git-scm.com 安裝 Git（一路「下一步」），再設定你的身分</p>
+    <p style="font-family:var(--font-mono);font-size:9pt">git --version　<span style="color:#7CC4A9"># 確認安裝成功</span><br>git config --global user.name "你的名字"<br>git config --global user.email "你的 GitHub Email"</p>
+  </div>
+  <div class="cols" style="margin-top:3mm">
+    <div class="box top-green"><h3>GitHub Desktop</h3><p class="small em">不想打指令，選這個（desktop.github.com）</p><ol class="small" style="padding-left:4.5mm;margin-top:1mm"><li>登入 GitHub 帳號</li><li>File → Clone repository，把 Repo 下載到電腦</li><li>把檔案放進那個資料夾</li><li>左下寫一句說明 → Commit to main</li><li>按上方 Push origin 上傳</li></ol></div>
+    <div class="box top-orange"><h3>VS Code</h3><p class="small hot">已經在用 VS Code 編輯檔案，選這個</p><ol class="small" style="padding-left:4.5mm;margin-top:1mm"><li>開啟從 GitHub Clone 下來的資料夾</li><li>左側「原始檔控制」（Ctrl/⌘+Shift+G）</li><li>在檔案旁按 ＋ 加入暫存</li><li>輸入說明 → 按 Commit</li><li>按「同步變更」上傳，第一次會要求登入</li></ol></div>
+  </div>
+  <p class="small muted" style="margin-top:1mm">GitHub Desktop 內建 Git，也可在 Settings → Git 填名字與 Email。完整教學：bryant-huang.gitbook.io/git/git-she-zhi</p>
 
   <h2><span class="no">09</span>這些東西，不要放上 GitHub</h2>
   <table class="small">
@@ -452,15 +462,7 @@ td.blank { height: 10mm; }
   <div class="box orange small" style="margin-top:3mm;padding:2.5mm 5mm"><b class="hot">刪掉不等於消失：</b>Commit 歷史會留著舊版，別人也可能已經 Fork 走。傳錯了先換密碼、換金鑰，再處理檔案。Private Repo 適合放內部草稿，但不是保險箱，個資還是不要放。</div>
 
   <h3 style="margin-top:3mm">GitHub 使用規範禁止的行為<span class="small muted" style="font-weight:400;margin-left:3mm">違反者可能被隱藏內容、停用 Repo 或停權</span></h3>
-  <table class="small">
-    <tbody>
-      <tr><td style="width:24%"><b>冒充他人</b></td><td>假冒其他人、組織或品牌開帳號、發內容</td></tr>
-      <tr class="band"><td><b>騷擾與洗版</b></td><td>在 Issue、討論區攻擊他人、重複張貼、打廣告</td></tr>
-      <tr><td><b>惡意或違法內容</b></td><td>病毒、釣魚網頁、侵權檔案、違法內容</td></tr>
-      <tr class="band"><td><b>灌星與假帳號</b></td><td>買 Star、用多個帳號互刷；一人只能有一個免費帳號</td></tr>
-      <tr><td><b>當成檔案分享站</b></td><td>拿 GitHub 放影音、大量下載檔給大眾取用</td></tr>
-    </tbody>
-  </table>
+  <ul class="small" style="columns:2;column-gap:8mm;padding-left:4.5mm;line-height:1.7"><li><b>冒充他人</b>：假冒其他人、組織或品牌</li><li><b>騷擾與洗版</b>：攻擊他人、重複張貼、打廣告</li><li><b>惡意或違法內容</b>：病毒、釣魚網頁、侵權檔案</li><li><b>灌星與假帳號</b>：買 Star、多帳號互刷；一人一個免費帳號</li><li><b>當成檔案分享站</b>：拿 GitHub 放影音、大量下載檔</li></ul>
   <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>9</span></div>
 </section>
 
