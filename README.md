@@ -16,7 +16,7 @@
 
 | 檔案 | 用途 | 使用方式 |
 |---|---|---|
-| [`slides/index.html`](slides/index.html) | 上課簡報，24 頁，含講者備註 | 用瀏覽器開啟；方向鍵翻頁、G 或點頁碼開跳頁清單、輸入數字＋Enter 直接跳頁、N 顯示備註、E 編輯模式、Ctrl/⌘+S 下載修改後的檔案 |
+| [`slides/index.html`](slides/index.html) | 上課簡報，24 頁，含講者備註 | 用瀏覽器開啟；方向鍵翻頁、G 或點頁碼開跳頁清單、輸入數字＋Enter 直接跳頁、N 顯示備註；E 編輯模式與 Ctrl/⌘+S 存檔只在本機開啟（直接開檔或 Live Server）時可用，線上版已關閉 |
 | [`guide/README.md`](guide/README.md) | 講師教案：時間分配、各單元講稿與操作步驟、常見問題 | 課前備課、上課時對照 |
 | [`guide/Search.md`](guide/Search.md) | GitHub 搜尋語法完整筆記（含程式碼搜尋、regex） | 講義附錄第 12–17 頁的來源；修改後需同步講義 |
 | [`discussion/index.html`](discussion/index.html) | 講座後問題討論：報名回覆整理成 9 個討論題，附代表性回答原文與可對照的教材頁碼 | 講座後交流時投影或分享；Markdown 版為 [`discussion/responses.md`](discussion/responses.md) |

@@ -125,6 +125,7 @@ body.show-notes .slide.active .notes { display: block; position: absolute; left:
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--orange); z-index: 1001; transition: width .3s; }
 
 /* ===== 編輯模式（按 E 或左上角） ===== */
+.no-edit .edit-hotzone, .no-edit .edit-toggle, .no-edit .edit-hint { display: none !important; }
 .edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
 .edit-toggle { position: fixed; top: 16px; left: 16px; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 10001; border: 0; border-radius: 12px; padding: 8px 12px; background: var(--card); box-shadow: 0 4px 16px rgba(0,0,0,.15); font-size: 18px; cursor: pointer; }
 .edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
@@ -707,7 +708,7 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
   <button id="prevBtn" aria-label="上一頁">‹</button>
   <button id="counter" type="button" title="跳到指定頁（G）" aria-haspopup="dialog">1 / 24</button>
   <button id="nextBtn" aria-label="下一頁">›</button>
-  <span style="opacity:.7">｜G 跳頁・N 備註・E 編輯</span>
+  <span style="opacity:.7">｜G 跳頁・N 備註<span class="edit-hint">・E 編輯</span></span>
 </nav>
 
 <script data-keep="">
@@ -947,9 +948,13 @@ const editor = {
     setTimeout(() => el.remove(), 2200);
   }
 };
+// 只有在本機開啟（直接開檔或 Live Server）才能編輯；放上網站（GitHub Pages）後關閉編輯功能
+const canEdit = location.protocol === 'file:' || ['localhost', '127.0.0.1', '[::1]', ''].includes(location.hostname);
+if (!canEdit) document.documentElement.classList.add('no-edit');
 const editToggle = document.getElementById('editToggle');
 const hotzone = document.querySelector('.edit-hotzone');
 let hideTimeout = null;
+if (canEdit) {
 editToggle.addEventListener('click', () => editor.toggleEditMode());
 hotzone.addEventListener('click', () => editor.toggleEditMode());
 hotzone.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); editToggle.classList.add('show'); });
@@ -960,6 +965,7 @@ document.addEventListener('keydown', e => {
   if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable && !document.querySelector('.jump-panel.open')) editor.toggleEditMode();
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); editor.save(e.shiftKey); }
 });
+}
 
 // 彈窗：按鈕開啟；× 或點背景關閉（Esc 在翻頁按鍵那裡處理）
 document.addEventListener('click', e => {
