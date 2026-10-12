@@ -52,7 +52,7 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
   .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
   .slide { position: relative; display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
   .slide:last-child { break-after: auto; page-break-after: auto; }
-  .deck-controls, .notes, .edit-hotzone, .edit-toggle, .progress { display: none !important; }
+  .deck-controls, .notes, .edit-hotzone, .edit-toggle, .progress, .jump-panel, .jump-typed { display: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
@@ -105,6 +105,23 @@ body.show-notes .slide.active .notes { display: block; position: absolute; left:
 .deck-controls:hover, .deck-controls:focus-within { opacity: 1; }
 .deck-controls button:focus-visible { outline: 2px solid #F6F4EE; outline-offset: 2px; border-radius: 6px; }
 .deck-controls button { background: none; border: 0; color: inherit; font-size: 16px; cursor: pointer; padding: 2px 8px; }
+#counter { font-size: 14px; font-family: inherit; border-radius: 6px; }
+#counter:hover { background: rgba(246,244,238,.15); }
+/* 跳頁面板（G 或點頁碼開啟；動態產生，不會被存進檔案） */
+.jump-panel { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; background: rgba(31,42,55,.6); font-family: var(--font-body); }
+.jump-panel.open { display: flex; }
+.jump-card { width: min(1100px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow: auto; background: #FFFDF8; border-radius: 16px; padding: 24px 28px; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
+.jump-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px; color: #1F2A37; }
+.jump-head b { font-size: 20px; }
+.jump-head span { font-size: 13px; color: #6B7280; }
+.jump-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+.jump-list button { width: 100%; display: flex; gap: 10px; align-items: baseline; text-align: left; background: #F6F4EE; border: 1px solid #DDD7C8; border-radius: 10px; padding: 10px 12px; font: 500 15px/1.4 var(--font-body); color: #1F2A37; cursor: pointer; }
+.jump-list button b { flex: none; min-width: 26px; color: #2F6F5E; }
+.jump-list button:hover, .jump-list button:focus-visible { border-color: #E07A3F; outline: none; background: #FBE6D6; }
+.jump-list button.current { background: #2F6F5E; border-color: #2F6F5E; color: #fff; }
+.jump-list button.current b { color: #F3C9A8; }
+.jump-typed { position: fixed; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: 2001; background: rgba(31,42,55,.88); color: #F6F4EE; font: 700 64px var(--font-body); padding: 12px 40px; border-radius: 16px; display: none; }
+.jump-typed.show { display: block; }
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--orange); z-index: 1001; transition: width .3s; }
 
 /* ===== 編輯模式（按 E 或左上角） ===== */
@@ -688,16 +705,16 @@ body.editing [contenteditable="true"] { outline: 2px dashed var(--orange); outli
 
 <nav class="deck-controls" aria-label="簡報控制" data-keep="">
   <button id="prevBtn" aria-label="上一頁">‹</button>
-  <span id="counter">1 / 24</span>
+  <button id="counter" type="button" title="跳到指定頁（G）" aria-haspopup="dialog">1 / 24</button>
   <button id="nextBtn" aria-label="下一頁">›</button>
-  <span style="opacity:.7">｜N 備註・E 編輯</span>
+  <span style="opacity:.7">｜G 跳頁・N 備註・E 編輯</span>
 </nav>
 
 <script data-keep="">
 /* ===========================================
    SLIDE PRESENTATION CONTROLLER
    方向鍵／空白鍵／PageUp/Down 翻頁；滑鼠滾輪；觸控滑動
-   N：顯示講者備註　E：編輯模式　Ctrl/⌘+S：下載修改後的檔案
+   G：跳頁清單　數字＋Enter：直接跳到該頁　N：顯示講者備註　E：編輯模式　Ctrl/⌘+S：下載修改後的檔案
    =========================================== */
 class SlidePresentation {
   constructor() {
@@ -712,6 +729,7 @@ class SlidePresentation {
     this.setupTouch();
     document.getElementById('prevBtn').onclick = () => this.go(this.current - 1);
     document.getElementById('nextBtn').onclick = () => this.go(this.current + 1);
+    this.setupJump();
     const fromHash = parseInt(location.hash.slice(1), 10);
     this.go(Number.isFinite(fromHash) ? fromHash - 1 : 0);
   }
@@ -723,11 +741,64 @@ class SlidePresentation {
     };
     scale(); addEventListener('resize', scale);
   }
+  // 快速跳頁：G 或點頁碼開啟清單；直接輸入數字再按 Enter 也能跳
+  setupJump() {
+    const panel = document.createElement('div');
+    panel.className = 'jump-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', '跳到指定頁');
+    panel.innerHTML = '<div class="jump-card"><div class="jump-head"><b>跳到指定頁</b><span>點選頁面，或直接輸入頁碼再按 Enter；Esc 關閉</span></div><ul class="jump-list"></ul></div>';
+    const list = panel.querySelector('.jump-list');
+    this.slides.forEach((sl, k) => {
+      const title = sl.getAttribute('aria-label') || (sl.querySelector('h1, h2') || {}).textContent || '';
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.innerHTML = '<b>' + (k + 1) + '</b>';
+      b.append(title.trim());
+      b.onclick = () => { this.closeJump(); this.go(k); };
+      li.append(b); list.append(li);
+    });
+    panel.addEventListener('click', e => { if (e.target === panel) this.closeJump(); });
+    document.body.append(panel);
+    this.jumpPanel = panel;
+    this.typed = '';
+    this.typedBox = document.createElement('div');
+    this.typedBox.className = 'jump-typed';
+    document.body.append(this.typedBox);
+    this.counter.onclick = () => this.openJump();
+  }
+  openJump() {
+    this.jumpPanel.querySelectorAll('.jump-list button').forEach((b, k) => b.classList.toggle('current', k === this.current));
+    this.jumpPanel.classList.add('open');
+    const cur = this.jumpPanel.querySelector('.jump-list button.current');
+    if (cur) { cur.focus(); cur.scrollIntoView({ block: 'nearest' }); }
+  }
+  closeJump() { this.jumpPanel.classList.remove('open'); }
+  typeDigit(d) {
+    this.typed = (this.typed + d).slice(-3);
+    this.typedBox.textContent = this.typed;
+    this.typedBox.classList.add('show');
+    clearTimeout(this.typedTimer);
+    this.typedTimer = setTimeout(() => this.clearTyped(), 2000);
+  }
+  clearTyped() { this.typed = ''; this.typedBox.classList.remove('show'); }
   setupKeys() {
     document.addEventListener('keydown', e => {
       if (document.body.classList.contains('editing')) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (this.jumpPanel.classList.contains('open')) {
+        if (e.key === 'Escape' || e.key === 'g' || e.key === 'G') { e.preventDefault(); this.closeJump(); }
+        else if (/^[0-9]$/.test(e.key)) { e.preventDefault(); this.typeDigit(e.key); }
+        else if (e.key === 'Enter' && this.typed) { e.preventDefault(); const n = parseInt(this.typed, 10); this.clearTyped(); this.closeJump(); this.go(n - 1); }
+        return;
+      }
       const pop = document.querySelector('.pop.open');
       if (pop) { if (e.key === 'Escape') { e.preventDefault(); pop.classList.remove('open'); } return; }
+      if (/^[0-9]$/.test(e.key)) { this.typeDigit(e.key); return; }
+      if (e.key === 'Enter' && this.typed) { e.preventDefault(); const n = parseInt(this.typed, 10); this.clearTyped(); this.go(n - 1); return; }
+      if (e.key === 'Escape' && this.typed) { this.clearTyped(); return; }
+      if (e.key === 'g' || e.key === 'G') { e.preventDefault(); this.openJump(); return; }
       if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); this.go(this.current + 1); }
       else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.current - 1); }
       else if (e.key === 'Home') this.go(0);
@@ -738,7 +809,7 @@ class SlidePresentation {
   setupWheel() {
     let lock = false;
     addEventListener('wheel', e => {
-      if (lock || document.body.classList.contains('editing') || e.target.closest('.shot, .pop') || Math.abs(e.deltaY) < 30) return;
+      if (lock || document.body.classList.contains('editing') || e.target.closest('.shot, .pop, .jump-panel') || Math.abs(e.deltaY) < 30) return;
       lock = true; this.go(this.current + (e.deltaY > 0 ? 1 : -1));
       setTimeout(() => lock = false, 700);
     }, { passive: true });
@@ -747,7 +818,7 @@ class SlidePresentation {
     let sx = 0;
     addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
     addEventListener('touchend', e => {
-      if (document.body.classList.contains('editing') || e.target.closest('.shot, .pop')) return;
+      if (document.body.classList.contains('editing') || e.target.closest('.shot, .pop, .jump-panel')) return;
       const dx = e.changedTouches[0].clientX - sx;
       if (Math.abs(dx) > 50) this.go(this.current + (dx < 0 ? 1 : -1));
     }, { passive: true });
@@ -886,7 +957,7 @@ hotzone.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { 
 editToggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 editToggle.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
 document.addEventListener('keydown', e => {
-  if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable) editor.toggleEditMode();
+  if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable && !document.querySelector('.jump-panel.open')) editor.toggleEditMode();
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); editor.save(e.shiftKey); }
 });
 
