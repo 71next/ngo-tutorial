@@ -157,8 +157,8 @@ td.blank { height: 10mm; }
     <li><b>01</b>十個一定會看到的詞</li>
     <li><b>02</b>平台介面的四個入口</li>
     <li><b>03</b>Repository 頁面導覽</li>
-    <li><b>04</b>健康檢查與授權對照表</li>
-    <li><b>05</b>搜尋語法小抄與練習</li>
+    <li><b>04</b>搜尋語法小抄與練習</li>
+    <li><b>05</b>健康檢查與授權對照表</li>
     <li><b>06</b>找資源的四種手法與進階語法</li>
     <li><b>07</b>三種「拿回來」的方式</li>
     <li><b>08</b>建立 Repo 並上傳（網頁／App）</li>
@@ -270,9 +270,41 @@ td.blank { height: 10mm; }
   <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>3</span></div>
 </section>
 
-<!-- ================= 第 4 頁：健康檢查與授權 ================= -->
+<!-- ================= 第 4 頁：搜尋 ================= -->
 <section class="page">
-  <h2><span class="no">04</span>選用前的六項健康檢查</h2>
+  <h2><span class="no">04</span>搜尋語法小抄：關鍵字＋篩選條件</h2>
+  <table>
+    <tr><th style="width:38%">輸入</th><th>意思</th></tr>
+    <tr><td><code>volunteer management</code></td><td>用英文關鍵字搜（結果最多）</td></tr>
+    <tr class="band"><td><code>topic:civic-tech</code></td><td>只看標了「公民科技」主題的專案</td></tr>
+    <tr><td><code>stars:&gt;100</code></td><td>超過 100 顆星</td></tr>
+    <tr class="band"><td><code>pushed:&gt;2025-10-01</code></td><td>這日期之後還有更新（日期寫成 YYYY-MM-DD）</td></tr>
+    <tr><td><code>license:mit</code></td><td>只看 MIT 授權</td></tr>
+    <tr class="band"><td><code>org:g0v</code></td><td>只看 g0v 組織的專案</td></tr>
+    <tr><td><code>language:javascript</code></td><td>指定程式語言</td></tr>
+  </table>
+  <div class="box dark">組合範例：<b style="font-family:var(--font-mono)">donation topic:nonprofit stars:&gt;50 pushed:&gt;2025-10-01</b></div>
+  <ul class="list small muted">
+    <li>搜尋後，結果頁左側可切換 Repositories、Code、Issues；看起來是程式碼不是專案時，切到 <b>Repositories</b>。</li>
+    <li>右上可依 Most stars、Recently updated 排序。不記得語法時，結果頁也有篩選選項可以點。</li>
+    <li>中文關鍵字也能搜，但結果較少，建議中英文都試；或請 AI 幫忙翻成英文關鍵字。</li>
+  </ul>
+
+  <h3>動手練習：找一個開源的影片字幕工具（10 分鐘）</h3>
+  <div class="box">
+    <p class="small muted">情境：組織的活動影片、線上講座要上中文字幕，想找免費、能自動產生字幕的工具。<br>關鍵字：字幕 subtitle・caption・語音轉文字 transcription・whisper（常用的開源語音辨識模型）</p>
+    <p style="margin-top:2mm"><b>任務 1・搜：</b>用英文關鍵字＋篩選條件找 2–3 個候選（提示：<code>subtitle generator stars:&gt;500</code>、<code>whisper subtitle pushed:&gt;2025-10-01</code>）</p>
+    <p class="q" style="margin-top:2mm">我用的搜尋語法：</p><div class="fill"></div>
+    <p class="q" style="margin-top:2mm">候選專案：</p><div class="fill"></div>
+    <p><b>任務 2・比：</b>挑 2 個，用第 6 頁的評分卡比一比：更新、授權、README、Releases、Issues。</p>
+    <p><b>任務 3・選：</b>按 Star 收藏，把網址和「為什麼選它」貼到聊天室。</p>
+  </div>
+  <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>4</span></div>
+</section>
+
+<!-- ================= 第 5 頁：健康檢查與授權 ================= -->
+<section class="page">
+  <h2><span class="no">05</span>選用前的六項健康檢查</h2>
   <table>
     <tr><th style="width:18%">檢查項目</th><th style="width:36%">去哪裡看</th><th>參考標準</th></tr>
     <tr><td><b>還有人維護</b></td><td>檔案列表上方的最後 Commit 時間</td><td>一年內有更新較安心</td></tr>
@@ -296,13 +328,13 @@ td.blank { height: 10mm; }
   <div class="box orange small">
     在 Repo 右側 About 下方，或檔案列表裡的 LICENSE 檔查看授權。看不懂可到 <b>choosealicense.com</b> 查（GitHub 官方的授權說明網站）。以上為簡化說明，組織正式採用前，請懂授權的夥伴確認原文。
   </div>
-  <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>4</span></div>
+  <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>5</span></div>
 </section>
 
-<!-- ================= 第 5 頁：專案評分卡 ================= -->
+<!-- ================= 第 6 頁：專案評分卡 ================= -->
 <section class="page">
   <h2><span class="no">練習</span>專案評分卡：比較兩個候選專案</h2>
-  <p class="muted small" style="margin-bottom:3mm">用第 4 頁的健康檢查與授權對照表，替找到的專案打分數。通過就打勾，「我看到的」寫下具體證據，例如「2 years ago」「MIT license」。</p>
+  <p class="muted small" style="margin-bottom:3mm">用第 5 頁的健康檢查與授權對照表，替找到的專案打分數。通過就打勾，「我看到的」寫下具體證據，例如「2 years ago」「MIT license」。</p>
   <div class="cols">
     <div class="box">
       <p class="q" style="margin-top:0">候選 A：專案名稱與網址</p><div class="fill"></div>
@@ -345,38 +377,6 @@ td.blank { height: 10mm; }
   </div>
   <p class="q">比較之後，我會推薦組織用哪一個？為什麼？</p><div class="fill"></div><div class="fill"></div>
   <p class="q">還需要問誰、確認什麼，才能正式採用？</p><div class="fill"></div>
-  <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>5</span></div>
-</section>
-
-<!-- ================= 第 6 頁：搜尋 ================= -->
-<section class="page">
-  <h2><span class="no">05</span>搜尋語法小抄：關鍵字＋篩選條件</h2>
-  <table>
-    <tr><th style="width:38%">輸入</th><th>意思</th></tr>
-    <tr><td><code>volunteer management</code></td><td>用英文關鍵字搜（結果最多）</td></tr>
-    <tr class="band"><td><code>topic:civic-tech</code></td><td>只看標了「公民科技」主題的專案</td></tr>
-    <tr><td><code>stars:&gt;100</code></td><td>超過 100 顆星</td></tr>
-    <tr class="band"><td><code>pushed:&gt;2025-10-01</code></td><td>這日期之後還有更新（日期寫成 YYYY-MM-DD）</td></tr>
-    <tr><td><code>license:mit</code></td><td>只看 MIT 授權</td></tr>
-    <tr class="band"><td><code>org:g0v</code></td><td>只看 g0v 組織的專案</td></tr>
-    <tr><td><code>language:javascript</code></td><td>指定程式語言</td></tr>
-  </table>
-  <div class="box dark">組合範例：<b style="font-family:var(--font-mono)">donation topic:nonprofit stars:&gt;50 pushed:&gt;2025-10-01</b></div>
-  <ul class="list small muted">
-    <li>搜尋後，結果頁左側可切換 Repositories、Code、Issues；看起來是程式碼不是專案時，切到 <b>Repositories</b>。</li>
-    <li>右上可依 Most stars、Recently updated 排序。不記得語法時，結果頁也有篩選選項可以點。</li>
-    <li>中文關鍵字也能搜，但結果較少，建議中英文都試；或請 AI 幫忙翻成英文關鍵字。</li>
-  </ul>
-
-  <h3>動手練習：找一個開源的影片字幕工具（10 分鐘）</h3>
-  <div class="box">
-    <p class="small muted">情境：組織的活動影片、線上講座要上中文字幕，想找免費、能自動產生字幕的工具。<br>關鍵字：字幕 subtitle・caption・語音轉文字 transcription・whisper（常用的開源語音辨識模型）</p>
-    <p style="margin-top:2mm"><b>任務 1・搜：</b>用英文關鍵字＋篩選條件找 2–3 個候選（提示：<code>subtitle generator stars:&gt;500</code>、<code>whisper subtitle pushed:&gt;2025-10-01</code>）</p>
-    <p class="q" style="margin-top:2mm">我用的搜尋語法：</p><div class="fill"></div>
-    <p class="q" style="margin-top:2mm">候選專案：</p><div class="fill"></div>
-    <p><b>任務 2・比：</b>挑 2 個，用第 5 頁的評分卡比一比：更新、授權、README、Releases、Issues。</p>
-    <p><b>任務 3・選：</b>按 Star 收藏，把網址和「為什麼選它」貼到聊天室。</p>
-  </div>
   <div class="pfoot"><span>公民組織的 GitHub 資源搜索與選擇指南</span><span>6</span></div>
 </section>
 
@@ -385,7 +385,7 @@ td.blank { height: 10mm; }
   <h2><span class="no">06</span>如何找 GitHub 上的資源：四種手法</h2>
   <p class="small muted" style="margin-bottom:3mm">GitHub 站內搜尋只比對名稱、說明和 README 的文字，不會猜你的需求；用英文關鍵字，結果最多。四種手法可以混用。</p>
   <div class="cols">
-    <div class="box top-green"><h3>① 下對搜尋語法</h3><p class="small">關鍵字＋篩選條件，把幾萬筆結果縮到幾十筆（見下表與第 6 頁）</p></div>
+    <div class="box top-green"><h3>① 下對搜尋語法</h3><p class="small">關鍵字＋篩選條件，把幾萬筆結果縮到幾十筆（見下表與第 4 頁）</p></div>
     <div class="box top-orange"><h3>② 逛主題與整理清單</h3><p class="small">github.com/topics/civic-tech；搜「awesome＋主題」，找別人整理好的推薦清單</p></div>
     <div class="box top-ink"><h3>③ 順著組織與人找</h3><p class="small">好專案的作者、組織還做了什麼？看他們的其他 Repo 和 Star 過的專案</p></div>
     <div class="box"><h3>④ 請 AI 提名</h3><p class="small">用中文描述需求，請 AI 推薦候選專案和搜尋語法，再回 GitHub 查證（第 10 頁）</p></div>
@@ -529,14 +529,14 @@ td.blank { height: 10mm; }
   <ol class="list">
     <li>想一個組織最近想做、但沒預算做的工具：<span class="fill" style="display:inline-block;width:90mm;min-height:5mm;margin:0"></span></li>
     <li>用第 10 頁的提示詞範本請 AI 推薦候選專案與搜尋語法。</li>
-    <li>回 GitHub 用第 6–7 頁的語法自己搜一次，中英文都試。</li>
-    <li>挑 1–2 個候選，用第 5 頁評分卡打分數，按 Star 收藏。</li>
+    <li>回 GitHub 用第 4、7 頁的語法自己搜一次，中英文都試。</li>
+    <li>挑 1–2 個候選，用第 6 頁評分卡打分數，按 Star 收藏。</li>
     <li>用 DeepWiki 看懂專案，再依第 8 頁選擇拿回來的方式。</li>
     <li>組織要正式採用前，請懂授權與資安的夥伴再確認一次。</li>
   </ol>
 
   <h3>課後資源</h3>
-  <ul class="small" style="columns:2;column-gap:8mm;padding-left:4.5mm;line-height:1.8"><li><b>GitHub 搜尋語法官方文件</b>　docs.github.com/search-github</li><li><b>公民科技主題</b>　github.com/topics/civic-tech</li><li><b>g0v 零時政府</b>　github.com/g0v</li><li><b>DeepWiki（公開專案免費）</b>　deepwiki.com</li><li><b>GitHub Copilot 方案與額度</b>　github.com/features/copilot/plans</li><li><b>講師的 Git 教學</b>　bryant-huang.gitbook.io/git</li></ul>
+  <ul class="small" style="columns:2;column-gap:8mm;padding-left:4.5mm;line-height:1.7;overflow-wrap:anywhere"><li><b>GitHub 官方文件</b>　docs.github.com/en</li><li><b>GitHub Skills 官方互動課程</b>　skills.github.com</li><li><b>講師的 Git 教學</b>　bryant-huang.gitbook.io/git</li><li><b>g0v 零時政府</b>　github.com/g0v</li><li><b>台灣社群列表</b>　github.com/StarRocket/awesome-taiwan-community</li><li><b>公民科技主題</b>　github.com/topics/civic-tech</li><li><b>DeepWiki（AI 讀懂專案）</b>　deepwiki.com</li><li><b>Choose a License（授權怎麼選）</b>　choosealicense.com</li><li><b>GitHub Desktop</b>　desktop.github.com</li><li><b>GitLab（另一個程式碼託管平台）</b>　about.gitlab.com</li></ul>
 
   <h3>課後交流</h3>
   <p>在聊天室留下你今天收藏的一個專案與用途，我們會整理成課後交流清單。報名時大家提出的問題，整理在教材資料夾的 <b>discussion/index.html</b>（講座後問題討論）。也歡迎參加 g0v 黑客松或線上社群持續交流。</p>
